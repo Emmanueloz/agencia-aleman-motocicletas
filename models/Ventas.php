@@ -9,18 +9,19 @@ class Ventas
     public $idCliente;
     public $fechaVenta;
 
-
     private static $bd;
 
-    public function generarIva($subtotal)
+    public static function generarIva($subtotal)
     {
-        $this->iva = $subtotal;
+        $iva = $subtotal * 0.16;
+        return $iva;
     }
 
-    public function __construct($idVenta, $subtotal, $idEmpleado, $idCliente, $fechaVenta,)
+    public function __construct($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta,)
     {
         $this->idVenta = $idVenta;
         $this->subtotal = $subtotal;
+        $this->iva = $iva;
         $this->idEmpleado = $idEmpleado;
         $this->idCliente = $idCliente;
         $this->fechaVenta = $fechaVenta;
