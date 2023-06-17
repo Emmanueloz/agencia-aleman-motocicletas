@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agencia Alemán</title>
+    <link rel="stylesheet" href="../bootstrap-5.3.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../style.css" />
+    <link
+      rel="shortcut icon"
+      href="../public/favicon.png"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg bg-lightblue">
+        <div class="container-fluid">
+          <h1 class="text-light">Agencia Motocicletas</h1>
+          <button
+            class="navbar-toggler d-lg-none"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapsibleNavId"
+            aria-controls="collapsibleNavId"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            class="collapse navbar-collapse w-20 justify-content-end"
+            id="collapsibleNavId"
+          >
+            <ul
+              class="navbar-nav mt-2 mt-sm-1 justify-content-end align-items-end align-items-lg-center"
+            >
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1 fs-4">
+                <a
+                  class="nav-link dropdown-toggle text-light fs-4"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Empleados
+                </a>
+                <ul class="dropdown-menu bg-lightblue-secondary">
+                  <li>
+                    <a class="dropdown-item text-white" href="./empleados.html"
+                      >Consultar</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./agregar_empleados.html"
+                    >
+                      Agregar
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1 fs-4">
+                <a
+                  class="nav-link dropdown-toggle text-light fs-4"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Clientes
+                </a>
+                <ul class="dropdown-menu bg-lightblue-secondary">
+                  <li>
+                    <a class="dropdown-item text-white" href="./clientes.html">
+                      Consultar
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./agregar_cliente.html"
+                    >
+                      Agregar
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1 fs-4">
+                <a
+                  class="nav-link dropdown-toggle text-light fs-4"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Productos
+                </a>
+                <ul class="dropdown-menu bg-lightblue-secondary">
+                  <li>
+                    <a class="dropdown-item text-white" href="./productos.html"
+                      >Consultar</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./agregar_producto.html"
+                    >
+                      Agregar
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1 fs-4">
+                <a
+                  class="nav-link dropdown-toggle text-light fs-4 fw-bold"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Ventas
+                </a>
+                <ul class="dropdown-menu bg-lightblue-secondary">
+                  <li>
+                    <a class="dropdown-item text-white" href="#">Consultar</a>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./agregar_ventas.html"
+                    >
+                      Agregar
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="nav-item mx-sm-1 mt-sm-0 mt-1 btn-small">
+                <a
+                  class="btn btn-danger"
+                  href="../login.html"
+                  aria-current="page"
+                >
+                  Cerrar Sesión
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <aside class="d-flex justify-content-between m-1 p-1 bg-body-tertiary">
+      <div aria-label="breadcrumb">
+        <ol class="breadcrumb d-flex align-items-center">
+          <li class="breadcrumb-item"><a href="./index.html">Inicio</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Ventas</li>
+        </ol>
+      </div>
+      <div>
+        <a href="./agregar_ventas.html" class="btn btn-primary"> Agregar </a>
+      </div>
+    </aside>
+
+    <aside>
+      <form
+        method="post"
+        class="d-flex flex-column flex-md-row justify-content-md-between m-1 p-1"
+      >
+        <div class="d-flex w-100 flex-column flex-md-row align-items-md-center">
+          <div class="mx-sm-1 mb-1 col-12 col-md-2">
+            <label for="param" class="fs-5"> Buscar ventas por </label>
+          </div>
+          <div class="mx-sm-1 mb-1 col-12 col-md-2">
+            <select name="param" id="param" class="form-select" required>
+              <option value="id" selected>ID</option>
+              <option value="name">Empleado</option>
+              <option value="name">Cliente</option>
+              <option value="name">Producto</option>
+              <option value="name">Fecha de venta</option>
+            </select>
+          </div>
+          <div class="col-12 mb-1 col-md-6 flex-md-grow-1">
+            <input
+              type="text"
+              class="form-control"
+              name="search"
+              id="search"
+              placeholder="Buscar"
+              required
+            />
+          </div>
+        </div>
+        <div class="d-flex justify-content-end mb-1 px-2">
+          <button class="btn btn-outline-primary">Buscar</button>
+        </div>
+      </form>
+    </aside>
+    <main>
+      <section class="table-responsive p-3" id="no-more-tables">
+        <table class="table">
+          <caption class="caption-top fs-3">
+            Lista de Ventas
+          </caption>
+          <thead class="bg-dark text-light">
+            <tr>
+              <th>ID</th>
+              <th>Empleado</th>
+              <th>Cliente</th>
+              <th>Fecha</th>
+              <th>Productos</th>
+              <th>IVA</th>
+              <th>Subtotal</th>
+              <th>Total</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-title="ID">1</td>
+              <td data-title="Empleado">Raul de Jesus</td>
+              <td data-title="Cliente">Roberto Carlo</td>
+              <td data-title="Fecha">2023-06-13</td>
+              <td data-title="Productos">
+                Moto 1 $200
+                <br />
+                Moto 3 $300
+              </td>
+              <td data-title="IVA">$80</td>
+              <td data-title="Subtotal">$500</td>
+              <td data-title="Tola">$580</td>
+
+              <td data-title="Acción">
+                <div class="btn-group ms-3" role="group">
+                  <!-- <button class="btn btn-warning">Generar Reporte</button> -->
+                  <a href="../public/TiketEjemplo.pdf" class="btn btn-warning">
+                    Generar Reporte
+                  </a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+    <script src="../bootstrap-5.3.0/js/popper.min.js"></script>
+    <script src="../bootstrap-5.3.0/js/bootstrap.min.js"></script>
+  </body>
+</html>
