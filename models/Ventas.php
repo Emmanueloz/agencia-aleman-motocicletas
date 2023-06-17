@@ -3,39 +3,31 @@
 class Ventas
 {
     public $idVenta;
-    public $rfc;
-    public $nombre;
-    public $apellidos;
-    public $calle;
-    public $numero;
-    public $barrio;
-    public $telefono;
-    public $email;
+    public $subtotal;
+    public $iva;
+    public $idEmpleado;
+    public $idCliente;
+    public $fechaVenta;
+
 
     private static $bd;
 
-    public function __construct($idVenta, $rfc, $nombre, $apellidos, $calle, $numero, $barrio, $telefono, $email)
+    public function generarIva($subtotal)
+    {
+        $this->iva = $subtotal;
+    }
+
+    public function __construct($idVenta, $subtotal, $idEmpleado, $idCliente, $fechaVenta,)
     {
         $this->idVenta = $idVenta;
-        $this->rfc = $rfc;
-        $this->nombre = $nombre;
-        $this->apellidos = $apellidos;
-        $this->calle = $calle;
-        $this->numero = $numero;
-        $this->barrio = $barrio;
-        $this->telefono = $telefono;
-        $this->email = $email;
+        $this->subtotal = $subtotal;
+        $this->idEmpleado = $idEmpleado;
+        $this->idCliente = $idCliente;
+        $this->fechaVenta = $fechaVenta;
     }
 
     public static function init($bd)
     {
         self::$bd = $bd;
     }
-
-    public function agregarVentas()
-    {
-        $bd = self::$bd;
-    }
 }
-
-//$ventas = new Ventas(1, "DOT", "David", "Ozuna", "Tulipanes", 12, "Bugambilia", "91919191", "correo@gmail.con");
