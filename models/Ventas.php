@@ -1,5 +1,6 @@
 <?php
 require_once 'DetallesVentas.php';
+require_once 'models/config.php';
 
 class Ventas
 {
@@ -12,6 +13,10 @@ class Ventas
 
     private static $bd;
 
+    public static function init($bd)
+    {
+        self::$bd = $bd;
+    }
 
     public static function generarIva($subtotal)
     {
@@ -19,7 +24,17 @@ class Ventas
         return $iva;
     }
 
-    public function __construct($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta,)
+    public static function obtenerIdVenta()
+    {
+        $idVenta = 1;
+        $consulta = self::$bd->prepare("SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'agenciaBD' AND TABLE_NAME = 'ventas'");
+        $consulta->execute();
+        $consulta->bind_result($idVenta);
+        $consulta->fetch();
+        return  $idVenta;
+    }
+
+    public function __construct($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta)
     {
         $this->idVenta = $idVenta;
         $this->subtotal = $subtotal;
@@ -29,12 +44,13 @@ class Ventas
         $this->fechaVenta = $fechaVenta;
     }
 
-    public function agregarVenta()
+    public function agregarVenta($idProductos, $cantidad, $costo)
     {
-        $consulta = self::$bd;
-        $consulta->prepare("INSERT INTO ventas(subtotal,iva,empleados_id_empleado,clientes_id_cliente,fecha_venta) VALUES(?,?,?,?,?)");
+        $idVenta = $this->idVenta;
+
+        $consulta = self::$bd->prepare("INSERT INTO ventas VALUES(null,?,?,?,?,?)");
         $consulta->bind_param(
-            "f,f,i,i,s",
+            'ddiis',
             $this->subtotal,
             $this->iva,
             $this->idEmpleado,
@@ -43,11 +59,8 @@ class Ventas
         );
         $consulta->execute();
         $consulta->close();
-    }
-
-    public static function init($bd)
-    {
-        self::$bd = $bd;
+        $detalleVenta = new DetallesVentas($idVenta, $idProductos, $cantidad, $costo);
+        $detalleVenta->agregarDetalles();
     }
 }
 
@@ -55,19 +68,28 @@ $mysqli = new mysqli("localhost", "root", "", "agenciaBD");
 
 Ventas::init($mysqli);
 DetallesVentas::init($mysqli);
-$subtotal = DetallesVentas::obtenerSubtotal([1, 2]);
+
+$idProductos = [3, 1, 5];
+$subtotal = DetallesVentas::obtenerSubtotal($idProductos);
 $iva = Ventas::generarIva($subtotal);
 $costo = DetallesVentas::calcularCosto($subtotal, $iva);
+
+$idVenta = Ventas::obtenerIdVenta();
+
+$fechaActual = date("Y-m-d");
 
 if (isset($argc) && $argc == 2) {
     switch ($argv[1]) {
         case 'nuevo':
-
+            $venta = new Ventas($idVenta, $subtotal, $iva, 5, 2, $fechaActual);
+            $venta->agregarVenta($idProductos, 1, $costo);
             break;
         case 'consulta':
             echo "Subtotal: $subtotal \n";
             echo "Iva: $iva \n";
             echo "Costo Total: $costo \n";
+            echo "Id venta: $idVenta \n";
+            echo  $fechaActual = date("Y-m-d") . "\n";
             break;
     }
 }

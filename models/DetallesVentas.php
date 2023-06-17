@@ -24,8 +24,6 @@ class DetallesVentas
 
     public static function obtenerSubtotal($idProductos)
     {
-
-
         $subtotal = 0.0;
 
         $precio = 0.0;
@@ -52,9 +50,27 @@ class DetallesVentas
 
     public function mostrarDetalles($subtotal, $iva)
     {
-
-
         $detalleVenta = [];
         array_push($detalleVenta, $this->idVenta, $this->idProductos);
+    }
+
+    public function agregarDetalles()
+    {
+
+
+        $idProductos = $this->idProductos;
+
+        foreach ($idProductos as $idProducto) {
+            $consulta = self::$bd->prepare("INSERT INTO detalles_venta VALUES(?,?,?,?)");
+            $consulta->bind_param(
+                "iiid",
+                $this->idVenta,
+                $idProducto,
+                $this->cantidad,
+                $this->costo
+            );
+            $consulta->execute();
+            $consulta->close();
+        }
     }
 }
