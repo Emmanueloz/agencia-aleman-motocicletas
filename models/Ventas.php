@@ -10,7 +10,9 @@ class Ventas
     public $idEmpleado;
     public $idCliente;
     public $fechaVenta;
-    public $detalleVenta;
+    public $idProductos;
+    public $cantidad;
+    public $costo;
 
     private static $bd;
 
@@ -35,7 +37,7 @@ class Ventas
         return  $idVenta;
     }
 
-    public function __construct($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta, $detalleVenta)
+    public function __construct($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta, $idProductos, $cantidad, $costo)
     {
         $this->idVenta = $idVenta;
         $this->subtotal = $subtotal;
@@ -43,7 +45,9 @@ class Ventas
         $this->idEmpleado = $idEmpleado;
         $this->idCliente = $idCliente;
         $this->fechaVenta = $fechaVenta;
-        $this->detalleVenta = $detalleVenta;
+        $this->idProductos = $idProductos;
+        $this->cantidad = $cantidad;
+        $this->costo = $costo;
     }
 
     public function agregarVenta($idProductos, $cantidad, $costo)
@@ -89,7 +93,8 @@ class Ventas
             $contador = 0;
 
             while ($consulta->fetch()) {
-                array_push($ventasArray, new Ventas($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta, $detallesVenta[$contador]));
+                $detalle = $detallesVenta[$contador];
+                array_push($ventasArray, new Ventas($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta, $detalle->idProductos, $detalle->cantidad, $detalle->costo));
                 $contador++;
             }
 
@@ -110,7 +115,7 @@ class Ventas
             $consulta->close();
             $detalleVenta = DetallesVentas::consultarDetallesVentas($idVenta);
 
-            return new Ventas($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta, $detalleVenta);
+            return new Ventas($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta, $detalleVenta->idProductos, $detalleVenta->cantidad, $detalleVenta->costo);
         }
     }
 }
@@ -129,21 +134,4 @@ $costo = DetallesVentas::calcularCosto($subtotal, $iva);
 
 $idVenta = Ventas::obtenerIdVenta();
 $fechaActual = date("Y-m-d");
-
-
-if (isset($argc) && $argc == 2) {
-    switch ($argv[1]) {
-        case 'nuevo':
-            $venta = new Ventas($idVenta, $subtotal, $iva, 5, 2, $fechaActual, 0, 0, 0);
-            $venta->agregarVenta($idProductos, $cantidad, $costo);
-            break;
-        case 'consulta':
-            $ventas = Ventas::consultarVentas();
-            print_r($ventas);
-            break;
-        case 'detalles':
-            $detallesVenta = DetallesVentas::consultarDetallesVentas();
-            print_r($detallesVenta);
-            break;
-    }
-} */
+*/

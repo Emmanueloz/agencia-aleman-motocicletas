@@ -5,13 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Agencia Alemán</title>
-    <link rel="stylesheet" href="../bootstrap-5.3.0/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../style.css" />
-    <link
-      rel="shortcut icon"
-      href="../public/favicon.png"
-      type="image/x-icon"
-    />
+    <link rel="stylesheet" href="./bootstrap-5.3.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <header>
@@ -48,17 +43,10 @@
                 </a>
                 <ul class="dropdown-menu bg-lightblue-secondary">
                   <li>
-                    <a class="dropdown-item text-white" href="./empleados.html"
-                      >Consultar</a
-                    >
+                    <a class="dropdown-item text-white" href="#">Consultar</a>
                   </li>
                   <li>
-                    <a
-                      class="dropdown-item text-white"
-                      href="./agregar_empleados.html"
-                    >
-                      Agregar
-                    </a>
+                    <a class="dropdown-item text-white" href="#"> Agregar </a>
                   </li>
                 </ul>
               </li>
@@ -74,17 +62,10 @@
                 </a>
                 <ul class="dropdown-menu bg-lightblue-secondary">
                   <li>
-                    <a class="dropdown-item text-white" href="./clientes.html">
-                      Consultar
-                    </a>
+                    <a class="dropdown-item text-white" href="#"> Consultar </a>
                   </li>
                   <li>
-                    <a
-                      class="dropdown-item text-white"
-                      href="./agregar_cliente.html"
-                    >
-                      Agregar
-                    </a>
+                    <a class="dropdown-item text-white" href="#"> Agregar </a>
                   </li>
                 </ul>
               </li>
@@ -100,17 +81,10 @@
                 </a>
                 <ul class="dropdown-menu bg-lightblue-secondary">
                   <li>
-                    <a class="dropdown-item text-white" href="./productos.html"
-                      >Consultar</a
-                    >
+                    <a class="dropdown-item text-white" href="#">Consultar</a>
                   </li>
                   <li>
-                    <a
-                      class="dropdown-item text-white"
-                      href="./agregar_producto.html"
-                    >
-                      Agregar
-                    </a>
+                    <a class="dropdown-item text-white" href="#"> Agregar </a>
                   </li>
                 </ul>
               </li>
@@ -129,22 +103,13 @@
                     <a class="dropdown-item text-white" href="#">Consultar</a>
                   </li>
                   <li>
-                    <a
-                      class="dropdown-item text-white"
-                      href="./agregar_ventas.html"
-                    >
-                      Agregar
-                    </a>
+                    <a class="dropdown-item text-white" href="#"> Agregar </a>
                   </li>
                 </ul>
               </li>
 
               <li class="nav-item mx-sm-1 mt-sm-0 mt-1 btn-small">
-                <a
-                  class="btn btn-danger"
-                  href="../login.html"
-                  aria-current="page"
-                >
+                <a class="btn btn-danger" href="#" aria-current="page">
                   Cerrar Sesión
                 </a>
               </li>
@@ -156,12 +121,12 @@
     <aside class="d-flex justify-content-between m-1 p-1 bg-body-tertiary">
       <div aria-label="breadcrumb">
         <ol class="breadcrumb d-flex align-items-center">
-          <li class="breadcrumb-item"><a href="./index.html">Inicio</a></li>
+          <li class="breadcrumb-item"><a href="#">Inicio</a></li>
           <li class="breadcrumb-item active" aria-current="page">Ventas</li>
         </ol>
       </div>
       <div>
-        <a href="./agregar_ventas.html" class="btn btn-primary"> Agregar </a>
+        <a href="#" class="btn btn-primary"> Agregar </a>
       </div>
     </aside>
 
@@ -203,7 +168,7 @@
       <section class="table-responsive p-3" id="no-more-tables">
         <table class="table">
           <caption class="caption-top fs-3">
-            Lista de Ventas
+            [title]
           </caption>
           <thead class="bg-dark text-light">
             <tr>
@@ -212,6 +177,7 @@
               <th>Cliente</th>
               <th>Fecha</th>
               <th>Productos</th>
+              <th>Cantidad</th>
               <th>IVA</th>
               <th>Subtotal</th>
               <th>Total</th>
@@ -219,34 +185,31 @@
             </tr>
           </thead>
           <tbody>
+            [block: ventas]
             <tr>
-              <td data-title="ID">1</td>
-              <td data-title="Empleado">Raul de Jesus</td>
-              <td data-title="Cliente">Roberto Carlo</td>
-              <td data-title="Fecha">2023-06-13</td>
-              <td data-title="Productos">
-                Moto 1 $200
-                <br />
-                Moto 3 $300
-              </td>
-              <td data-title="IVA">$80</td>
-              <td data-title="Subtotal">$500</td>
-              <td data-title="Tola">$580</td>
+              <td data-title="ID">[idVenta]</td>
+              <td data-title="Empleado">[idEmpleado]</td>
+              <td data-title="Cliente">[idCliente]</td>
+              <td data-title="Fecha">[fechaVenta]</td>
+              <td data-title="Productos">[idProductos]</td>
+              <td data-title="Cantidad">[cantidad]</td>
+              <td data-title="IVA">[iva]</td>
+              <td data-title="Subtotal">[subtotal]</td>
+              <td data-title="Tola">[costo]</td>
 
               <td data-title="Acción">
                 <div class="btn-group ms-3" role="group">
                   <!-- <button class="btn btn-warning">Generar Reporte</button> -->
-                  <a href="../public/TiketEjemplo.pdf" class="btn btn-warning">
-                    Generar Reporte
-                  </a>
+                  <a href="#" class="btn btn-warning"> Generar Reporte </a>
                 </div>
               </td>
             </tr>
+            [/block: ventas]
           </tbody>
         </table>
       </section>
     </main>
-    <script src="../bootstrap-5.3.0/js/popper.min.js"></script>
-    <script src="../bootstrap-5.3.0/js/bootstrap.min.js"></script>
+    <script src="./bootstrap-5.3.0/js/popper.min.js"></script>
+    <script src="./bootstrap-5.3.0/js/bootstrap.min.js"></script>
   </body>
 </html>

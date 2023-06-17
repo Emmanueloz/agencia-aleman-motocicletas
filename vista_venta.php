@@ -11,7 +11,7 @@ $mysqli = new mysqli($servidor, $usuario, $password, $bd);
 Ventas::init($mysqli);
 DetallesVentas::init($mysqli);
 
-$idProductos = [3, 1, 5];
+/* $idProductos = [3, 1, 5];
 $cantidad = count($idProductos);
 
 $subtotal = DetallesVentas::obtenerSubtotal($idProductos);
@@ -19,10 +19,18 @@ $iva = Ventas::generarIva($subtotal);
 $costo = DetallesVentas::calcularCosto($subtotal, $iva);
 
 $idVenta = Ventas::obtenerIdVenta();
-$fechaActual = date("Y-m-d");
+$fechaActual = date("Y-m-d");*/
+
+$ventas = Ventas::consultarVentas();
+
+$titulo = "Lista de ventas";
 
 $html = new SpynTPL('views/');
 $html->Fichero('ventas.html');
+$html->Asigna('title', $titulo);
 
+foreach ($ventas as $venta) {
+    $html->AsignaBloque('ventas', $venta);
+}
 
-$html->Muestra();
+echo $html->Muestra();
