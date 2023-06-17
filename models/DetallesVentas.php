@@ -22,23 +22,39 @@ class DetallesVentas
         self::$bd = $bd;
     }
 
-    public function obtenerSubtotal()
+    public static function obtenerSubtotal($idProductos)
     {
-        $consulta = self::$bd;
-        $idProductos = $this->idProductos;
 
-        $subtotal = 0;
 
-        $precio = 0;
+        $subtotal = 0.0;
+
+        $precio = 0.0;
+
         foreach ($idProductos as $idProducto) {
-            $consulta->prepare("SELECT productos.precio 
-            FROM productos,detalles_venta 
-            WHERE productos.id_producto = detalles_venta.id_producto AND detalles_venta.id_producto = ?");
+            $consulta = self::$bd->prepare("SELECT productos.precio 
+            FROM productos
+            WHERE productos.id_producto = ?");
             $consulta->bind_param("i", $idProducto);
             $consulta->execute();
             $consulta->bind_result($precio);
             $consulta->fetch();
+            $consulta->close();
             $subtotal = $subtotal + $precio;
         }
+
+        return $subtotal;
+    }
+
+    public static function calcularCosto($subtotal, $iva)
+    {
+        return $subtotal + $iva;
+    }
+
+    public function mostrarDetalles($subtotal, $iva)
+    {
+
+
+        $detalleVenta = [];
+        array_push($detalleVenta, $this->idVenta, $this->idProductos);
     }
 }
