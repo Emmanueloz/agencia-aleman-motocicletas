@@ -115,7 +115,7 @@ class Ventas
     }
 }
 
-$mysqli = new mysqli("localhost", "root", "", "agenciaBD");
+/* $mysqli = new mysqli("localhost", "root", "", "agenciaBD");
 
 Ventas::init($mysqli);
 DetallesVentas::init($mysqli);
@@ -146,4 +146,4 @@ if (isset($argc) && $argc == 2) {
             print_r($detallesVenta);
             break;
     }
-}
+} */
