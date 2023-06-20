@@ -137,15 +137,15 @@
       >
         <div class="d-flex w-100 flex-column flex-md-row align-items-md-center">
           <div class="mx-sm-1 mb-1 col-12 col-md-2">
-            <label for="param" class="fs-5"> Buscar ventas por </label>
+            <label for="opcion" class="fs-5"> Buscar ventas por </label>
           </div>
           <div class="mx-sm-1 mb-1 col-12 col-md-2">
-            <select name="param" id="param" class="form-select" required>
-              <option value="id" selected>ID</option>
-              <option value="name">Empleado</option>
-              <option value="name">Cliente</option>
-              <option value="name">Producto</option>
-              <option value="name">Fecha de venta</option>
+            <select name="opcion" id="opcion" class="form-select" required>
+              <option [op_id] value="id">ID</option>
+              <option value="empleado">Empleado</option>
+              <option value="cliente">Cliente</option>
+              <option value="producto">Producto</option>
+              <option [op_fecha] value="fecha">Fecha de venta</option>
             </select>
           </div>
           <div class="col-12 mb-1 col-md-6 flex-md-grow-1">
@@ -155,7 +155,7 @@
               name="search"
               id="search"
               placeholder="Buscar"
-              required
+              value="[value]"
             />
           </div>
         </div>

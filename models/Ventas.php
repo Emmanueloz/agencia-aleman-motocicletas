@@ -69,7 +69,7 @@ class Ventas
         $detalleVenta->agregarDetalles();
     }
 
-    public static function consultarVentas($id = null)
+    public static function consultarVentas()
     {
         $ventasArray = [];
         $idVenta = 0;
@@ -79,44 +79,77 @@ class Ventas
         $idCliente = 0;
         $fechaVenta = '';
 
-        if ($id == null) {
-            $detallesVenta = DetallesVentas::consultarDetallesVentas();
+        $detallesVenta = DetallesVentas::consultarDetallesVentas();
 
-            $consulta = self::$bd->prepare("SELECT ventas.id_venta, ventas.subtotal,ventas.iva,ventas.empleados_id_empleado,ventas.clientes_id_cliente,
+        $consulta = self::$bd->prepare("SELECT ventas.id_venta, ventas.subtotal,ventas.iva,ventas.empleados_id_empleado,ventas.clientes_id_cliente,
             ventas.fecha_venta
             FROM ventas,detalles_venta
             WHERE ventas.id_venta = detalles_venta.id_venta
             GROUP BY ventas.id_venta");
-            $consulta->execute();
-            $consulta->bind_result($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta);
+        $consulta->execute();
+        $consulta->bind_result($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta);
 
-            $contador = 0;
+        $contador = 0;
 
-            while ($consulta->fetch()) {
-                $detalle = $detallesVenta[$contador];
-                array_push($ventasArray, new Ventas($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta, $detalle->idProductos, $detalle->cantidad, $detalle->costo));
-                $contador++;
-            }
-
-            $consulta->close();
-            return  $ventasArray;
-        } else {
-
-            $consulta = self::$bd->prepare("SELECT ventas.id_venta, ventas.subtotal, ventas.iva, ventas.empleados_id_empleado, 
-            ventas.clientes_id_cliente, ventas.fecha_venta
-            FROM ventas
-            WHERE ventas.id_venta = ?");
-
-            $consulta->bind_param('i', $id);
-            $consulta->execute();
-            $consulta->store_result();
-            $consulta->bind_result($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta);
-            $consulta->fetch();
-            $consulta->close();
-            $detalleVenta = DetallesVentas::consultarDetallesVentas($idVenta);
-
-            return new Ventas($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta, $detalleVenta->idProductos, $detalleVenta->cantidad, $detalleVenta->costo);
+        while ($consulta->fetch()) {
+            $detalle = $detallesVenta[$contador];
+            array_push($ventasArray, new Ventas($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta, $detalle->idProductos, $detalle->cantidad, $detalle->costo));
+            $contador++;
         }
+
+        $consulta->close();
+        return  $ventasArray;
+    }
+
+    public static function consultaFiltrada($filtro, $value)
+    {
+        $idVenta = 0;
+        $subtotal = 0;
+        $iva = 0;
+        $idEmpleado = 0;
+        $idCliente = 0;
+        $fechaVenta = '';
+
+        //$detallesVenta = DetallesVentas::consultarDetallesVentas();
+
+        switch ($filtro) {
+            case 'id':
+                $consulta = self::$bd->prepare("SELECT ventas.id_venta, ventas.subtotal, 
+                ventas.iva, ventas.empleados_id_empleado, 
+                ventas.clientes_id_cliente, ventas.fecha_venta
+                FROM ventas
+                WHERE ventas.id_venta = ?");
+                $consulta->bind_param('i', $value);
+                break;
+            case 'fecha':
+                $value = $value . "%";
+                $consulta = self::$bd->prepare("SELECT ventas.id_venta, ventas.subtotal, 
+                ventas.iva, ventas.empleados_id_empleado, 
+                ventas.clientes_id_cliente, ventas.fecha_venta
+                FROM ventas
+                WHERE ventas.fecha_venta like ?");
+                $consulta->bind_param('s', $value);
+                break;
+        }
+
+        $ventasArray = [];
+        $consulta->execute();
+        $consulta->store_result();
+        $consulta->bind_result($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta);
+        //$consulta->fetch();
+        //$consulta->close();
+        $detallesVenta = DetallesVentas::consultarDetallesVentas($idVenta);
+
+        $contador = 0;
+
+        while ($consulta->fetch()) {
+            $detalle = $detallesVenta[$contador];
+            array_push($ventasArray, new Ventas($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta, $detalle->idProductos, $detalle->cantidad, $detalle->costo));
+            $contador++;
+        }
+
+        //$consulta->close();
+        return  $ventasArray;
     }
 }
 
