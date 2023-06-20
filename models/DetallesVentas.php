@@ -52,11 +52,11 @@ class DetallesVentas
         return $subtotal + $iva;
     }
 
-    public function mostrarDetalles($subtotal, $iva)
+    /*  public function mostrarDetalles($subtotal, $iva)
     {
         $detalleVenta = [];
         array_push($detalleVenta, $this->idVenta, $this->idProductos);
-    }
+    } */
 
 
     public function agregarDetalles()
@@ -82,7 +82,6 @@ class DetallesVentas
      * @return  $detallesVentaArray Es un array que cuenta con objetos de cada elemento de la consulta completa de todos los detalles
      * @return DetallesVentas Es el objeto de una consulta por el `$id`;
      */
-
     public static function consultarDetallesVentas($id = null)
     {
         $detallesVentaArray = [];
@@ -94,7 +93,7 @@ class DetallesVentas
          * TODO: Mejorar el formato de la consulta
          */
         if ($id == null) {
-            $consulta = self::$bd->prepare("SELECT detalles_venta.id_venta, GROUP_CONCAT('-',productos.numero_serie,': ',productos.marca,'<br/>'),
+            $consulta = self::$bd->prepare("SELECT detalles_venta.id_venta, GROUP_CONCAT(',',productos.numero_serie,': ',productos.marca,'<br/>'),
             detalles_venta.cantidad,detalles_venta.costo
             FROM ventas, productos, detalles_venta
             WHERE ventas.id_venta = detalles_venta.id_venta 

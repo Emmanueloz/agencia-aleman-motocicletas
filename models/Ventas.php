@@ -1,6 +1,6 @@
 <?php
 require_once 'DetallesVentas.php';
-require_once 'models/config.php';
+//require_once 'models/config.php';
 
 class Ventas
 {
@@ -50,9 +50,12 @@ class Ventas
         $this->costo = $costo;
     }
 
-    public function agregarVenta($idProductos, $cantidad, $costo)
+    public function agregarVenta()
     {
         $idVenta = $this->idVenta;
+        $idProductos = $this->idProductos;
+        $cantidad = $this->cantidad;
+        $costo = $this->costo;
 
         $consulta = self::$bd->prepare("INSERT INTO ventas VALUES(null,?,?,?,?,?)");
         $consulta->bind_param(
@@ -72,6 +75,7 @@ class Ventas
     public static function consultarVentas()
     {
         $ventasArray = [];
+        $ventas = [];
         $idVenta = 0;
         $subtotal = 0;
         $iva = 0;
@@ -79,9 +83,7 @@ class Ventas
         $idCliente = 0;
         $fechaVenta = '';
 
-        $detallesVenta = DetallesVentas::consultarDetallesVentas();
-
-        $consulta = self::$bd->prepare("SELECT ventas.id_venta, ventas.subtotal,ventas.iva,ventas.empleados_id_empleado,ventas.clientes_id_cliente,
+        $consulta = self::$bd->prepare("SELECT ventas.id_venta, ventas.subtotal,ventas.iva,ventas.id_empleado,ventas.id_cliente,
             ventas.fecha_venta
             FROM ventas,detalles_venta
             WHERE ventas.id_venta = detalles_venta.id_venta
@@ -89,20 +91,36 @@ class Ventas
         $consulta->execute();
         $consulta->bind_result($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta);
 
-        $contador = 0;
+        //$contador = 0;
 
         while ($consulta->fetch()) {
-            $detalle = $detallesVenta[$contador];
-            array_push($ventasArray, new Ventas($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta, $detalle->idProductos, $detalle->cantidad, $detalle->costo));
-            $contador++;
+
+            array_push($ventasArray, [$idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta]);
+            //contador++;
+        }
+        $consulta->close();
+
+        if (isset($ventasArray)) {
+            foreach ($ventasArray as $venta) {
+                $id = $venta[0];
+                $detalle =  DetallesVentas::consultarDetallesVentas($id);
+
+                $productos = $detalle->idProductos;
+                $productos = str_replace(',', '', $productos);
+                array_push($ventas, new Ventas($venta[0], $venta[1], $venta[2], $venta[3], $venta[4], $venta[5], $productos, $detalle->cantidad, $detalle->costo));
+            }
+        } else {
+            $ventas = null;
         }
 
-        $consulta->close();
-        return  $ventasArray;
+        return $ventas;
     }
 
     public static function consultaFiltrada($filtro, $value)
     {
+        $ventasArray = [];
+        $ventas = [];
+
         $idVenta = 0;
         $subtotal = 0;
         $iva = 0;
@@ -110,13 +128,12 @@ class Ventas
         $idCliente = 0;
         $fechaVenta = '';
 
-        //$detallesVenta = DetallesVentas::consultarDetallesVentas();
 
         switch ($filtro) {
             case 'id':
                 $consulta = self::$bd->prepare("SELECT ventas.id_venta, ventas.subtotal, 
-                ventas.iva, ventas.empleados_id_empleado, 
-                ventas.clientes_id_cliente, ventas.fecha_venta
+                ventas.iva, ventas.id_empleado, 
+                ventas.id_cliente, ventas.fecha_venta
                 FROM ventas
                 WHERE ventas.id_venta = ?");
                 $consulta->bind_param('i', $value);
@@ -124,32 +141,37 @@ class Ventas
             case 'fecha':
                 $value = $value . "%";
                 $consulta = self::$bd->prepare("SELECT ventas.id_venta, ventas.subtotal, 
-                ventas.iva, ventas.empleados_id_empleado, 
-                ventas.clientes_id_cliente, ventas.fecha_venta
+                ventas.iva, ventas.id_empleado, 
+                ventas.id_cliente, ventas.fecha_venta
                 FROM ventas
                 WHERE ventas.fecha_venta like ?");
                 $consulta->bind_param('s', $value);
                 break;
         }
-
-        $ventasArray = [];
         $consulta->execute();
         $consulta->store_result();
         $consulta->bind_result($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta);
-        //$consulta->fetch();
-        //$consulta->close();
-        $detallesVenta = DetallesVentas::consultarDetallesVentas($idVenta);
-
-        $contador = 0;
 
         while ($consulta->fetch()) {
-            $detalle = $detallesVenta[$contador];
-            array_push($ventasArray, new Ventas($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta, $detalle->idProductos, $detalle->cantidad, $detalle->costo));
-            $contador++;
+            array_push($ventasArray, [$idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta]);
         }
 
-        //$consulta->close();
-        return  $ventasArray;
+        $consulta->close();
+
+        if (isset($ventasArray)) {
+            foreach ($ventasArray as $venta) {
+                $id = $venta[0];
+                $detalle =  DetallesVentas::consultarDetallesVentas($id);
+
+                $productos = $detalle->idProductos;
+                $productos = str_replace(',', '', $productos);
+                array_push($ventas, new Ventas($venta[0], $venta[1], $venta[2], $venta[3], $venta[4], $venta[5], $productos, $detalle->cantidad, $detalle->costo));
+            }
+        } else {
+            $ventas = null;
+        }
+
+        return $ventas;
     }
 }
 
@@ -158,7 +180,7 @@ class Ventas
 Ventas::init($mysqli);
 DetallesVentas::init($mysqli);
 
-$idProductos = [3, 1, 5];
+$idProductos = [3, 2];
 $cantidad = count($idProductos);
 
 $subtotal = DetallesVentas::obtenerSubtotal($idProductos);
@@ -167,4 +189,14 @@ $costo = DetallesVentas::calcularCosto($subtotal, $iva);
 
 $idVenta = Ventas::obtenerIdVenta();
 $fechaActual = date("Y-m-d");
-*/
+
+$venta = new Ventas($idVenta, $subtotal, $iva, 4, 3, $fechaActual, $idProductos, $cantidad, $costo);
+
+$venta->agregarVenta(); */
+
+/* $ventas = Ventas::consultarVentas();
+if (isset($ventas)) {
+    print_r($ventas);
+} else {
+    echo "No hay ventas";
+} */
