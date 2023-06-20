@@ -8,6 +8,7 @@ $titulo = "Lista de ventas";
 $html = new SpynTPL('views/');
 $html->Fichero('ventas.html');
 $html->Asigna('title', $titulo);
+$html->Asigna('mensaje', ' ');
 
 ## Opciones
 $html->Asigna('op_id', '');
@@ -47,6 +48,8 @@ if (isset($_POST['search'])  && !empty(trim($_POST['search']))) {
     $ventas = Ventas::consultaFiltrada($opcion, $search);
     if (count($ventas) == 0) {
         $html->AsignaBloque('ventas', null);
+        $mensaje = "<h4 class='text-secondary text-center' >No se encontró ninguna venta</h4>";
+        $html->Asigna('mensaje', $mensaje);
     }
 
     $html->Asigna('value', $search);
