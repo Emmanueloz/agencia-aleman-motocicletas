@@ -5,13 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Agencia Alemán</title>
-    <link rel="stylesheet" href="../bootstrap-5.3.0/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../style.css" />
-    <link
-      rel="shortcut icon"
-      href="../public/favicon.png"
-      type="image/x-icon"
-    />
+    <link rel="stylesheet" href="./bootstrap-5.3.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="shortcut icon" href="./public/favicon.png" type="image/x-icon" />
   </head>
   <body>
     <header>
@@ -48,17 +44,10 @@
                 </a>
                 <ul class="dropdown-menu bg-lightblue-secondary">
                   <li>
-                    <a class="dropdown-item text-white" href="./empleados.html"
-                      >Consultar</a
-                    >
+                    <a class="dropdown-item text-white" href="#">Consultar</a>
                   </li>
                   <li>
-                    <a
-                      class="dropdown-item text-white"
-                      href="./agregar_empleados.html"
-                    >
-                      Agregar
-                    </a>
+                    <a class="dropdown-item text-white" href="#"> Agregar </a>
                   </li>
                 </ul>
               </li>
@@ -74,17 +63,10 @@
                 </a>
                 <ul class="dropdown-menu bg-lightblue-secondary">
                   <li>
-                    <a class="dropdown-item text-white" href="./clientes.html">
-                      Consultar
-                    </a>
+                    <a class="dropdown-item text-white" href="#"> Consultar </a>
                   </li>
                   <li>
-                    <a
-                      class="dropdown-item text-white"
-                      href="./agregar_cliente.html"
-                    >
-                      Agregar
-                    </a>
+                    <a class="dropdown-item text-white" href="#"> Agregar </a>
                   </li>
                 </ul>
               </li>
@@ -100,17 +82,10 @@
                 </a>
                 <ul class="dropdown-menu bg-lightblue-secondary">
                   <li>
-                    <a class="dropdown-item text-white" href="./productos.html"
-                      >Consultar</a
-                    >
+                    <a class="dropdown-item text-white" href="#">Consultar</a>
                   </li>
                   <li>
-                    <a
-                      class="dropdown-item text-white"
-                      href="./agregar_producto.html"
-                    >
-                      Agregar
-                    </a>
+                    <a class="dropdown-item text-white" href="#"> Agregar </a>
                   </li>
                 </ul>
               </li>
@@ -126,9 +101,7 @@
                 </a>
                 <ul class="dropdown-menu bg-lightblue-secondary">
                   <li>
-                    <a class="dropdown-item text-white" href="./ventas.html"
-                      >Consultar</a
-                    >
+                    <a class="dropdown-item text-white" href="#">Consultar</a>
                   </li>
                   <li>
                     <a class="dropdown-item text-white" href="#"> Agregar </a>
@@ -136,11 +109,7 @@
                 </ul>
               </li>
               <li class="nav-item mx-sm-1 mt-sm-0 mt-1 btn-small">
-                <a
-                  class="btn btn-danger"
-                  href="../login.html"
-                  aria-current="page"
-                >
+                <a class="btn btn-danger" href="#" aria-current="page">
                   Cerrar Sesión
                 </a>
               </li>
@@ -153,9 +122,9 @@
       <aside class="d-flex justify-content-between m-1 p-1 bg-body-tertiary">
         <div aria-label="breadcrumb">
           <ol class="breadcrumb d-flex align-items-center">
-            <li class="breadcrumb-item"><a href="./index.html">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="#">Inicio</a></li>
             <li class="breadcrumb-item">
-              <a href="./ventas.html">Ventas</a>
+              <a href="#">Ventas</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">Agregar</li>
           </ol>
@@ -164,7 +133,7 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-12 col-md-10 col-lg-8 col-12 mt-2 m-auto">
-            <h2>Agregar nueva venta</h2>
+            <h2>[title]</h2>
             <form method="post" class="row">
               <div class="col-sm-6 mb-3">
                 <label for="user" class="form-label">Empleado</label>
@@ -196,7 +165,7 @@
                 </select>
               </div>
 
-              <div class="col-sm-6 mb-3">
+              <div class="col-sm-12 mb-3">
                 <label for="fecha-compra" class="form-label">
                   Fecha compra
                 </label>
@@ -205,17 +174,6 @@
                   class="form-control"
                   id="fecha-compra"
                   name="fecha-compra"
-                  required
-                />
-              </div>
-
-              <div class="col-sm-6 mb-3">
-                <label for="iva" class="form-label">IVA</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="iva"
-                  name="iva"
                   required
                 />
               </div>
@@ -230,28 +188,19 @@
                   multiple
                 >
                   <option value="1">Moto 1 - $100</option>
-                  <option value="2">Moto 2 - $200</option>
-                  <option value="3">Moto 3 - $300</option>
                 </select>
               </div>
 
               <div class="d-flex justify-content-end">
                 <a
                   class="btn btn-secondary m-1"
-                  href="./ventas.html"
+                  href="./vista_venta.php"
                   role="button"
                 >
                   Cancelar
                 </a>
 
-                <!-- <button type="button" class="btn btn-primary m-1" role="button">
-                  Agregar
-                </button> -->
-                <a
-                  href="./confirmar_ventas.html"
-                  class="btn btn-primary m-1"
-                  role="button"
-                >
+                <a href="#" class="btn btn-primary m-1" role="button">
                   Agregar
                 </a>
               </div>
@@ -260,7 +209,7 @@
         </div>
       </div>
     </main>
-    <script src="../bootstrap-5.3.0/js/popper.min.js"></script>
-    <script src="../bootstrap-5.3.0/js/bootstrap.min.js"></script>
+    <script src="./bootstrap-5.3.0/js/popper.min.js"></script>
+    <script src="./bootstrap-5.3.0/js/bootstrap.min.js"></script>
   </body>
 </html>

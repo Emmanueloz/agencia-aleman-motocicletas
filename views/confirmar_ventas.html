@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agencia Alemán</title>
+    <link rel="stylesheet" href="../bootstrap-5.3.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../style.css" />
+    <link
+      rel="shortcut icon"
+      href="../public/favicon.png"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg bg-lightblue">
+        <div class="container-fluid">
+          <h1 class="text-light">Agencia Motocicletas</h1>
+          <button
+            class="navbar-toggler d-lg-none"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapsibleNavId"
+            aria-controls="collapsibleNavId"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            class="collapse navbar-collapse w-20 justify-content-end"
+            id="collapsibleNavId"
+          >
+            <ul
+              class="navbar-nav mt-2 mt-sm-1 justify-content-end align-items-end align-items-lg-center"
+            >
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1 fs-4">
+                <a
+                  class="nav-link dropdown-toggle text-light fs-4"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Empleados
+                </a>
+                <ul class="dropdown-menu bg-lightblue-secondary">
+                  <li>
+                    <a class="dropdown-item text-white" href="./empleados.html"
+                      >Consultar</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./agregar_empleados.html"
+                    >
+                      Agregar
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1 fs-4">
+                <a
+                  class="nav-link dropdown-toggle text-light fs-4"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Clientes
+                </a>
+                <ul class="dropdown-menu bg-lightblue-secondary">
+                  <li>
+                    <a class="dropdown-item text-white" href="./clientes.html">
+                      Consultar
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./agregar_cliente.html"
+                    >
+                      Agregar
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1 fs-4">
+                <a
+                  class="nav-link dropdown-toggle text-light fs-4"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Productos
+                </a>
+                <ul class="dropdown-menu bg-lightblue-secondary">
+                  <li>
+                    <a class="dropdown-item text-white" href="./productos.html"
+                      >Consultar</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./agregar_producto.html"
+                    >
+                      Agregar
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1 fs-4">
+                <a
+                  class="nav-link dropdown-toggle text-light fs-4 fw-bold"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Ventas
+                </a>
+                <ul class="dropdown-menu bg-lightblue-secondary">
+                  <li>
+                    <a class="dropdown-item text-white" href="./ventas.html"
+                      >Consultar</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./agregar_ventas.html"
+                    >
+                      Agregar
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item mx-sm-1 mt-sm-0 mt-1 btn-small">
+                <a
+                  class="btn btn-danger"
+                  href="../login.html"
+                  aria-current="page"
+                >
+                  Cerrar Sesión
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <aside class="d-flex justify-content-between m-1 p-1 bg-body-tertiary">
+        <div aria-label="breadcrumb">
+          <ol class="breadcrumb d-flex align-items-center">
+            <li class="breadcrumb-item"><a href="./index.html">Inicio</a></li>
+            <li class="breadcrumb-item">
+              <a href="./ventas.html">Ventas</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="./agregar_ventas.html">Agregar</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              Confirmar
+            </li>
+          </ol>
+        </div>
+      </aside>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-8 col-lg-7 col-12 mt-2 m-auto">
+            <h2>Confirmar nueva venta</h2>
+            <form method="post" class="row">
+              <div class="col-sm-6 mb-3">
+                <label for="empleado" class="form-label fw-bold"
+                  >Empleado</label
+                >
+                <br />
+                <input type="hidden" name="empleado" id="empleado" value="2" />
+                <span>Emmanuel David</span>
+              </div>
+
+              <div class="col-sm-6 mb-3">
+                <label for="user" class="form-label fw-bold">Cliente</label>
+                <br />
+                <input type="hidden" name="cliente" id="cliente" value="3" />
+                <span>David Emmanuel</span>
+              </div>
+
+              <div class="col-sm-6 mb-3">
+                <label for="productos" class="form-label fw-bold">
+                  Producto
+                </label>
+                <br />
+                <input
+                  type="hidden"
+                  name="productos"
+                  id="productos"
+                  value="1"
+                />
+                <input
+                  type="hidden"
+                  name="productos"
+                  id="productos"
+                  value="2"
+                />
+                <span>
+                  Moto 1
+                  <br />
+                  Moto 3
+                </span>
+              </div>
+              <div class="col-sm-6 mb-3">
+                <label for="fecha-compra" class="form-label fw-bold">
+                  Fecha compra
+                </label>
+                <input
+                  type="date"
+                  class="form-control-plaintext"
+                  id="fecha-compra"
+                  name="fecha-compra"
+                  readonly
+                  value="2023-06-12"
+                />
+              </div>
+              <div class="col-sm-4 mb-3">
+                <label for="iva" class="form-label fw-bold">IVA</label>
+                <input
+                  type="text"
+                  class="form-control-plaintext"
+                  id="iva"
+                  name="iva"
+                  readonly
+                  value="$20"
+                />
+              </div>
+
+              <div class="col-sm-4 mb-3">
+                <label for="subtotal" class="form-label fw-bold"
+                  >Subtotal</label
+                >
+                <input
+                  type="text"
+                  class="form-control-plaintext"
+                  id="subtotal"
+                  name="subtotal"
+                  readonly
+                  value="$400"
+                />
+              </div>
+              <div class="col-sm-4 mb-3">
+                <label for="total" class="form-label fw-bold">Total</label>
+                <input
+                  type="text"
+                  class="form-control-plaintext"
+                  id="total"
+                  name="total"
+                  readonly
+                  value="$420"
+                />
+              </div>
+
+              <div class="d-flex justify-content-end">
+                <a
+                  class="btn btn-secondary m-1"
+                  href="./ventas.html"
+                  role="button"
+                >
+                  Cancelar
+                </a>
+                <a
+                  class="btn btn-warning m-1"
+                  href="./agregar_ventas.html"
+                  role="button"
+                >
+                  Modificar
+                </a>
+                <!-- <button type="submit" class="btn btn-primary m-1">Iniciar</button> -->
+                <button type="button" class="btn btn-primary m-1" role="button">
+                  Aceptar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="../bootstrap-5.3.0/js/popper.min.js"></script>
+    <script src="../bootstrap-5.3.0/js/bootstrap.min.js"></script>
+  </body>
+</html>
