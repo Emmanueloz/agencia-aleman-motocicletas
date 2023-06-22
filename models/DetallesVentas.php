@@ -93,7 +93,7 @@ class DetallesVentas
          * TODO: Mejorar el formato de la consulta
          */
         if ($id == null) {
-            $consulta = self::$bd->prepare("SELECT detalles_venta.id_venta, GROUP_CONCAT(',',productos.numero_serie,': ',productos.marca,'<br/>'),
+            $consulta = self::$bd->prepare("SELECT detalles_venta.id_venta, GROUP_CONCAT(productos.numero_serie,': ',productos.marca,'<br/>'),
             detalles_venta.cantidad,detalles_venta.costo
             FROM ventas, productos, detalles_venta
             WHERE ventas.id_venta = detalles_venta.id_venta 
@@ -126,5 +126,14 @@ class DetallesVentas
 
             return new DetallesVentas($idVenta, $productos, $cantidad, $costo);
         }
+    }
+
+    public static function productosVendidos($idProducto)
+    {
+        $consulta = self::$bd->prepare("SELECT id_venta FROM ventas WHERE id_venta = ?");
+        $consulta->bind_param('i', $idProducto);
+        $consulta->execute();
+        $consulta->store_result();
+        $consulta->bind_result($idVenta, $productos, $cantidad, $costo);
     }
 }
