@@ -1,80 +1,80 @@
 <?php
-
-class Productos
+class Empleados
 {
-    public $id_producto;
-    public $numero_serie;
-    public $marca;
-    public $descripcion;
-    public $modelo;
-    public $precio;
-    public $existencias;
-
+    public $id_empleado;
+    public $rfc;
+    public $nombre;
+    public $direccion;
+    public $telefono;
+    public $correo;
+    public $puesto;
+    public $salario;
+    public $estudios;
     private static $bd;
 
-    public function __construct($id_producto, $numero_serie, $marca, $descripcion, $modelo, $precio, $existencias)
-    {
-        $this->id_producto = $id_producto;
-        $this->numero_serie = $numero_serie;
-        $this->marca = $marca;
-        $this->descripcion = $descripcion;
-        $this->modelo = $modelo;
-        $this->precio = $precio;
-        $this->existencias = $existencias;
+    public function __construct(
+        $id_empleado,
+        $rfc,
+        $nombre,
+        $direccion,
+        $telefono,
+        $correo,
+        $puesto,
+        $salario,
+        $estudios
+    ) {
+        $this->id_empleado = $id_empleado;
+        $this->rfc = $rfc;
+        $this->nombre = $nombre;
+        $this->direccion = $direccion;
+        $this->telefono = $telefono;
+        $this->correo = $correo;
+        $this->puesto = $puesto;
+        $this->salario = $salario;
+        $this->estudios = $estudios;
     }
     public static function init($bd)
     {
         self::$bd = $bd;
     }
-    public static function findAll()
+    public static function consul()
     {
-        $id_producto = 0;
-        $numero_serie = '';
-        $marca = '';
-        $descripcion = '';
-        $modelo = '';
-        $precio = 0.0;
-        $existencias = 0;
-        $products = [];
-
-        $consult = self::$bd->prepare("select * from productos");
+        $emplea = [];
+        $consult = self::$bd->prepare("select * from empleados");
         $consult->execute();
-        $consult->bind_result($id_producto, $numero_serie, $marca, $descripcion, $modelo, $precio, $existencias);
-
+        $consult->bind_result($id_empleado, $rfc, $nombre, $direccion, $telefono, $correo, $puesto, $salario, $estudios);
         while ($consult->fetch()) {
-            array_push($products, new Productos($id_producto, $numero_serie, $marca, $descripcion, $modelo, $precio, $existencias));
+            array_push($emplea, new Empleados($id_empleado, $rfc, $nombre, $direccion, $telefono, $correo, $puesto, $salario, $estudios));
         }
         $consult->close();
-        return $products;
+        return $emplea;
     }
-    public static function cosultMarcaModelo($valor)
+    public static function nom($nombre)
     {
-        $id_producto = 0;
-
         $id = [];
-        $valor = "%" . $valor . "%";
-        $consult = self::$bd->prepare("select id_producto from productos where (marca like ? or modelo like ?)");
-        $consult->bind_param('ss', $valor, $valor);
+        $nombre = "%" . $nombre . "%";
+        $consult = self::$bd->prepare("select id_empleado from empleados where nombre like ?");
+        $consult->bind_param('s', $nombre);
         $consult->execute();
-        $consult->bind_result($id_producto);
+        $consult->bind_result($id_empleado);
         while ($consult->fetch()) {
-            array_push($id, $id_producto);
+            array_push($id, $id_empleado);
         }
         $consult->close();
         return $id;
     }
 }
 if (isset($argc) && $argc == 2) {
-    $mysqli = new mysqli("localhost", "root", "", "agenciaBD");
-    Productos::init($mysqli);
+    $mysqli = new mysqli("localhost", "root", "", "agenciabd");
+    Empleados::init($mysqli);
     switch ($argv[1]) {
-        case 'todos':
-            $products = Productos::findAll();
-            print_r($products);
-            break;
-        case 'id':
-            $id = Productos::cosultMarcaModelo('2');
+        case 'consul_emple':
+            $emplea = Empleados::consul();
             print_r($id);
+            break;
+        case 'por_nombre':
+            $nombre = Empleados::nom('Robert');
+            print_r($nombre);
             break;
     }
 }
