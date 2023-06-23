@@ -143,10 +143,9 @@
                   id="empleado"
                   required
                 >
-                  <option value="" selected>Selecciona a un empleado</option>
-                  <option value="1">David</option>
-                  <option value="2">Emmanuel</option>
-                  <option value="3">Ozuna</option>
+                  [block: empleados]
+                  <option value="[id_empleado]">[nombre]</option>
+                  [/block: empleados]
                 </select>
               </div>
 
@@ -158,10 +157,9 @@
                   id="cliente"
                   required
                 >
-                  <option value="" selected>Selecciona a un cliente</option>
-                  <option value="1">David</option>
-                  <option value="2">Emmanuel</option>
-                  <option value="3">Ozuna</option>
+                  [block: clientes]
+                  <option value="[id_cliente]">[nombre]</option>
+                  [/block: clientes]
                 </select>
               </div>
 
