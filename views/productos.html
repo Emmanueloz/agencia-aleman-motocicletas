@@ -3,9 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vista productos</title>
+    <title>Productos</title>
+    <link rel="stylesheet" href="../bootstrap-5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-    <h2>Productos</h2>
+  <header>
+    <nav class="navbar navbar-expand-lg bg-lightblue">
+      <div class="container-fluid">
+        <h1 class="text-light">Agencia Motocicletas</h1>
+        <button
+          class="navbar-toggler d-lg-none"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapsibleNavId"
+          aria-controls="collapsibleNavId"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse w-20 justify-content-end"
+          id="collapsibleNavId"
+        >
+          <ul
+            class="navbar-nav mt-2 mt-sm-1 justify-content-end align-items-end align-items-lg-center"
+          >
+            <li class="nav-item mx-sm-1 mt-sm-0 mt-1 fs-4">
+              <a
+                class="nav-link text-light"
+                aria-current="page"
+                href="./empleados.html"
+                aria-current="page"
+              >
+                Empleados
+              </a>
+            </li>
+            <li class="nav-item mx-sm-1 mt-sm-0 mt-1 fs-4">
+              <a
+                class="nav-link text-light"
+                aria-current="page"
+                href="./clientes.html"
+                aria-current="page"
+              >
+                Clientes
+              </a>
+            </li>
+            <li class="nav-item mx-sm-1 mt-sm-0 mt-1 fs-4">
+              <a
+                class="nav-link active text-decoration-underline text-light"
+                aria-current="page"
+                href="./productos.html"
+                aria-current="page"
+              >
+                Productos
+              </a>
+            </li>
+            <li class="nav-item mx-sm-1 mt-sm-0 mt-1 fs-4">
+              <a
+                class="nav-link  text-light"
+                aria-current="page"
+                href="./ventas.html"
+                aria-current="page"
+              >
+                Ventas
+              </a>
+            </li>
+            <li class="nav-item mx-sm-1 mt-sm-0 mt-1 btn-small">
+              <a
+                class="btn btn-danger"
+                href="../login.html"
+                aria-current="page"
+              >
+                Cerrar Sesión
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <aside class="d-flex justify-content-between m-1 p-1 bg-body-tertiary">
+    <div aria-label="breadcrumb">
+      <ol class="breadcrumb d-flex align-items-center">
+        <li class="breadcrumb-item"><a href="./index.html">Inicio</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Productos</li>
+      </ol>
+    </div>
+    <div>
+      <a href="./agregar_producto.html" class="btn btn-primary"> Agregar </a>
+    </div>
+  </aside>
+
+  <aside>
+    <form
+      method="post"
+      class="d-flex flex-column flex-md-row justify-content-md-between m-1 p-1"
+    >
+      <div
+        class="d-flex w-100 flex-column flex-md-row align-items-md-center"
+      >
+        <div class="mx-sm-1 mb-1 col-12 col-md-2">
+          <label for="param" class="fs-5"> Buscar productos por </label>
+        </div>
+        <div class="mx-sm-1 mb-1 col-12 col-md-2">
+          <select name="param" id="param" class="form-select" required>
+            <option value="id" selected>ID</option>
+            <option value="name">Modelo</option>
+            <option value="name">Marca</option>
+            <option value="name">Precio</option>
+          </select>
+        </div>
+        <div class="col-12 mb-1 col-md-6 flex-md-grow-1">
+          <input
+            type="text"
+            class="form-control"
+            name="search"
+            id="search"
+            placeholder="Buscar"
+            required
+          />
+        </div>
+      </div>
+      <div class="d-flex justify-content-end mb-1 px-2">
+        <button class="btn btn-outline-primary">Buscar</button>
+      </div>
+    </form>
+  </aside>
+    <main class="container">
+        
+        <div class="table-responsive">
+          <table class="table">
+            <caption class="caption-top fs-3">
+              Productos
+            </caption>
+            <thead class="bg-dark text-light">
+            <tr>
+                <th>Id</th>
+                <th>Num_serie</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Descripcion</th>
+                <th>Precio</th>
+                <th>ACCION</th>
+            </tr>
+            </thead>
+            <tr>
+                <td>1  </td>
+                <td>2213</td>
+                <td>KTM</td>
+                <td>Superduke</td>
+                <td>Color-naranja</td>
+                <td>$100,000</td>
+                <td>  
+                  <div class="btn-group" role="group" aria-label="Basic outlined example">
+                    <a href="./modificar_productos.html" class="btn btn-outline-primary">Editar</a>
+                    <button type="button" class="btn btn-outline-primary">Eliminar</button>
+                  </div>
+                </td>
+            </tr>
+            <tr>
+              <td>2</td>
+                <td>2234</td>
+                <td>Kawasaki</td>
+                <td>H2r</td>
+                <td>Color-negro-gris</td>
+                <td>$600S,000</td>
+                <td>
+                  <div class="btn-group" role="group" aria-label="Basic outlined example">
+                    <a href="./modificar_productos.html" class="btn btn-outline-primary">Editar</a>
+                    <button type="button" class="btn btn-outline-primary">Eliminar</button>
+                  </div>
+                </td>
+            </tr>
+          </table>  
+        </div>
+        
+        </main>
+<script src="../bootstrap-5.3.0/js/popper.min.js"></script>
+<script src="../bootstrap-5.3.0/js/bootstrap.min.js"></script> 
 </body>
 </html>
