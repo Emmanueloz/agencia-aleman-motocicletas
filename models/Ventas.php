@@ -1,5 +1,8 @@
 <?php
 require_once 'DetallesVentas.php';
+require_once 'Empleados.php';
+require_once 'Clientes.php';
+require_once 'Productos.php';
 //require_once 'models/config.php';
 
 class Ventas
@@ -138,33 +141,7 @@ class Ventas
                 WHERE ventas.id_venta = ?");
                 $consulta->bind_param('i', $value);
                 break;
-            case 'empleados':
-                /**
-                 * TODO Utilizar un método del empleado para que con el nombre se tenga el id, luego buscar el la venta con el id de empleado.
-                 * 
-                 * @param mixed idEmpleado donde se guardara el id por la consulta anterior
-                 */
 
-                $idEmpleado = [3];
-                $consulta = self::$bd->prepare("SELECT * FROM ventas WHERE id_empleado = ?");
-                $consulta->bind_param('i', $idEmpleado);
-
-                break;
-            case 'clientes':
-                /**
-                 * TODO Utilizar un método del cliente para que con el nombre se tenga el id, luego buscar el la venta con el id de empleado
-                 */
-
-                $idCliente = [1];
-                $consulta = self::$bd->prepare("SELECT * FROM ventas WHERE id_cliente = ?");
-                $consulta->bind_param('i', $idCliente);
-                break;
-            case 'productos':
-                /**
-                 * TODO Utilizar un método de productos que con el nombre me retorne una serie de IDs, con las que buscare en detalles el id de la venta
-                 * 
-                 */
-                break;
             case 'fecha':
                 $value = $value . "%";
                 $consulta = self::$bd->prepare("SELECT ventas.id_venta, ventas.subtotal, 
@@ -201,6 +178,63 @@ class Ventas
 
         return $ventas;
     }
+
+    public static function consultaFiltradaRelacionada($filtro, $value)
+    {
+        $idVenta = 0;
+        $subtotal = 0;
+        $iva = 0;
+        $idEmpleado = 0;
+        $idCliente = 0;
+        $fechaVenta = '';
+
+        switch ($filtro) {
+            case 'empleados':
+                /**
+                 * TODO Utilizar un método del empleado para que con el nombre se tenga el id, luego buscar el la venta con el id de empleado.
+                 */
+
+                $idEmpleados = Empleados::nom($value);
+                $ventasArray = [];
+                $ventas = [];
+                foreach ($idEmpleados as $idEmpleado) {
+                    $consulta = self::$bd->prepare("SELECT * FROM ventas WHERE id_empleado = ?");
+                    $consulta->bind_param("i", $idEmpleado);
+                    $consulta->execute();
+                    $consulta->bind_result($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta);
+                    $consulta->store_result();
+                    if ($consulta->fetch()) {
+                        array_push($ventasArray, [$idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta]);
+                    }
+                }
+                $consulta->close();
+
+                if (isset($ventasArray)) {
+                    foreach ($ventasArray as $venta) {
+                        $id = $venta[0];
+                        $detalle =  DetallesVentas::consultarDetallesVentas($id);
+
+                        $productos = $detalle->idProductos;
+                        $productos = str_replace(',', '', $productos);
+                        array_push($ventas, new Ventas($venta[0], $venta[1], $venta[2], $venta[3], $venta[4], $venta[5], $productos, $detalle->cantidad, $detalle->costo));
+                    }
+                }
+                return $ventas;
+                break;
+            case 'clientes':
+                /**
+                 * TODO Utilizar un método del cliente para que con el nombre se tenga el id, luego buscar el la venta con el id de empleado
+                 */
+
+                break;
+            case 'productos':
+                /**
+                 * TODO Utilizar un método de productos que con el nombre me retorne una serie de IDs, con las que buscare en detalles el id de la venta
+                 * 
+                 */
+                break;
+        }
+    }
 }
 
 /* 
@@ -223,7 +257,7 @@ if (isset($argc) && $argc == 2) {
     DetallesVentas::init($mysqli);
     switch ($argv[1]) {
         case 'empleados':
-            $ventas = Ventas::consultaFiltrada("empleados", "temporal");
+            $ventas = Ventas::consultaFiltradaRelacionada("empleados", "r");
             print_r($ventas);
             break;
         case 'clientes':
