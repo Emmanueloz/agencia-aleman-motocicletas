@@ -50,6 +50,7 @@ class Empleados
         return $emplea;
     }
     public static function nom($nombre)
+
     {
         $id = [];
         $nombre = "%" . $nombre . "%";
@@ -63,6 +64,17 @@ class Empleados
         $consult->close();
         return $id;
     }
+    public static function id_emple($id)
+    {
+        $nom = "";
+        $consult = self::$bd->prepare("select nombre from empleados where id_empleado = ?");
+        $consult->bind_param('i', $id);
+        $consult->execute();
+        $consult->bind_result($nom);
+        $consult->fetch();
+        $consult->close();
+        return $nom;
+    }
 }
 /* if (isset($argc) && $argc == 2) {
     $mysqli = new mysqli("localhost", "root", "", "agenciaBD");
@@ -73,8 +85,12 @@ class Empleados
             print_r($emplea);
             break;
         case 'por_nombre':
-            $nombre = Empleados::nom('A');
+            $nombre = Empleados::nom('Robert');
             print_r($nombre);
+            break;
+        case 'emple_id':
+            $id = Empleados::id_emple(3);
+            print($id);
             break;
     }
 } */
