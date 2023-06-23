@@ -20,7 +20,15 @@ $nombreEmpleado =  Empleados::id_emple($idEmpleado);
 $idCliente = $_POST["cliente"];;
 $nombreCliente = Clientes::buscarnom($idCliente);
 
+
 $idProductos = $_POST["productos"];
+$cantidad = count($idProductos);
+
+$subtotal = DetallesVentas::obtenerSubtotal($idProductos);
+$iva = Ventas::generarIva($subtotal);
+$costo = DetallesVentas::calcularCosto($subtotal, $iva);
+
+$idVenta = Ventas::obtenerIdVenta();
 
 $html = new SpynTPL('views/');
 $html->Fichero('confirmar_ventas.html');
@@ -33,6 +41,12 @@ $html->Asigna("id_cliente", $idCliente);
 $html->Asigna("nombre_cliente", $nombreCliente);
 
 $html->Asigna("fecha-venta", $fechaVenta);
+$html->Asigna("iva", $iva);
+$html->Asigna("subtotal", $subtotal);
+$html->Asigna("costo", $costo);
 
-print_r($idProductos);
+foreach ($idProductos as $idProducto) {
+    $html->AsignaBloque("productos", $idProducto);
+}
+
 echo $html->Muestra();
