@@ -1,11 +1,219 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Empleado</title>
+    <link rel="stylesheet" href="../bootstrap-5.3.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="../style.css">
 </head>
+
 <body>
-    
+    <header>
+        <nav class="navbar navbar-expand-lg bg-lightblue">
+          <div class="container-fluid">
+            <h1 class="text-light">Agencia Motocicletas</h1>
+            <button
+              class="navbar-toggler d-lg-none"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapsibleNavId"
+              aria-controls="collapsibleNavId"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div
+              class="collapse navbar-collapse w-20 justify-content-end"
+              id="collapsibleNavId"
+            >
+              <ul
+                class="navbar-nav mt-2 mt-sm-1 justify-content-end align-items-end align-items-lg-center"
+              >
+                <li class="nav-item mx-sm-1 mt-sm-0 mt-1 fs-4">
+                  <a
+                    class="nav-link active text-decoration-underline text-light"
+                    aria-current="page"
+                    href="./empleados.html"
+                    aria-current="page"
+                  >
+                    Empleados
+                  </a>
+                </li>
+                <li class="nav-item mx-sm-1 mt-sm-0 mt-1 fs-4">
+                  <a
+                    class="nav-link text-light"
+                    aria-current="page"
+                    href="./clientes.html"
+                    aria-current="page"
+                  >
+                    Clientes
+                  </a>
+                </li>
+                <li class="nav-item mx-sm-1 mt-sm-0 mt-1 fs-4">
+                  <a
+                    class="nav-link text-light"
+                    aria-current="page"
+                    href="./productos.html"
+                    aria-current="page"
+                  >
+                    Productos
+                  </a>
+                </li>
+                <li class="nav-item mx-sm-1 mt-sm-0 mt-1 fs-4">
+                  <a
+                    class="nav-link  text-light"
+                    aria-current="page"
+                    href="./ventas.html"
+                    aria-current="page"
+                  >
+                    Ventas
+                  </a>
+                </li>
+                <li class="nav-item mx-sm-1 mt-sm-0 mt-1 btn-small">
+                  <a
+                    class="btn btn-danger"
+                    href="../login.html"
+                    aria-current="page"
+                  >
+                    Cerrar Sesión
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <aside class="d-flex justify-content-between m-1 p-1 bg-body-tertiary">
+        <div aria-label="breadcrumb">
+          <ol class="breadcrumb d-flex align-items-center">
+            <li class="breadcrumb-item"><a href="./index.html">Inicio</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Empleados</li>
+          </ol>
+        </div>
+        <div>
+          <a href="./agregar_empleados.html" class="btn btn-primary"> Agregar </a>
+        </div>
+      </aside>
+    <main class="container">
+
+        <div class="row">
+            <h4 class="col-4">Buscar empleado por</h4>
+            <div class="col-4">
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                    <option selected></option>
+                    <option value="1">ID</option>
+                    <option value="2">Genero</option>
+                </select>
+
+            </div>
+            <div class="col-2">
+                <input class="form-control" type="text" name="value" id="value" value="">
+            </div>
+            <div class="col-2">
+                <button class="btn btn-primary" type="submit">Buscar</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="table-responsive mt-4">
+                <main class="container">
+
+                    <table class="table ">
+                        <thead class="table-info">
+                            <tr>
+                                <th>ID</th>
+                                <th>RFC</th>
+                                <th>NOMBRE</th>
+                                <th>APELLIDO</th>
+                                <th>EMAIL</th>
+                                <th>TELEFONO</th>
+                                <th>DIRECION</th>
+                                <th>ACCION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>WERTYUI234</td>
+                                <td>ROBERTO</td>
+                                <td>NUÑEZ</td>
+                                <td>robert@gmail.com</td>
+                                <td>9191100001</td>
+                                <td>Barrio 20 de noviembre</td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="basic mixed styles example">
+                                        <button type="button" class="btn btn-danger">Elimiar</button>
+                                    </div>
+                                    <div class="btn-group" role="group" aria-label="basic mixed styles example">
+                                        <a href="./modificar_empleados.html" class="btn btn-warning">Modificar</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>DFGHJK5678</td>
+                                <td>RAUL</td>
+                                <td>NAJERA</td>
+                                <td>raul@gmail.com</td>
+                                <td>9191009901</td>
+                                <td>Barrio reforma</td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="basic mixed styles example">
+                                        <button type="button" class="btn btn-danger">Elimiar</button>
+                                    </div>
+                                    <div class="btn-group" role="group" aria-label="basic mixed styles example">
+                                        <a href="./modificar_empleados.html" class="btn btn-warning">Modificar</a>
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>ZXCVBN5678</td>
+                                <td>Josue</td>
+                                <td>Lopez</td>
+                                <td>josue@gmail.com</td>
+                                <td>9191116654</td>
+                                <td>Barrio Guadalupe</td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="basic mixed styles example">
+                                        <button type="button" class="btn btn-danger">Elimiar</button>
+                                    </div>
+                                    <div class="btn-group" role="group" aria-label="basic mixed styles example">
+                                        <a href="./modificar_empleados.html" class="btn btn-warning">Modificar</a>
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>KMKBJH5678</td>
+                                <td>David</td>
+                                <td>Ozuna</td>
+                                <td>emma@gmail.com</td>
+                                <td>9192334567</td>
+                                <td>Barrio bonapack</td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="basic mixed styles example">
+                                        <button type="button" class="btn btn-danger">Elimiar</button>
+                                    </div>
+                                    <div class="btn-group" role="group" aria-label="basic mixed styles example">
+                                        <a href="./modificar_empleados.html" class="btn btn-warning">Modificar</a>
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </main>
+            </div>
+        </div>
+    </main>
+    <script src="../bootstrap-5.3.0/js/popper.min.js"></script>
+    <script src="../bootstrap-5.3.0/js/bootstrap.min.js"></script>
 </body>
+
 </html>

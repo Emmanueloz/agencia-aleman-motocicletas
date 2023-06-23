@@ -81,7 +81,7 @@ if (isset($argc) && $argc == 2) {
     switch ($argv[1]) {
         case 'consul_emple':
             $emplea = Empleados::consul();
-            print_r($id);
+            print_r($emplea);
             break;
         case 'por_nombre':
             $nombre = Empleados::nom('Robert');
