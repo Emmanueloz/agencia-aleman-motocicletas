@@ -64,6 +64,7 @@ class Empleados
         return $id;
     }
 }
+
 if (isset($argc) && $argc == 2) {
     $mysqli = new mysqli("localhost", "root", "", "agenciaBD");
     Empleados::init($mysqli);
@@ -73,7 +74,7 @@ if (isset($argc) && $argc == 2) {
             print_r($emplea);
             break;
         case 'por_nombre':
-            $nombre = Empleados::nom('Robert');
+            $nombre = Empleados::nom('A');
             print_r($nombre);
             break;
     }

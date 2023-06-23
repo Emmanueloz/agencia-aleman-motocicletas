@@ -134,7 +134,7 @@
 
     <aside>
       <form
-        method="post"
+        method="get"
         class="d-flex flex-column flex-md-row justify-content-md-between m-1 p-1"
       >
         <div class="d-flex w-100 flex-column flex-md-row align-items-md-center">
@@ -144,9 +144,9 @@
           <div class="mx-sm-1 mb-1 col-12 col-md-2">
             <select name="opcion" id="opcion" class="form-select" required>
               <option [op_id] value="id">ID</option>
-              <option value="empleado">Empleado</option>
-              <option value="cliente">Cliente</option>
-              <option value="producto">Producto</option>
+              <option [op_empleados] value="empleados">Empleado</option>
+              <option [op_clientes]value="clientes">Cliente</option>
+              <option value="productos">Producto</option>
               <option [op_fecha] value="fecha">Fecha de venta</option>
             </select>
           </div>

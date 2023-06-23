@@ -153,30 +153,28 @@ class Ventas
                 break;
         }
 
-        $consulta->execute();
-        $consulta->store_result();
+        /* $consulta->execute();
         $consulta->bind_result($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta);
 
+
+
         while ($consulta->fetch()) {
+
             array_push($ventasArray, [$idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta]);
         }
+        $consulta->close(); */
 
-        $consulta->close();
+        /*  foreach ($ventasArray as $venta) {
+            $id = $venta[0];
+            $detalle =  DetallesVentas::consultarDetallesVentas($id);
 
-        if (isset($ventasArray)) {
-            foreach ($ventasArray as $venta) {
-                $id = $venta[0];
-                $detalle =  DetallesVentas::consultarDetallesVentas($id);
+            $productos = $detalle->idProductos;
+            $productos = str_replace(',', '', $productos);
+            array_push($ventas, new Ventas($venta[0], $venta[1], $venta[2], $venta[3], $venta[4], $venta[5], $productos, $detalle->cantidad, $detalle->costo));
+        } */
 
-                $productos = $detalle->idProductos;
-                $productos = str_replace(',', '', $productos);
-                array_push($ventas, new Ventas($venta[0], $venta[1], $venta[2], $venta[3], $venta[4], $venta[5], $productos, $detalle->cantidad, $detalle->costo));
-            }
-        } else {
-            $ventas = null;
-        }
-
-        return $ventas;
+        #print_r(count($ventasArray));
+        #print_r($ventas);
     }
 
     public static function consultaFiltradaRelacionada($filtro, $value)
@@ -193,77 +191,92 @@ class Ventas
                 $idEmpleados = Empleados::nom($value);
                 $ventasArray = [];
                 $ventas = [];
-                foreach ($idEmpleados as $idEmpleado) {
-                    $consulta = self::$bd->prepare("SELECT * FROM ventas WHERE id_empleado = ?");
-                    $consulta->bind_param("i", $idEmpleado);
-                    $consulta->execute();
-                    $consulta->bind_result($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta);
-                    $consulta->store_result();
-                    if ($consulta->fetch()) {
-                        array_push($ventasArray, [$idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta]);
-                    }
-                }
-                $consulta->close();
 
-                if (isset($ventasArray)) {
-                    foreach ($ventasArray as $venta) {
-                        $id = $venta[0];
-                        $detalle =  DetallesVentas::consultarDetallesVentas($id);
-
-                        $productos = $detalle->idProductos;
-                        $productos = str_replace(',', '', $productos);
-                        array_push($ventas, new Ventas($venta[0], $venta[1], $venta[2], $venta[3], $venta[4], $venta[5], $productos, $detalle->cantidad, $detalle->costo));
+                if (count($idEmpleados) == 0) {
+                    return $ventas = null;
+                } else {
+                    foreach ($idEmpleados as $idEmpleado) {
+                        $consulta = self::$bd->prepare("SELECT * FROM ventas WHERE id_empleado = ?");
+                        $consulta->bind_param("i", $idEmpleado);
+                        $consulta->execute();
+                        $consulta->bind_result($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta);
+                        $consulta->store_result();
+                        if ($consulta->fetch()) {
+                            array_push($ventasArray, [$idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta]);
+                        }
                     }
-                }
-                function compararPorIdVenta($a, $b)
-                {
-                    if ($a->idVenta == $b->idVenta) {
-                        return 0;
+                    $consulta->close();
+
+                    if (isset($ventasArray)) {
+                        foreach ($ventasArray as $venta) {
+                            $id = $venta[0];
+                            $detalle =  DetallesVentas::consultarDetallesVentas($id);
+
+                            $productos = $detalle->idProductos;
+                            $productos = str_replace(',', '', $productos);
+                            array_push($ventas, new Ventas($venta[0], $venta[1], $venta[2], $venta[3], $venta[4], $venta[5], $productos, $detalle->cantidad, $detalle->costo));
+                        }
                     }
-                    return ($a->idVenta > $b->idVenta) ? 1 : -1;
+                    function compararPorIdVenta($a, $b)
+                    {
+                        if ($a->idVenta == $b->idVenta) {
+                            return 0;
+                        }
+                        return ($a->idVenta > $b->idVenta) ? 1 : -1;
+                    }
+
+                    usort($ventas, 'compararPorIdVenta');
+                    return $ventas;
                 }
 
-                usort($ventas, 'compararPorIdVenta');
-                return $ventas;
                 break;
             case 'clientes':
-                $idClientes = Clientes::buscarcli($value);
                 $ventasArray = [];
                 $ventas = [];
-                foreach ($idClientes as $idCliente) {
-                    $consulta = self::$bd->prepare("SELECT * FROM ventas WHERE id_cliente = ?");
-                    $consulta->bind_param("i", $idCliente);
-                    $consulta->execute();
-                    $consulta->bind_result($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta);
-                    $consulta->store_result();
-                    if ($consulta->fetch()) {
-                        array_push($ventasArray, [$idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta]);
+
+                $idClientes = Clientes::buscarcli($value);
+
+                if (count($idClientes) == 0) {
+                    return $ventas = null;
+                } else {
+
+                    foreach ($idClientes as $idCliente) {
+                        $consulta = self::$bd->prepare("SELECT * FROM ventas WHERE id_cliente = ?");
+                        $consulta->bind_param("i", $idCliente);
+                        $consulta->execute();
+                        $consulta->bind_result($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta);
+                        $consulta->store_result();
+                        if ($consulta->fetch()) {
+                            array_push($ventasArray, [$idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta]);
+                        }
                     }
-                }
-                $consulta->close();
 
-                if (isset($ventasArray)) {
-                    foreach ($ventasArray as $venta) {
-                        $id = $venta[0];
-                        $detalle =  DetallesVentas::consultarDetallesVentas($id);
+                    $consulta->close();
 
-                        $productos = $detalle->idProductos;
-                        $productos = str_replace(',', '', $productos);
-                        array_push($ventas, new Ventas($venta[0], $venta[1], $venta[2], $venta[3], $venta[4], $venta[5], $productos, $detalle->cantidad, $detalle->costo));
+
+                    if (isset($ventasArray)) {
+                        foreach ($ventasArray as $venta) {
+                            $id = $venta[0];
+                            $detalle =  DetallesVentas::consultarDetallesVentas($id);
+
+                            $productos = $detalle->idProductos;
+                            $productos = str_replace(',', '', $productos);
+                            array_push($ventas, new Ventas($venta[0], $venta[1], $venta[2], $venta[3], $venta[4], $venta[5], $productos, $detalle->cantidad, $detalle->costo));
+                        }
                     }
-                }
 
-                function compararPorIdVenta($a, $b)
-                {
-                    if ($a->idVenta == $b->idVenta) {
-                        return 0;
+                    function compararPorIdVenta($a, $b)
+                    {
+                        if ($a->idVenta == $b->idVenta) {
+                            return 0;
+                        }
+                        return ($a->idVenta > $b->idVenta) ? 1 : -1;
                     }
-                    return ($a->idVenta > $b->idVenta) ? 1 : -1;
+
+                    usort($ventas, 'compararPorIdVenta');
+
+                    return $ventas;
                 }
-
-                usort($ventas, 'compararPorIdVenta');
-
-                return $ventas;
 
                 break;
             case 'productos':
@@ -294,14 +307,20 @@ if (isset($argc) && $argc == 2) {
 
     Ventas::init($mysqli);
     DetallesVentas::init($mysqli);
+
     switch ($argv[1]) {
         case 'empleados':
-            $ventas = Ventas::consultaFiltradaRelacionada("empleados", "r");
+            $ventas = Ventas::consultaFiltradaRelacionada("empleados", "paco");
             print_r($ventas);
             break;
         case 'clientes':
-            $ventas = Ventas::consultaFiltradaRelacionada("clientes", "ez");
+            $ventas = Ventas::consultaFiltradaRelacionada("clientes", "a");
             print_r($ventas);
+            break;
+        case "id":
+            #$ventas = Ventas::consultaFiltrada("id", 5);
+            Ventas::consultaFiltrada("id", 5);
+            #print_r($ventas);
             break;
     }
 }
