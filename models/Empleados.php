@@ -65,12 +65,12 @@ class Empleados
     }
 }
 if (isset($argc) && $argc == 2) {
-    $mysqli = new mysqli("localhost", "root", "", "agenciabd");
+    $mysqli = new mysqli("localhost", "root", "", "agenciaBD");
     Empleados::init($mysqli);
     switch ($argv[1]) {
         case 'consul_emple':
             $emplea = Empleados::consul();
-            print_r($id);
+            print_r($emplea);
             break;
         case 'por_nombre':
             $nombre = Empleados::nom('Robert');
