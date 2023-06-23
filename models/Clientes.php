@@ -59,6 +59,17 @@ public static function buscarcli($nombre)
     return $id;
 }
 
+public static function buscarnom($id_cliente)
+{
+    $consulta = self::$bd->prepare("select nombre from clientes where id_cliente = ?");
+    $consulta->bind_param('i', $id_cliente);
+    $consulta->execute();
+    $consulta->bind_result($nombre);
+    $consulta->fetch();
+    $consulta->close();
+    return $nombre;
+}
+
 }
 
 if (isset($argc) && $argc == 2)
@@ -74,6 +85,10 @@ if (isset($argc) && $argc == 2)
         case 'buscar':
             $id = Clientes::buscarcli('1');
             print_r($id);
+            break;
+        case 'nom':
+            $nombre = Clientes::buscarnom(4);
+            print($nombre);
             break;
     }
 }
