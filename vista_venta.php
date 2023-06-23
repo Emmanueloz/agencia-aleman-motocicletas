@@ -62,7 +62,7 @@ if (isset($_GET['search'])  && !empty(trim($_GET['search']))) {
         $ventas = Ventas::consultaFiltradaRelacionada($opcion, $search);
     }
 
-    if (!isset($ventas)) {
+    if (count($ventas) == 0) {
         $html->AsignaBloque('ventas', null);
         $mensaje = "<h4 class='text-secondary text-center' >No se encontró ninguna venta</h4>";
         $html->Asigna('mensaje', $mensaje);
