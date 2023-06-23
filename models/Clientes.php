@@ -70,6 +70,7 @@ public static function buscarnom($id_cliente)
     return $nombre;
 }
 
+
 }
 
 if (isset($argc) && $argc == 2)
@@ -90,5 +91,6 @@ if (isset($argc) && $argc == 2)
             $nombre = Clientes::buscarnom(4);
             print($nombre);
             break;
+
     }
 }

@@ -1,11 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./bootstrap-5.3.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./style.css">
     <title>Document</title>
 </head>
+
 <body>
-    
+    <header>
+        <nav class="navbar navbar-expand-lg bg-lightblue">
+          <div class="container-fluid">
+            <h1 class="text-light">Agencia Motocicletas</h1>
+            <button
+              class="navbar-toggler d-lg-none"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapsibleNavId"
+              aria-controls="collapsibleNavId"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div
+              class="collapse navbar-collapse w-20 justify-content-end"
+              id="collapsibleNavId"
+            >
+              <ul
+                class="navbar-nav mt-2 mt-sm-1 justify-content-end align-items-end align-items-lg-center"
+              >
+                <li class="nav-item mx-sm-1 mt-sm-0 mt-1 fs-4">
+                  <a
+                    class="nav-link text-light"
+                    aria-current="page"
+                    href="./empleados.html"
+                    aria-current="page"
+                  >
+                    Empleados
+                  </a>
+                </li>
+                <li class="nav-item mx-sm-1 mt-sm-0 mt-1 fs-4">
+                  <a
+                    class="nav-link active text-decoration-underline text-light"
+                    aria-current="page"
+                    href="./clientes.html"
+                    aria-current="page"
+                  >
+                    Clientes
+                  </a>
+                </li>
+                <li class="nav-item mx-sm-1 mt-sm-0 mt-1 fs-4">
+                  <a
+                    class="nav-link text-light"
+                    aria-current="page"
+                    href="./productos.html"
+                    aria-current="page"
+                  >
+                    Productos
+                  </a>
+                </li>
+                <li class="nav-item mx-sm-1 mt-sm-0 mt-1 fs-4">
+                  <a
+                    class="nav-link text-light"
+                    aria-current="page"
+                    href="./ventas.html"
+                    aria-current="page"
+                  >
+                    Ventas
+                  </a>
+                </li>
+                <li class="nav-item mx-sm-1 mt-sm-0 mt-1 btn-small">
+                  <a
+                    class="btn btn-danger"
+                    href="../login.html"
+                    aria-current="page"
+                  >
+                    Cerrar Sesión
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header> 
+
+    <section class="d-flex justify-content-between m-1 mb-1 p-1">
+        <div aria-label="breadcrumb">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="clientes.html">Clientes</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Agregar</li>
+            </ul>
+        </div>
+    </section>
+
+
+    <section class="container mt-3">
+        <form action="" method="" class="row">
+            <div class="col-12 col-md-4">
+                <label for="opcion" class="col-12 col-md-4 col-form-label">Buscar cliente</label>
+            </div>
+            <div class="col-12 col-md-2">
+                <select class="form-control" name="opcion" id="opcion">
+                    <option value="">Nombre</option>
+                    <option value="">Apellidos</option>
+                    <option value="">Id</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <input class="form-control" type="text" name="value" id="value" value="">
+        </div>
+            <div class="col-12 col-md-2">
+                <button class="btn btn-primary" type="submit">Buscar</button>
+            </div>
+        </form>
+    </section>
+
+    <section class="container">
+    <div class="table-responsive">
+    <table class="table table-bordered border-primary mt-3">
+        <caption class="caption-top fs-2">[titulo]</caption>
+        <tr>
+            <th>Id_Cliente</th>
+            <th>RFC</th>
+            <th>Nombre</th>
+            <th>Direccion</th>
+            <th>Telefono</th>
+            <th>Correo</th>
+            <th>Genero</th>
+            <th>Acción</th>
+        </tr>
+
+        [block: general]
+        <tr>
+            <td><a href="" data-bs-target="#detalle[id_cliente]">[id_cliente]</a></td>
+            <td>[rfc]</td>
+            <td>[nombre]</td>
+            <td>[direccion]</td>
+            <td>[telefono]</td>
+            <td>[correo]</td>
+            <td>[genero]</td>
+            <td>
+                <div class="btn-group">
+                <a class="btn btn-info" href="modificar_cliente.html" role="button">Modificar</a>
+                <a class="btn btn-secondary" href="" role="button">Eliminar</a>
+                </div>
+            </td>
+        </tr>
+        [/block: general]
+      </table>
+    </div>
+</section>
+
+    <script src="bootstrap-5.3.0/js/popper.min.js"></script>
+    <script src="bootstrap-5.3.0/js/bootstrap.min.js"></script>
 </body>
+
 </html>
