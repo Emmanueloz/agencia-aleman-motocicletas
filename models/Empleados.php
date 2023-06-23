@@ -64,8 +64,7 @@ class Empleados
         return $id;
     }
 }
-
-if (isset($argc) && $argc == 2) {
+/* if (isset($argc) && $argc == 2) {
     $mysqli = new mysqli("localhost", "root", "", "agenciaBD");
     Empleados::init($mysqli);
     switch ($argv[1]) {
@@ -78,4 +77,4 @@ if (isset($argc) && $argc == 2) {
             print_r($nombre);
             break;
     }
-}
+} */

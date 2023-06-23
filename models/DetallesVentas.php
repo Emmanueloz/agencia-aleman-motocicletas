@@ -154,7 +154,7 @@ class DetallesVentas
 
 
 # Pruebas
-/* if (isset($argc) && $argc == 2) {
+/*if (isset($argc) && $argc == 2) {
     $mysqli = new mysqli("localhost", "root", "", "agenciaBD");
 
     DetallesVentas::init($mysqli);
@@ -164,5 +164,4 @@ class DetallesVentas
             print_r($idVentas);
             break;
     }
-}
- */
+}*/

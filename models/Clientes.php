@@ -58,7 +58,7 @@ class Clientes
     }
 }
 
-if (isset($argc) && $argc == 2) {
+/* if (isset($argc) && $argc == 2) {
     $mysqli = new mysqli("localhost", "root", "", "agenciaBD");
     Clientes::init($mysqli);
     switch ($argv[1]) {
@@ -71,4 +71,4 @@ if (isset($argc) && $argc == 2) {
             print_r($id);
             break;
     }
-}
+} */
