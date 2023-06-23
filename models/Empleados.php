@@ -49,18 +49,30 @@ class Empleados
         $consult->close();
         return $emplea;
     }
-    public static function nom($nombre){
+    public static function nom($nombre)
+    {
         $id = [];
-        $nombre = "%".$nombre."%";
+        $nombre = "%" . $nombre . "%";
         $consult = self::$bd->prepare("select id_empleado from empleados where nombre like ?");
         $consult->bind_param('s', $nombre);
         $consult->execute();
         $consult->bind_result($id_empleado);
-        while ($consult->fetch()){
+        while ($consult->fetch()) {
             array_push($id, $id_empleado);
         }
         $consult->close();
         return $id;
+    }
+    public static function id_emple($id)
+    {
+        $nom = "";
+        $consult = self::$bd->prepare("select nombre from empleados where id_empleado = ?");
+        $consult->bind_param('i', $id);
+        $consult->execute();
+        $consult->bind_result($nom);
+        $consult->fetch();
+        $consult->close();
+        return $nom;
     }
 }
 if (isset($argc) && $argc == 2) {
@@ -71,9 +83,13 @@ if (isset($argc) && $argc == 2) {
             $emplea = Empleados::consul();
             print_r($id);
             break;
-            case 'por_nombre':
-                $nombre = Empleados::nom('Robert');
-                print_r($nombre);
-                break;
+        case 'por_nombre':
+            $nombre = Empleados::nom('Robert');
+            print_r($nombre);
+            break;
+        case 'emple_id':
+            $id = Empleados::id_emple(3);
+            print($id);
+            break;
     }
 }
