@@ -138,6 +138,33 @@ class Ventas
                 WHERE ventas.id_venta = ?");
                 $consulta->bind_param('i', $value);
                 break;
+            case 'empleados':
+                /**
+                 * TODO Utilizar un método del empleado para que con el nombre se tenga el id, luego buscar el la venta con el id de empleado.
+                 * 
+                 * @param mixed idEmpleado donde se guardara el id por la consulta anterior
+                 */
+
+                $idEmpleado = [3];
+                $consulta = self::$bd->prepare("SELECT * FROM ventas WHERE id_empleado = ?");
+                $consulta->bind_param('i', $idEmpleado);
+
+                break;
+            case 'clientes':
+                /**
+                 * TODO Utilizar un método del cliente para que con el nombre se tenga el id, luego buscar el la venta con el id de empleado
+                 */
+
+                $idCliente = [1];
+                $consulta = self::$bd->prepare("SELECT * FROM ventas WHERE id_cliente = ?");
+                $consulta->bind_param('i', $idCliente);
+                break;
+            case 'productos':
+                /**
+                 * TODO Utilizar un método de productos que con el nombre me retorne una serie de IDs, con las que buscare en detalles el id de la venta
+                 * 
+                 */
+                break;
             case 'fecha':
                 $value = $value . "%";
                 $consulta = self::$bd->prepare("SELECT ventas.id_venta, ventas.subtotal, 
@@ -148,6 +175,7 @@ class Ventas
                 $consulta->bind_param('s', $value);
                 break;
         }
+
         $consulta->execute();
         $consulta->store_result();
         $consulta->bind_result($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta);
@@ -175,11 +203,7 @@ class Ventas
     }
 }
 
-/* $mysqli = new mysqli("localhost", "root", "", "agenciaBD");
-
-Ventas::init($mysqli);
-DetallesVentas::init($mysqli);
-
+/* 
 $idProductos = [3, 2];
 $cantidad = count($idProductos);
 
@@ -190,13 +214,21 @@ $costo = DetallesVentas::calcularCosto($subtotal, $iva);
 $idVenta = Ventas::obtenerIdVenta();
 $fechaActual = date("Y-m-d");
 
-$venta = new Ventas($idVenta, $subtotal, $iva, 4, 3, $fechaActual, $idProductos, $cantidad, $costo);
+*/
 
-$venta->agregarVenta(); */
+if (isset($argc) && $argc == 2) {
+    $mysqli = new mysqli("localhost", "root", "", "agenciaBD");
 
-/* $ventas = Ventas::consultarVentas();
-if (isset($ventas)) {
-    print_r($ventas);
-} else {
-    echo "No hay ventas";
-} */
+    Ventas::init($mysqli);
+    DetallesVentas::init($mysqli);
+    switch ($argv[1]) {
+        case 'empleados':
+            $ventas = Ventas::consultaFiltrada("empleados", "temporal");
+            print_r($ventas);
+            break;
+        case 'clientes':
+            $ventas = Ventas::consultaFiltrada("clientes", "temporal");
+            print_r($ventas);
+            break;
+    }
+}

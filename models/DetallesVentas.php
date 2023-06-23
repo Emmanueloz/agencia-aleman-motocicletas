@@ -130,10 +130,38 @@ class DetallesVentas
 
     public static function productosVendidos($idProducto)
     {
-        $consulta = self::$bd->prepare("SELECT id_venta FROM ventas WHERE id_venta = ?");
+        $detallesIdVenta = [];
+        $idVenta = 0;
+        $productos = '';
+        $cantidad = 0;
+        $costo = 0;
+
+
+        $consulta = self::$bd->prepare("SELECT id_venta FROM detalles_venta WHERE id_producto = ?");
         $consulta->bind_param('i', $idProducto);
         $consulta->execute();
-        $consulta->store_result();
-        $consulta->bind_result($idVenta, $productos, $cantidad, $costo);
+        $consulta->bind_result($idVenta);
+
+        while ($consulta->fetch()) {
+
+            array_push($detallesIdVenta, [$idVenta]);
+        }
+
+        $consulta->close();
+        return  $detallesIdVenta;
+    }
+}
+
+
+# Pruebas
+if (isset($argc) && $argc == 2) {
+    $mysqli = new mysqli("localhost", "root", "", "agenciaBD");
+
+    DetallesVentas::init($mysqli);
+    switch ($argv[1]) {
+        case 'productos':
+            $idVentas = DetallesVentas::productosVendidos(2);
+            print_r($idVentas);
+            break;
     }
 }
