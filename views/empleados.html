@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Empleado</title>
-    <link rel="stylesheet" href="../bootstrap-5.3.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="./bootstrap-5.3.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
@@ -121,99 +121,53 @@
                 <main class="container">
 
                     <table class="table ">
+                        <caption class="caption-top fs-3">
+                            [title]
+                        </caption>
                         <thead class="table-info">
+                            [block: emplea2]
                             <tr>
-                                <th>ID</th>
+                                <th>ID EMPLEADOS</th>
                                 <th>RFC</th>
                                 <th>NOMBRE</th>
-                                <th>APELLIDO</th>
-                                <th>EMAIL</th>
-                                <th>TELEFONO</th>
                                 <th>DIRECION</th>
+                                <th>TELEFONO</th>
+                                <th>CORREO</th>
+                                <th>PUESTO</th>
+                                <th>SALARIO</th>
+                                <th>ESTUDIOS</th>
                                 <th>ACCION</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>1</td>
-                                <td>WERTYUI234</td>
-                                <td>ROBERTO</td>
-                                <td>NUÑEZ</td>
-                                <td>robert@gmail.com</td>
-                                <td>9191100001</td>
-                                <td>Barrio 20 de noviembre</td>
+                                <td>[id_empleado]</td>
+                                <td>[rfc]</td>
+                                <td>[nombre]</td>
+                                <td>[direccion]</td>
+                                <td>[telefono]</td>
+                                <td>[correo]</td>
+                                <td>[puesto]</td>
+                                <td>[salario]</td>
+                                <td>[estudios]</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="basic mixed styles example">
                                         <button type="button" class="btn btn-danger">Elimiar</button>
                                     </div>
                                     <div class="btn-group" role="group" aria-label="basic mixed styles example">
                                         <a href="./modificar_empleados.html" class="btn btn-warning">Modificar</a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>DFGHJK5678</td>
-                                <td>RAUL</td>
-                                <td>NAJERA</td>
-                                <td>raul@gmail.com</td>
-                                <td>9191009901</td>
-                                <td>Barrio reforma</td>
-                                <td>
-                                    <div class="btn-group" role="group" aria-label="basic mixed styles example">
-                                        <button type="button" class="btn btn-danger">Elimiar</button>
-                                    </div>
-                                    <div class="btn-group" role="group" aria-label="basic mixed styles example">
-                                        <a href="./modificar_empleados.html" class="btn btn-warning">Modificar</a>
-                                        
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>ZXCVBN5678</td>
-                                <td>Josue</td>
-                                <td>Lopez</td>
-                                <td>josue@gmail.com</td>
-                                <td>9191116654</td>
-                                <td>Barrio Guadalupe</td>
-                                <td>
-                                    <div class="btn-group" role="group" aria-label="basic mixed styles example">
-                                        <button type="button" class="btn btn-danger">Elimiar</button>
-                                    </div>
-                                    <div class="btn-group" role="group" aria-label="basic mixed styles example">
-                                        <a href="./modificar_empleados.html" class="btn btn-warning">Modificar</a>
-                                        
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>KMKBJH5678</td>
-                                <td>David</td>
-                                <td>Ozuna</td>
-                                <td>emma@gmail.com</td>
-                                <td>9192334567</td>
-                                <td>Barrio bonapack</td>
-                                <td>
-                                    <div class="btn-group" role="group" aria-label="basic mixed styles example">
-                                        <button type="button" class="btn btn-danger">Elimiar</button>
-                                    </div>
-                                    <div class="btn-group" role="group" aria-label="basic mixed styles example">
-                                        <a href="./modificar_empleados.html" class="btn btn-warning">Modificar</a>
-                                        
                                     </div>
                                 </td>
                             </tr>
                         </tbody>
-
+                            [/block: emplea2]
                     </table>
                 </main>
             </div>
         </div>
     </main>
-    <script src="../bootstrap-5.3.0/js/popper.min.js"></script>
-    <script src="../bootstrap-5.3.0/js/bootstrap.min.js"></script>
+    <script src="./bootstrap-5.3.0/js/popper.min.js"></script>
+    <script src="./bootstrap-5.3.0/js/bootstrap.min.js"></script>
 </body>
 
 </html>
