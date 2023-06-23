@@ -181,15 +181,25 @@
                   >Empleado</label
                 >
                 <br />
-                <input type="hidden" name="empleado" id="empleado" value="2" />
-                <span>Emmanuel David</span>
+                <input
+                  type="hidden"
+                  name="empleado"
+                  id="empleado"
+                  value="[id_empleado]"
+                />
+                <span>[nombre_empleado]</span>
               </div>
 
               <div class="col-sm-6 mb-3">
                 <label for="user" class="form-label fw-bold">Cliente</label>
                 <br />
-                <input type="hidden" name="cliente" id="cliente" value="3" />
-                <span>David Emmanuel</span>
+                <input
+                  type="hidden"
+                  name="cliente"
+                  id="cliente"
+                  value="[id_cliente]"
+                />
+                <span>[nombre_cliente]</span>
               </div>
 
               <div class="col-sm-6 mb-3">
@@ -197,35 +207,27 @@
                   Producto
                 </label>
                 <br />
-                <input
-                  type="hidden"
-                  name="productos"
+                <section
+                  class="form-select"
+                  name="productos[]"
                   id="productos"
-                  value="1"
-                />
-                <input
-                  type="hidden"
-                  name="productos"
-                  id="productos"
-                  value="2"
-                />
-                <span>
-                  Moto 1
-                  <br />
-                  Moto 3
-                </span>
+                  required
+                  aria-readonly="true"
+                >
+                  <option value=""></option>
+                </section>
               </div>
               <div class="col-sm-6 mb-3">
                 <label for="fecha-compra" class="form-label fw-bold">
-                  Fecha compra
+                  Fecha venta
                 </label>
                 <input
                   type="date"
                   class="form-control-plaintext"
-                  id="fecha-compra"
-                  name="fecha-compra"
+                  id="fecha-venta"
+                  name="fecha-venta"
                   readonly
-                  value="2023-06-12"
+                  value="[fecha-venta]"
                 />
               </div>
               <div class="col-sm-4 mb-3">
@@ -236,7 +238,7 @@
                   id="iva"
                   name="iva"
                   readonly
-                  value="$20"
+                  value="[iva]"
                 />
               </div>
 
@@ -250,7 +252,7 @@
                   id="subtotal"
                   name="subtotal"
                   readonly
-                  value="$400"
+                  value="[subtotal]"
                 />
               </div>
               <div class="col-sm-4 mb-3">
@@ -258,10 +260,10 @@
                 <input
                   type="text"
                   class="form-control-plaintext"
-                  id="total"
-                  name="total"
+                  id="costo"
+                  name="costo"
                   readonly
-                  value="$420"
+                  value="[costo]"
                 />
               </div>
 
@@ -275,7 +277,7 @@
                 </a>
                 <a
                   class="btn btn-warning m-1"
-                  href="./agregar_ventas.html"
+                  href="./vista_agregar_venta.php"
                   role="button"
                 >
                   Modificar
