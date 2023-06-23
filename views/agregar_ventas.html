@@ -134,7 +134,7 @@
         <div class="row">
           <div class="col-sm-12 col-md-10 col-lg-8 col-12 mt-2 m-auto">
             <h2>[title]</h2>
-            <form method="post" class="row">
+            <form action="vista_confirmar_venta.php" method="post" class="row">
               <div class="col-sm-6 mb-3">
                 <label for="user" class="form-label">Empleado</label>
                 <select
@@ -180,12 +180,16 @@
                 <label for="productos" class="form-label">Producto</label>
                 <select
                   class="form-select"
-                  name="productos"
+                  name="productos[]"
                   id="productos"
                   required
                   multiple
                 >
-                  <option value="1">Moto 1 - $100</option>
+                  [block: productos]
+                  <option value="[id_producto]">
+                    [marca] [modelo] $[precio]
+                  </option>
+                  [/block: productos]
                 </select>
               </div>
 
@@ -198,9 +202,9 @@
                   Cancelar
                 </a>
 
-                <a href="#" class="btn btn-primary m-1" role="button">
+                <button type="submit" class="btn btn-primary m-1" role="button">
                   Agregar
-                </a>
+                </button>
               </div>
             </form>
           </div>

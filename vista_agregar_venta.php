@@ -23,12 +23,18 @@ $empleados = Empleados::consul();
 
 $clientes = Clientes::consulta();
 
+$productos = Productos::findAll();
+
 foreach ($empleados as $empleado) {
     $html->AsignaBloque("empleados", $empleado);
 }
 
 foreach ($clientes as $cliente) {
     $html->AsignaBloque("clientes", $cliente);
+}
+
+foreach ($productos as $producto) {
+    $html->AsignaBloque("productos", $producto);
 }
 
 #print_r($clientes);
