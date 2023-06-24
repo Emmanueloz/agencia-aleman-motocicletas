@@ -27,15 +27,6 @@ DetallesVentas::init($mysqli);
 Empleados::init($mysqli);
 Clientes::init($mysqli);
 
-/* $idProductos = [3, 1, 5];
-$cantidad = count($idProductos);
-
-$subtotal = DetallesVentas::obtenerSubtotal($idProductos);
-$iva = Ventas::generarIva($subtotal);
-$costo = DetallesVentas::calcularCosto($subtotal, $iva);
-
-$idVenta = Ventas::obtenerIdVenta();
-$fechaActual = date("Y-m-d");*/
 
 if (isset($_GET['search'])  && !empty(trim($_GET['search']))) {
     $opcion = $_GET['opcion'];
@@ -53,6 +44,9 @@ if (isset($_GET['search'])  && !empty(trim($_GET['search']))) {
             break;
         case 'clientes':
             $html->Asigna('op_clientes', 'selected');
+            break;
+        case 'productos':
+            $html->Asigna('op_productos', 'selected');
             break;
     }
 

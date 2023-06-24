@@ -284,27 +284,46 @@ class Ventas
 
                 break;
             case 'productos':
-                /**
-                 * TODO Utilizar un método de productos que con el nombre me retorne una serie de IDs, con las que buscare en detalles el id de la venta
-                 * 
-                 */
+                $idVentas = [];
+                $ventasArray = [];
+                $ventas = [];
+                $idProductos = Productos::cosultMarcaModelo($value);
+
+                if (count($idProductos) != 0) {
+                    foreach ($idProductos as $idProducto) {
+                        $consulta = self::$bd->prepare("SELECT id_venta FROM detalles_venta WHERE id_producto = ?");
+                        $consulta->bind_param("i", $idProducto);
+                        $consulta->execute();
+                        $consulta->bind_result($idVenta);
+                        while ($consulta->fetch()) {
+                            array_push($idVentas, $idVenta);
+                        }
+                    }
+                }
+
+                if (isset($idVentas) || count($idVentas) != 0) {
+                    foreach ($idVentas as $idVenta) {
+                        $venta = self::consultaFiltrada("id", $idVenta);
+                        array_push($ventas, $venta[0]);
+                    }
+                }
+
+                function compararPorIdVenta($a, $b)
+                {
+                    if ($a->idVenta == $b->idVenta) {
+                        return 0;
+                    }
+                    return ($a->idVenta > $b->idVenta) ? 1 : -1;
+                }
+
+
+                return $ventas;
+
                 break;
         }
     }
 }
 
-/* 
-$idProductos = [3, 2];
-$cantidad = count($idProductos);
-
-$subtotal = DetallesVentas::obtenerSubtotal($idProductos);
-$iva = Ventas::generarIva($subtotal);
-$costo = DetallesVentas::calcularCosto($subtotal, $iva);
-
-$idVenta = Ventas::obtenerIdVenta();
-$fechaActual = date("Y-m-d");
-
-*/
 
 if (isset($argc) && $argc == 2) {
     $mysqli = new mysqli("localhost", "root", "", "agenciaBD");
@@ -330,6 +349,10 @@ if (isset($argc) && $argc == 2) {
             break;
         case 'ventas':
             $ventas = Ventas::consultarVentas();
+            print_r($ventas);
+            break;
+        case 'productos':
+            $ventas = Ventas::consultaFiltradaRelacionada("productos", "Mas");
             print_r($ventas);
             break;
     }
