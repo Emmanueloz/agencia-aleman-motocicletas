@@ -85,5 +85,6 @@ class Clientes
             $nombre = Clientes::buscarnom(4);
             print($nombre);
             break;
+
     }
 } */
