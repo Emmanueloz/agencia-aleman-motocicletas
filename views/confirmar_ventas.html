@@ -175,7 +175,8 @@
         <div class="row">
           <div class="col-sm-12 col-md-8 col-lg-7 col-12 mt-2 m-auto">
             <h2>Confirmar nueva venta</h2>
-            <form method="post" class="row">
+            <form action="vista_confirmar_venta.php" method="post" class="row">
+              <input type="hidden" id="accion" name="accion" value="agregar" />
               <div class="col-sm-6 mb-3">
                 <label for="empleado" class="form-label fw-bold"
                   >Empleado</label
@@ -207,19 +208,17 @@
                   Producto
                 </label>
                 <br />
-                <section
-                  class="form-select"
-                  name="productos[]"
-                  id="productos"
-                  required
-                  aria-readonly="true"
-                >
-                  [block: productos]
-                  <option value="[id_producto]">
-                    [marca] [modelo] [precio]
-                  </option>
-                  [/block: productos]
-                </section>
+                [block: productos]
+                <div>
+                  <input
+                    type="hidden"
+                    id="id_producto"
+                    name="id_producto[]"
+                    value="[id_producto]"
+                  />
+                  <span>[marca] [modelo] [precio]</span>
+                </div>
+                [/block: productos]
               </div>
               <div class="col-sm-6 mb-3">
                 <label for="fecha-compra" class="form-label fw-bold">
@@ -234,17 +233,6 @@
                   value="[fecha-venta]"
                 />
               </div>
-              <div class="col-sm-4 mb-3">
-                <label for="iva" class="form-label fw-bold">IVA</label>
-                <input
-                  type="text"
-                  class="form-control-plaintext"
-                  id="iva"
-                  name="iva"
-                  readonly
-                  value="[iva]"
-                />
-              </div>
 
               <div class="col-sm-4 mb-3">
                 <label for="subtotal" class="form-label fw-bold"
@@ -257,6 +245,17 @@
                   name="subtotal"
                   readonly
                   value="[subtotal]"
+                />
+              </div>
+              <div class="col-sm-4 mb-3">
+                <label for="iva" class="form-label fw-bold">IVA</label>
+                <input
+                  type="text"
+                  class="form-control-plaintext"
+                  id="iva"
+                  name="iva"
+                  readonly
+                  value="[iva]"
                 />
               </div>
               <div class="col-sm-4 mb-3">
@@ -286,8 +285,8 @@
                 >
                   Modificar
                 </a>
-                <!-- <button type="submit" class="btn btn-primary m-1">Iniciar</button> -->
-                <button type="button" class="btn btn-primary m-1" role="button">
+
+                <button type="submit" class="btn btn-primary m-1" role="button">
                   Aceptar
                 </button>
               </div>

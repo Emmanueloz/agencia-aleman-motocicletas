@@ -15,38 +15,44 @@ Empleados::init($mysqli);
 Clientes::init($mysqli);
 Productos::init($mysqli);
 
-$idEmpleado = $_POST["empleado"];
-$nombreEmpleado =  Empleados::id_emple($idEmpleado);
-$idCliente = $_POST["cliente"];;
-$nombreCliente = Clientes::buscarnom($idCliente);
 
 
-$idProductos = $_POST["productos"];
-$cantidad = count($idProductos);
+if (isset($_POST["accion"]) && $_POST["accion"] == "agregar") {
+    print_r($_POST);
+} else {
+    $idEmpleado = $_POST["empleado"];
+    $nombreEmpleado =  Empleados::id_emple($idEmpleado);
+    $idCliente = $_POST["cliente"];;
+    $nombreCliente = Clientes::buscarnom($idCliente);
 
-$subtotal = DetallesVentas::obtenerSubtotal($idProductos);
-$iva = Ventas::generarIva($subtotal);
-$costo = DetallesVentas::calcularCosto($subtotal, $iva);
 
-$idVenta = Ventas::obtenerIdVenta();
+    $idProductos = $_POST["productos"];
+    $cantidad = count($idProductos);
 
-$html = new SpynTPL('views/');
-$html->Fichero('confirmar_ventas.html');
+    $subtotal = DetallesVentas::obtenerSubtotal($idProductos);
+    $iva = Ventas::generarIva($subtotal);
+    $costo = DetallesVentas::calcularCosto($subtotal, $iva);
 
-$fechaVenta = $_POST["fecha-venta"];
+    $idVenta = Ventas::obtenerIdVenta();
 
-$html->Asigna("id_empleado", $idEmpleado);
-$html->Asigna("nombre_empleado", $nombreEmpleado);
-$html->Asigna("id_cliente", $idCliente);
-$html->Asigna("nombre_cliente", $nombreCliente);
+    $html = new SpynTPL('views/');
+    $html->Fichero('confirmar_ventas.html');
 
-$html->Asigna("fecha-venta", $fechaVenta);
-$html->Asigna("iva", $iva);
-$html->Asigna("subtotal", $subtotal);
-$html->Asigna("costo", $costo);
+    $fechaVenta = $_POST["fecha-venta"];
 
-foreach ($idProductos as $idProducto) {
-    $html->AsignaBloque("productos", $idProducto);
+    $html->Asigna("id_empleado", $idEmpleado);
+    $html->Asigna("nombre_empleado", $nombreEmpleado);
+    $html->Asigna("id_cliente", $idCliente);
+    $html->Asigna("nombre_cliente", $nombreCliente);
+
+    $html->Asigna("fecha-venta", $fechaVenta);
+    $html->Asigna("iva", $iva);
+    $html->Asigna("subtotal", $subtotal);
+    $html->Asigna("costo", $costo);
+
+
+    foreach ($idProductos as $idProducto) {
+        $html->AsignaBloque("productos", $idProducto);
+    }
+    echo $html->Muestra();
 }
-
-echo $html->Muestra();
