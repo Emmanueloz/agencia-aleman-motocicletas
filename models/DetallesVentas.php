@@ -93,7 +93,7 @@ class DetallesVentas
          * TODO: Mejorar el formato de la consulta
          */
         if ($id == null) {
-            $consulta = self::$bd->prepare("SELECT detalles_venta.id_venta, GROUP_CONCAT(productos.numero_serie,': ',productos.marca,'<br/>'),
+            $consulta = self::$bd->prepare("SELECT detalles_venta.id_venta, GROUP_CONCAT(productos.marca,': ',productos.modelo,'<br/>'),
             detalles_venta.cantidad,detalles_venta.costo
             FROM ventas, productos, detalles_venta
             WHERE ventas.id_venta = detalles_venta.id_venta 
@@ -110,7 +110,7 @@ class DetallesVentas
             $consulta->close();
             return  $detallesVentaArray;
         } else {
-            $consulta = self::$bd->prepare("SELECT detalles_venta.id_venta, GROUP_CONCAT(productos.numero_serie,': ',productos.marca,'<br/>'),
+            $consulta = self::$bd->prepare("SELECT detalles_venta.id_venta, GROUP_CONCAT(productos.marca,': ',productos.modelo,'<br/>'),
             detalles_venta.cantidad,detalles_venta.costo
             FROM ventas, productos, detalles_venta
             WHERE ventas.id_venta = detalles_venta.id_venta 

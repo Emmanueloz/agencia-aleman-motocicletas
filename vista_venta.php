@@ -26,6 +26,7 @@ Ventas::init($mysqli);
 DetallesVentas::init($mysqli);
 Empleados::init($mysqli);
 Clientes::init($mysqli);
+Productos::init($mysqli);
 
 
 if (isset($_GET['search'])  && !empty(trim($_GET['search']))) {

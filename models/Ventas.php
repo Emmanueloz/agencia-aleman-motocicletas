@@ -301,13 +301,6 @@ class Ventas
                     }
                 }
 
-                if (isset($idVentas) || count($idVentas) != 0) {
-                    foreach ($idVentas as $idVenta) {
-                        $venta = self::consultaFiltrada("id", $idVenta);
-                        array_push($ventas, $venta[0]);
-                    }
-                }
-
                 function compararPorIdVenta($a, $b)
                 {
                     if ($a->idVenta == $b->idVenta) {
@@ -316,6 +309,16 @@ class Ventas
                     return ($a->idVenta > $b->idVenta) ? 1 : -1;
                 }
 
+                if (isset($idVentas) || count($idVentas) != 0) {
+                    $idVentas = array_unique($idVentas);
+                    foreach ($idVentas as $idVenta) {
+                        $venta = self::consultaFiltrada("id", $idVenta);
+                        array_push($ventas, $venta[0]);
+                    }
+                    usort($ventas, 'compararPorIdVenta');
+                } else {
+                    $ventas = null;
+                }
 
                 return $ventas;
 
@@ -352,7 +355,7 @@ if (isset($argc) && $argc == 2) {
             print_r($ventas);
             break;
         case 'productos':
-            $ventas = Ventas::consultaFiltradaRelacionada("productos", "Mas");
+            $ventas = Ventas::consultaFiltradaRelacionada("productos", "Modelo");
             print_r($ventas);
             break;
     }
