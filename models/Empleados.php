@@ -74,7 +74,31 @@ class Empleados
         $consult->close();
         return $nom;
     }
+    public static function filder($opcion, $value)
+    {
+        switch ($opcion) {
+            case 'id':
+                $consult = self::$bd->prepare("select * from empleados where id=?");
+                $consult->bind_param('i', $value);
+                break;
+            case 'nombre':
+                $consult = self::$bd->prepare("select * from empleados where nombre like ?");
+                $value = $value . '%';
+                $consult->bind_param("s", $value);
+                break;
+        }
+        $opc = [];
+        $consult->execute();
+        $consult->bind_result($id_empleado, $rfc, $nombre, $direccion, $telefono, $correo, $puesto, $salario, $estudios);
+        while ($consult->fetch()) {
+            array_push($opc, new Empleados($id_empleado, $rfc, $nombre, $direccion, $telefono, $correo, $puesto, $salario, $estudios));
+        }
+        $consult->close();
+        return $opc;
+    }
 }
+
+
 if (isset($argc) && $argc == 2) {
     $mysqli = new mysqli("localhost", "root", "", "agenciabd");
     Empleados::init($mysqli);
@@ -91,5 +115,10 @@ if (isset($argc) && $argc == 2) {
             $id = Empleados::id_emple(3);
             print($id);
             break;
+            case 'filtro':
+                Empleados::init($mysqli);
+                $opc = Empleados::filder('nombre', 'Robert');
+                print_r($opc);
+                break;
     }
 }
