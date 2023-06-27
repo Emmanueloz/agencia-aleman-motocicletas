@@ -18,7 +18,19 @@ Productos::init($mysqli);
 
 
 if (isset($_POST["accion"]) && $_POST["accion"] == "agregar") {
-    print_r($_POST);
+    #print_r($_POST);
+    $idVenta = Ventas::obtenerIdVenta();
+    $idEmpleado = $_POST['empleado'];
+    $idCliente = $_POST['cliente'];
+    $idProductos = $_POST['id_producto'];
+    $fechaVenta = $_POST['fecha-venta'];
+    $subtotal = $_POST['subtotal'];
+    $iva = $_POST['iva'];
+    $cantidad = count($idProductos);
+    $costo = $_POST['costo'];
+    $venta = new Ventas($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta, $idProductos, $cantidad, $costo);
+    $venta->agregarVenta();
+    header('Location: vista_venta.php');
 } else {
     $idEmpleado = $_POST["empleado"];
     $nombreEmpleado =  Empleados::id_emple($idEmpleado);
