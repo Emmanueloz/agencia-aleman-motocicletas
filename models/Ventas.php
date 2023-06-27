@@ -107,11 +107,17 @@ class Ventas
             foreach ($ventasArray as $venta) {
                 $id = $venta[0];
                 $detalle =  DetallesVentas::consultarDetallesVentas($id);
+                $detalle = $detalle[0];
                 $nombreEmpleado = Empleados::id_emple($venta[3]);
                 $nombreCliente = Clientes::buscarnom($venta[4]);
 
-                $productos = $detalle->idProductos;
-                $productos = str_replace(',', '', $productos);
+                $productos = '';
+
+                $productosNombre = $detalle->idProductos;
+                foreach ($productosNombre as $productoNombre) {
+                    $productos = $productos . "$productoNombre[1] <br/>";
+                }
+                #$productos = str_replace(',', '', $productos);
                 array_push($ventas, new Ventas($venta[0], $venta[1], $venta[2], $nombreEmpleado, $nombreCliente, $venta[5], $productos, $detalle->cantidad, $detalle->costo));
             }
         } else {
@@ -155,7 +161,7 @@ class Ventas
                 break;
         }
 
-        $consulta->execute();
+        /* $consulta->execute();
         $consulta->bind_result($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta);
 
         while ($consulta->fetch()) {
@@ -173,6 +179,40 @@ class Ventas
             $productos = $detalle->idProductos;
             $productos = str_replace(',', '', $productos);
             array_push($ventas, new Ventas($venta[0], $venta[1], $venta[2], $nombreEmpleado, $nombreCliente, $venta[5], $productos, $detalle->cantidad, $detalle->costo));
+        }
+
+        return $ventas; */
+        $consulta->execute();
+        $consulta->bind_result($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta);
+
+        //$contador = 0;
+
+        while ($consulta->fetch()) {
+
+            array_push($ventasArray, [$idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta]);
+            //contador++;
+        }
+        $consulta->close();
+
+        if (isset($ventasArray)) {
+            foreach ($ventasArray as $venta) {
+                $id = $venta[0];
+                $detalle =  DetallesVentas::consultarDetallesVentas($id);
+                $detalle = $detalle[0];
+                $nombreEmpleado = Empleados::id_emple($venta[3]);
+                $nombreCliente = Clientes::buscarnom($venta[4]);
+
+                $productos = '';
+
+                $productosNombre = $detalle->idProductos;
+                foreach ($productosNombre as $productoNombre) {
+                    $productos = $productos . "$productoNombre[1] <br/>";
+                }
+                #$productos = str_replace(',', '', $productos);
+                array_push($ventas, new Ventas($venta[0], $venta[1], $venta[2], $nombreEmpleado, $nombreCliente, $venta[5], $productos, $detalle->cantidad, $detalle->costo));
+            }
+        } else {
+            $ventas = null;
         }
 
         return $ventas;
@@ -283,7 +323,7 @@ if (isset($argc) && $argc == 2) {
             print_r($ventas);
             break;
         case "id":
-            $ventas = Ventas::consultaFiltrada("id", 5);
+            $ventas = Ventas::consultaFiltrada("id", 3);
             print_r($ventas);
             break;
         case 'ventas':

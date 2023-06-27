@@ -43,6 +43,7 @@ class Productos
     public static function cosultMarcaModelo($valor)
     {
         $id = [];
+        $id_producto = 0;
         $valor = "%" . $valor . "%";
         $consult = self::$bd->prepare("select id_producto from productos where (marca like ? or modelo like ?)");
         $consult->bind_param('ss', $valor, $valor);
@@ -56,14 +57,19 @@ class Productos
     }
     public static function consultPrecioMarcaModelo($id_producto)
     {
+        $id = 0;
+        $precio = '';
+        $marca = '';
+        $modelo = '';
+
         $producto = [];
-        $consult = self::$bd->prepare("select marca, modelo, precio from productos where id_producto = ?");
+        $consult = self::$bd->prepare("select id_producto, marca, modelo, precio from productos where id_producto = ?");
         $consult->bind_param('i', $id_producto);
         $consult->execute();
-        $consult->bind_result($precio, $marca, $modelo);
+        $consult->bind_result($id, $precio, $marca, $modelo);
         $consult->fetch();
 
-        array_push($producto, $precio, $marca, $modelo);
+        array_push($producto, $id, $precio, $marca, $modelo);
         $consult->close();
         return ($producto);
     }

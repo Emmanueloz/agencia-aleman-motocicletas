@@ -112,9 +112,8 @@ class DetallesVentas
         $productosArray = [];
         $cantidad = 0;
         $costo = 0;
-        /**
-         * TODO: Mejorar el formato de la consulta
-         */
+
+
         if ($id == null) {
             $consulta = self::$bd->prepare("SELECT id_venta, cantidad, costo
             FROM  detalles_venta
@@ -127,47 +126,53 @@ class DetallesVentas
                 array_push($detallesVentaArray, [$idVenta, $cantidad, $costo]);
             }
             $consulta->close();
-
-            if (count($detallesVentaArray) == 0 || isset($detallesVentaArray)) {
-                foreach ($detallesVentaArray as $detalle) {
-                    $id = $detalle[0];
-                    $idProductos = self::productosVendidos($id);
-                    foreach ($idProductos as $idProducto) {
-                        $producto = Productos::consultPrecioMarcaModelo($idProducto);
-                        $producto = "$producto[0] $producto[1] $producto[2]";
-                        array_push($productos, $producto);
-                    }
-                    #array_push($productosArray, $productos);
-                    $productosDatos = $productos[0];
-                    array_push($detalles, new DetallesVentas($id, $productosDatos, $detalle[1], $detalle[2]));
-                    $productos = [];
-                }
-            }
-            return $detalles;
         } else {
 
-            $consulta = self::$bd->prepare("SELECT detalles_venta.id_venta, GROUP_CONCAT(productos.marca,': ',productos.modelo,'<br/>'),
-            detalles_venta.cantidad,detalles_venta.costo
-            FROM ventas, productos, detalles_venta
-            WHERE ventas.id_venta = detalles_venta.id_venta 
-            AND productos.id_producto = detalles_venta.id_producto
-            AND detalles_venta.id_venta = ?
-            GROUP BY detalles_venta.id_venta");
+            $consulta = self::$bd->prepare("SELECT id_venta, cantidad, costo
+            FROM  detalles_venta
+            WHERE id_venta = ?
+            GROUP BY id_venta");
             $consulta->bind_param('i', $id);
-            $consulta->execute();
-            $consulta->bind_result($idVenta, $productos, $cantidad, $costo);
-            $consulta->fetch();
-            $detalle = new DetallesVentas($idVenta, $productos, $cantidad, $costo);
-            $consulta->close();
 
-            return $detalle;
+            $consulta->execute();
+            $consulta->bind_result($idVenta, $cantidad, $costo);
+
+            if ($consulta->fetch()) {
+                array_push($detallesVentaArray, [$idVenta, $cantidad, $costo]);
+            }
+            $consulta->close();
         }
+
+        /* function compararPorId($a, $b)
+        {
+            if ($a[0] == $b[0]) {
+                return 0;
+            }
+            return ($a[0] > $b[0]) ? 1 : -1;
+        } */
+
+        if (count($detallesVentaArray) == 0 || isset($detallesVentaArray)) {
+            foreach ($detallesVentaArray as $detalle) {
+                $id = $detalle[0];
+                $idProductos = self::productosVendidos($id);
+                foreach ($idProductos as $idProducto) {
+                    $producto = Productos::consultPrecioMarcaModelo($idProducto);
+                    $productoNom = "$producto[1] $producto[2] $producto[3]";
+                    array_push($productos, [$producto[0], $productoNom]);
+                }
+
+                #usort($productos, 'compararPorId');
+                array_push($detalles, new DetallesVentas($id, $productos, $detalle[1], $detalle[2]));
+                $productos = [];
+            }
+        }
+        return $detalles;
     }
 }
 
 
 # Pruebas
-if (isset($argc) && $argc == 2) {
+/* if (isset($argc) && $argc == 2) {
     $mysqli = new mysqli("localhost", "root", "", "agenciaBD");
 
     DetallesVentas::init($mysqli);
@@ -179,8 +184,8 @@ if (isset($argc) && $argc == 2) {
             print_r($idVentas);
             break;
         case 'detalles':
-            $detalle = DetallesVentas::consultarDetallesVentas(1);
-            print_r($detalle);
+            $detalle = DetallesVentas::consultarDetallesVentas(4);
+            print_r($detalle[0]);
             break;
     }
-}
+} */
