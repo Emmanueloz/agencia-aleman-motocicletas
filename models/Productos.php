@@ -24,7 +24,7 @@ class Productos
     }
     public static function init($bd)
     {
-        self::$bd = $bd;
+        self::$bd = $bd;    
     }
     public static function findAll()
     {
@@ -67,6 +67,7 @@ class Productos
         $consult->close();
         return($producto);
     }
+
 }
 if (isset($argc) && $argc == 2) {
     $mysqli = new mysqli("localhost", "root", "", "agenciabd");
