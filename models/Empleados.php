@@ -33,6 +33,26 @@ class Empleados
         $this->salario = $salario;
         $this->estudios = $estudios;
     }
+    public function nuev()
+    {
+        if ($consult = self::$bd->prepare("insert into empleados values(null, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+            $consult->bind_param(
+                "ssssssds",
+                $this->rfc,
+                $this->nombre,
+                $this->direccion,
+                $this->telefono,
+                $this->correo,
+                $this->puesto,
+                $this->salario,
+                $this->estudios
+            );
+
+            $consult->execute();
+            $consult->close();
+        }
+    }
+
     public static function init($bd)
     {
         self::$bd = $bd;
@@ -134,6 +154,11 @@ if (isset($argc) && $argc == 2) {
             Empleados::init($mysqli);
             $opc = Empleados::filtro('id', 3);
             print_r($opc);
+            break;
+        case 'nuevo':
+            Empleados::init($mysqli);
+            $empledos = new Empleados(0, 'RFC992', 'Roberto Carlos', '20noviembre', 9191200000, 'robe2@gmail.com', 'Desarrolador Java', 6000, 'maestria');
+            $empledos->nuev();
             break;
     }
 }
