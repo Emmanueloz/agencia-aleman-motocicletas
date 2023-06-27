@@ -54,6 +54,19 @@ class Productos
         $consult->close();
         return $id;
     }
+    public static function consultPrecioMarcaModelo($id_producto)
+    {
+        $producto = [];
+        $consult = self::$bd->prepare("select marca, modelo, precio from productos where id_producto = ?");
+        $consult->bind_param('i', $id_producto);
+        $consult->execute();
+        $consult->bind_result($precio, $marca, $modelo);
+        $consult->fetch();
+
+        array_push($producto, $precio, $marca, $modelo);
+        $consult->close();
+        return ($producto);
+    }
 }
 /* if (isset($argc) && $argc == 2) {
     $mysqli = new mysqli("localhost", "root", "", "agenciaBD");
