@@ -6,11 +6,48 @@ require_once 'models/Empleados.php';
 $html = new SpynTPL('views/');
 $html->Fichero('empleados.html');
 $html->Asigna('title', 'lista de empleados');
-$mysqli = new mysqli($servidor, $usuario, $password, $bd);
-Empleados::init($mysqli,);
+$html->Asigna('id_empleado_s', '');
+$html->Asigna('rfc_s', '');
+$html->Asigna('nombre_s', '');
+$html->Asigna('salario_s', '');
+$html->Asigna('estudios_s', '');
+$html->Asigna('value', '');
 
-$emples = Empleados::consul();
-foreach ($emples as $Empleados){
-    $html->AsignaBloque('emplea2', $Empleados);
+
+$mysqli = new mysqli($servidor, $usuario, $password, $bd);
+Empleados::init($mysqli);
+
+if (isset($_POST['value']) && !empty(trim($_POST['value']))) {
+    $opcion = $_POST['opcion'];
+    $value = $_POST['value'];
+
+    switch ($opcion) {
+        case 'id':
+            $html->Asigna('id_s', 'selected');
+            break;
+        case 'rfc':
+            $html->Asigna('rfc_s', 'selected');
+            break;
+        case 'nombre':
+            $html->Asigna('nombre_s', 'selected');
+            break;
+        case 'salario':
+            $html->Asigna('salario_s', 'selected');
+            break;
+        case 'estudios':
+            $html->Asigna('estudios_s', 'selected');
+    }
+    $emples = Empleados::filtro($opcion, $value);
+    if (count($emples) == 0) {
+        $html->AsignaBloque('emplea2', null);
+    }
+    $html->Asigna('value', $value);
+} else {
+    $emples = Empleados::consul();
+}
+
+
+foreach ($emples as $empleado) {
+    $html->AsignaBloque('emplea2', $empleado);
 }
 echo $html->Muestra();

@@ -74,15 +74,30 @@ class Empleados
         $consult->close();
         return $nom;
     }
-    public static function filder($opcion, $value)
+    public static function filtro($opcion, $value)
     {
         switch ($opcion) {
             case 'id':
-                $consult = self::$bd->prepare("select * from empleados where id=?");
+                $consult = self::$bd->prepare("select * from empleados where id_empleado = ?");
                 $consult->bind_param('i', $value);
+                break;
+            case 'rfc':
+                $consult = self::$bd->prepare("select * from empleados where rfc like ?");
+                $value = $value . '%';
+                $consult->bind_param("s", $value);
                 break;
             case 'nombre':
                 $consult = self::$bd->prepare("select * from empleados where nombre like ?");
+                $value = $value . '%';
+                $consult->bind_param("s", $value);
+                break;
+            case 'salario':
+                $consult = self::$bd->prepare("select * from empleados where salario = ?");
+                $value = $value . '%';
+                $consult->bind_param("i", $value);
+                break;
+            case 'estudios':
+                $consult = self::$bd->prepare("select * from empleados where estudios like ?");
                 $value = $value . '%';
                 $consult->bind_param("s", $value);
                 break;
@@ -115,10 +130,10 @@ if (isset($argc) && $argc == 2) {
             $id = Empleados::id_emple(3);
             print($id);
             break;
-            case 'filtro':
-                Empleados::init($mysqli);
-                $opc = Empleados::filder('nombre', 'Robert');
-                print_r($opc);
-                break;
+        case 'filtro':
+            Empleados::init($mysqli);
+            $opc = Empleados::filtro('id', 3);
+            print_r($opc);
+            break;
     }
 }
