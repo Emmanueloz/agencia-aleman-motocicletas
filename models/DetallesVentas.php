@@ -110,6 +110,7 @@ class DetallesVentas
             $consulta->close();
             return  $detallesVentaArray;
         } else {
+
             $consulta = self::$bd->prepare("SELECT detalles_venta.id_venta, GROUP_CONCAT(productos.marca,': ',productos.modelo,'<br/>'),
             detalles_venta.cantidad,detalles_venta.costo
             FROM ventas, productos, detalles_venta
@@ -119,12 +120,12 @@ class DetallesVentas
             GROUP BY detalles_venta.id_venta");
             $consulta->bind_param('i', $id);
             $consulta->execute();
-            $consulta->store_result();
             $consulta->bind_result($idVenta, $productos, $cantidad, $costo);
             $consulta->fetch();
+            $detalle = new DetallesVentas($idVenta, $productos, $cantidad, $costo);
             $consulta->close();
 
-            return new DetallesVentas($idVenta, $productos, $cantidad, $costo);
+            return $detalle;
         }
     }
 
@@ -154,7 +155,7 @@ class DetallesVentas
 
 
 # Pruebas
-/*if (isset($argc) && $argc == 2) {
+if (isset($argc) && $argc == 2) {
     $mysqli = new mysqli("localhost", "root", "", "agenciaBD");
 
     DetallesVentas::init($mysqli);
@@ -163,5 +164,9 @@ class DetallesVentas
             $idVentas = DetallesVentas::productosVendidos(2);
             print_r($idVentas);
             break;
+        case 'detalles':
+            $detalle = DetallesVentas::consultarDetallesVentas(1);
+            print_r($detalle);
+            break;
     }
-}*/
+}
