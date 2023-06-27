@@ -15,7 +15,7 @@ Productos::init($mysqli);
 
 $titulo = "Agregar una nueva venta";
 $html = new SpynTPL('views/');
-$html->Fichero('agregar_ventas.html');
+$html->Fichero('frmVentas.html');
 $html->Asigna('title', $titulo);
 $html->Asigna('mensaje', ' ');
 

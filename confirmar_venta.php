@@ -30,7 +30,7 @@ if (isset($_POST["accion"]) && $_POST["accion"] == "agregar") {
     $costo = $_POST['costo'];
     $venta = new Ventas($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta, $idProductos, $cantidad, $costo);
     $venta->agregarVenta();
-    header('Location: vista_venta.php');
+    header('Location: consultar_ventas.php');
 } else {
     $idEmpleado = $_POST["empleado"];
     $nombreEmpleado =  Empleados::id_emple($idEmpleado);
