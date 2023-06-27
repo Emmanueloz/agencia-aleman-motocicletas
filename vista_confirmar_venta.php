@@ -50,9 +50,16 @@ if (isset($_POST["accion"]) && $_POST["accion"] == "agregar") {
     $html->Asigna("subtotal", $subtotal);
     $html->Asigna("costo", $costo);
 
+    $productos = [];
 
     foreach ($idProductos as $idProducto) {
-        $html->AsignaBloque("productos", $idProducto);
+        $productoNom = Productos::consultPrecioMarcaModelo($idProducto);
+        #$productoNom = "$productoNom[1] $productoNom[2] \$$productoNom[3]";
+        array_push($productos, $productoNom);
+    }
+    #print_r($productos);
+    foreach ($productos as $producto) {
+        $html->AsignaBloque('productos', $producto);
     }
     echo $html->Muestra();
 }
