@@ -161,36 +161,12 @@ class Ventas
                 break;
         }
 
-        /* $consulta->execute();
-        $consulta->bind_result($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta);
-
-        while ($consulta->fetch()) {
-
-            array_push($ventasArray, [$idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta]);
-        }
-        $consulta->close();
-
-        foreach ($ventasArray as $venta) {
-            $id = $venta[0];
-            $detalle =  DetallesVentas::consultarDetallesVentas($id);
-            $nombreEmpleado = Empleados::id_emple($venta[3]);
-            $nombreCliente = Clientes::buscarnom($venta[4]);
-
-            $productos = $detalle->idProductos;
-            $productos = str_replace(',', '', $productos);
-            array_push($ventas, new Ventas($venta[0], $venta[1], $venta[2], $nombreEmpleado, $nombreCliente, $venta[5], $productos, $detalle->cantidad, $detalle->costo));
-        }
-
-        return $ventas; */
         $consulta->execute();
         $consulta->bind_result($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta);
 
-        //$contador = 0;
-
         while ($consulta->fetch()) {
 
             array_push($ventasArray, [$idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta]);
-            //contador++;
         }
         $consulta->close();
 
