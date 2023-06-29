@@ -14,10 +14,13 @@ Clientes::init($mysqli);
 Productos::init($mysqli);
 
 $titulo = "Agregar una nueva venta";
+date_default_timezone_set('America/Mexico_City'); # Zona horaria para Mexico
+$fecha = date("Y-m-d"); # colocar la fecha actual para el formulario de venta
 $html = new SpynTPL('views/');
 $html->Fichero('frmVentas.html');
 $html->Asigna('title', $titulo);
 $html->Asigna('mensaje', ' ');
+$html->Asigna('fecha', $fecha);
 
 $empleados = Empleados::consul();
 
