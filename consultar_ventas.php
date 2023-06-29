@@ -62,9 +62,10 @@ if (isset($_GET['search'])  && !empty(trim($_GET['search']))) {
         $mensaje = "<h4 class='text-secondary text-center' >No se encontró ninguna venta</h4>";
         $html->Asigna('mensaje', $mensaje);
     }
-
+    $html->Asigna('reporte', 'Reporte de consulta');
     $html->Asigna('value', $search);
 } else {
+    $html->Asigna('reporte', 'Reporte general');
     $ventas = Ventas::consultarVentas();
 }
 
