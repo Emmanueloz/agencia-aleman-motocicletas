@@ -28,6 +28,7 @@ Empleados::init($mysqli);
 Clientes::init($mysqli);
 Productos::init($mysqli);
 
+$pagina = 1;
 
 if (isset($_GET['search'])  && !empty(trim($_GET['search']))) {
     $opcion = $_GET['opcion'];
@@ -66,7 +67,7 @@ if (isset($_GET['search'])  && !empty(trim($_GET['search']))) {
     $html->Asigna('value', $search);
 } else {
     $html->Asigna('reporte', 'Reporte general');
-    $ventas = Ventas::consultarVentas();
+    $ventas = Ventas::consultarVentas($pagina, 10);
 }
 
 

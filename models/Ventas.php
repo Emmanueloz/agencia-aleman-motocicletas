@@ -75,8 +75,23 @@ class Ventas
         $detalleVenta->agregarDetalles();
     }
 
-    public static function consultarVentas()
+    public static function totalPaginas($contenido)
     {
+        $totalFilas = 0;
+        $consulta = self::$bd->prepare("SELECT COUNT(id_venta) FROM ventas");
+        $consulta->execute();
+        $consulta->bind_result($totalFilas);
+        $consulta->fetch();
+        $consulta->close();
+
+        $totalPaginas = ceil($totalFilas / $contenido);
+
+        return $totalPaginas;
+    }
+
+    public static function consultarVentas($pagina, $contenido)
+    {
+        $pagina = $pagina - 1;
         $ventasArray = [];
         $ventas = [];
         $idVenta = 0;
@@ -86,11 +101,8 @@ class Ventas
         $idCliente = 0;
         $fechaVenta = '';
 
-        $consulta = self::$bd->prepare("SELECT ventas.id_venta, ventas.subtotal,ventas.iva,ventas.id_empleado,ventas.id_cliente,
-            ventas.fecha_venta
-            FROM ventas,detalles_venta
-            WHERE ventas.id_venta = detalles_venta.id_venta
-            GROUP BY ventas.id_venta");
+        $consulta = self::$bd->prepare("SELECT id_venta, subtotal, iva, id_empleado, id_cliente, fecha_venta FROM ventas LIMIT ?,?");
+        $consulta->bind_param('ii', $pagina, $contenido);
         $consulta->execute();
         $consulta->bind_result($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta);
 
@@ -303,8 +315,13 @@ if (isset($argc) && $argc == 2) {
             print_r($ventas);
             break;
         case 'ventas':
-            $ventas = Ventas::consultarVentas();
+            $pagina = 1;
+            $ventas = Ventas::consultarVentas($pagina, 5);
             print_r($ventas);
+            break;
+        case 'paginasTotal':
+            $totalPaginas = Ventas::totalPaginas(5);
+            print_r($totalPaginas);
             break;
         case 'productos':
             $ventas = Ventas::consultaFiltradaRelacionada("productos", "Modelo");
