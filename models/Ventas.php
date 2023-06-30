@@ -91,7 +91,7 @@ class Ventas
 
     public static function consultarVentas($pagina, $contenido)
     {
-        $pagina = $pagina - 1;
+        $pagina = ($pagina - 1) * $contenido;
         $ventasArray = [];
         $ventas = [];
         $idVenta = 0;

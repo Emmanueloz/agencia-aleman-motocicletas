@@ -28,7 +28,8 @@ Empleados::init($mysqli);
 Clientes::init($mysqli);
 Productos::init($mysqli);
 
-$pagina = 1;
+$contenido = 5;
+$totalPaginas = Ventas::totalPaginas($contenido);
 
 if (isset($_GET['search'])  && !empty(trim($_GET['search']))) {
     $opcion = $_GET['opcion'];
@@ -63,11 +64,35 @@ if (isset($_GET['search'])  && !empty(trim($_GET['search']))) {
         $mensaje = "<h4 class='text-secondary text-center' >No se encontró ninguna venta</h4>";
         $html->Asigna('mensaje', $mensaje);
     }
+
+    $html->AsignaBloque('paginas', null);
+
     $html->Asigna('reporte', 'Reporte de consulta');
     $html->Asigna('value', $search);
 } else {
+    $paginaActual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+
+
+
     $html->Asigna('reporte', 'Reporte general');
-    $ventas = Ventas::consultarVentas($pagina, 10);
+
+    $ventas = Ventas::consultarVentas($paginaActual, $contenido);
+
+    if (count($ventas) == 0) {
+        $html->AsignaBloque('ventas', null);
+        $html->AsignaBloque('paginas', null);
+    }
+
+    for ($pa = 1; $pa <= $totalPaginas; $pa++) {
+        $pagina['active'] = '';
+        $pagina['pagina'] = $pa;
+
+        if ($pa == $paginaActual) {
+            $pagina['active'] = 'active';
+        }
+
+        $html->AsignaBloque('paginas', $pagina);
+    }
 }
 
 
