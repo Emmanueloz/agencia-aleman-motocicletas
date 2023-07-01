@@ -136,31 +136,37 @@
         class="d-flex flex-column flex-md-row justify-content-md-between m-1 p-1"
       >
         <div class="d-flex w-100 flex-column flex-md-row align-items-md-center">
-          <div class="mx-sm-1 mb-1 col-12 col-md-2">
-            <label for="opcion" class="fs-5"> Buscar ventas por </label>
-          </div>
-          <div class="mx-sm-1 mb-1 col-12 col-md-2">
-            <select name="opcion" id="opcion" class="form-select" required>
-              <option [op_id] value="id">ID</option>
-              <option [op_empleados] value="empleados">Empleado</option>
-              <option [op_clientes] value="clientes">Cliente</option>
-              <option [op_productos] value="productos">Producto</option>
-              <option [op_fecha] value="fecha">Fecha de venta</option>
-            </select>
-          </div>
-          <div class="col-12 mb-1 col-md-6 flex-md-grow-1">
+          <div class="input-group">
+            <div class="col-5 col-md-3 m-0">
+              <label for="opcion" class="input-group-text rounded-0">
+                Buscar ventas por
+              </label>
+            </div>
+            <div class="col-7 col-md-4">
+              <select
+                name="opcion"
+                id="opcion"
+                class="form-select rounded-0"
+                required
+              >
+                <option [op_id] value="id">ID</option>
+                <option [op_empleados] value="empleados">Empleado</option>
+                <option [op_clientes] value="clientes">Cliente</option>
+                <option [op_productos] value="productos">Producto</option>
+                <option [op_fecha] value="fecha">Fecha de venta</option>
+              </select>
+            </div>
+
             <input
               type="text"
-              class="form-control"
+              class="form-control rounded-0"
               name="search"
               id="search"
               placeholder="Buscar"
               value="[value]"
             />
+            <button class="btn btn-outline-primary">Buscar</button>
           </div>
-        </div>
-        <div class="d-flex justify-content-end mb-1 px-2">
-          <button class="btn btn-outline-primary">Buscar</button>
         </div>
       </form>
     </aside>
