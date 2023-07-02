@@ -8,16 +8,16 @@ class DetallesVentas
 {
     public $idVenta;
     public $idProductos;
-    public $cantidad;
+    public $cantidades;
     public $costo;
 
     private static $bd;
 
-    public function __construct($idVenta, $idProductos, $cantidad, $costo)
+    public function __construct($idVenta, $idProductos, $cantidades, $costo)
     {
         $this->idVenta = $idVenta;
         $this->idProductos = $idProductos;
-        $this->cantidad = $cantidad;
+        $this->cantidades = $cantidades;
         $this->costo = $costo;
     }
 
@@ -55,7 +55,7 @@ class DetallesVentas
     public function agregarDetalles()
     {
         $idProductos = $this->idProductos;
-        $cantidades = $this->cantidad;
+        $cantidades = $this->cantidades;
 
 
         for ($i = 0; $i < count($idProductos); $i++) {
@@ -97,83 +97,65 @@ class DetallesVentas
      * @return DetallesVentas Es el objeto de una consulta por el `$id`;
      */
 
-    public static function consultarDetallesVentas($id = null)
+    private static function consultarCantidadesPorProducto($id)
+    {
+        $cantidad = 0;
+        $cantidades = [];
+        $consulta = self::$bd->prepare('SELECT cantidad FROM `detalles_venta` WHERE id_venta = ?');
+        $consulta->bind_param('i', $id);
+        $consulta->execute();
+        $consulta->bind_result($cantidad);
+        while ($consulta->fetch()) {
+
+            array_push($cantidades, $cantidad);
+        }
+        $consulta->close();
+        return $cantidades;
+    }
+
+    public static function consultarDetallesVentas($id)
     {
         $detallesVentaArray = [];
         $detalles = [];
         $idVenta = 0;
 
         $productos = [];
-        $productosArray = [];
-        $cantidad = 0;
+
         $costo = 0;
 
+        $consulta = self::$bd->prepare("SELECT id_venta, costo
+        FROM  detalles_venta
+        WHERE id_venta = ?
+        GROUP BY id_venta");
+        $consulta->bind_param('i', $id);
 
-        if ($id == null) {
-            $consulta = self::$bd->prepare("SELECT id_venta, cantidad, costo
-            FROM  detalles_venta
-            GROUP BY id_venta");
-            $consulta->execute();
-            $consulta->bind_result($idVenta, $cantidad, $costo);
+        $consulta->execute();
+        $consulta->bind_result($idVenta, $costo);
 
-            while ($consulta->fetch()) {
-
-                array_push($detallesVentaArray, [$idVenta, $cantidad, $costo]);
-            }
-            $consulta->close();
-        } else {
-
-            $consulta = self::$bd->prepare("SELECT id_venta, cantidad, costo
-            FROM  detalles_venta
-            WHERE id_venta = ?
-            GROUP BY id_venta");
-            $consulta->bind_param('i', $id);
-
-            $consulta->execute();
-            $consulta->bind_result($idVenta, $cantidad, $costo);
-
-            if ($consulta->fetch()) {
-                array_push($detallesVentaArray, [$idVenta, $cantidad, $costo]);
-            }
-            $consulta->close();
+        if ($consulta->fetch()) {
+            array_push($detallesVentaArray, [$idVenta, $costo]);
         }
 
+        $consulta->close();
 
         if (count($detallesVentaArray) == 0 || isset($detallesVentaArray)) {
-            foreach ($detallesVentaArray as $detalle) {
+            for ($i = 0; $i < count($detallesVentaArray); $i++) {
+                $detalle = $detallesVentaArray[$i];
                 $id = $detalle[0];
                 $idProductos = self::productosVendidos($id);
+                $cantidades = self::consultarCantidadesPorProducto($id);
+
+
                 foreach ($idProductos as $idProducto) {
                     $producto = Productos::consultPrecioMarcaModelo($idProducto);
-                    $productoNom = "$producto[1] $producto[2] $producto[3]";
+                    $productoNom = "$producto[1] $producto[2] \$$producto[3]";
                     array_push($productos, [$producto[0], $productoNom]);
                 }
 
-                #usort($productos, 'compararPorId');
-                array_push($detalles, new DetallesVentas($id, $productos, $detalle[1], $detalle[2]));
+                array_push($detalles, new DetallesVentas($id, $productos, $cantidades, $detalle[1]));
                 $productos = [];
             }
         }
         return $detalles;
     }
 }
-
-
-# Pruebas
-/* if (isset($argc) && $argc == 2) {
-    $mysqli = new mysqli("localhost", "root", "", "agenciaBD");
-
-    DetallesVentas::init($mysqli);
-    Productos::init($mysqli);
-    switch ($argv[1]) {
-
-        case 'productos':
-            $idVentas = DetallesVentas::productosVendidos(2);
-            print_r($idVentas);
-            break;
-        case 'detalles':
-            $detalle = DetallesVentas::consultarDetallesVentas(4);
-            print_r($detalle[0]);
-            break;
-    }
-} */

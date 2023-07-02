@@ -106,12 +106,11 @@ class Ventas
         $consulta->execute();
         $consulta->bind_result($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta);
 
-        //$contador = 0;
+
 
         while ($consulta->fetch()) {
 
             array_push($ventasArray, [$idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta]);
-            //contador++;
         }
         $consulta->close();
 
@@ -124,13 +123,22 @@ class Ventas
                 $nombreCliente = Clientes::buscarnom($venta[4]);
 
                 $productos = '';
+                $cantidades = '';
 
                 $productosNombre = $detalle->idProductos;
+                $cantidadesPorProducto = $detalle->cantidades;
+
+
                 foreach ($productosNombre as $productoNombre) {
                     $productos = $productos . "$productoNombre[1] <br/>";
                 }
-                #$productos = str_replace(',', '', $productos);
-                array_push($ventas, new Ventas($venta[0], $venta[1], $venta[2], $nombreEmpleado, $nombreCliente, $venta[5], $productos, $detalle->cantidad, $detalle->costo));
+
+                foreach ($cantidadesPorProducto as $cantidad) {
+                    $cantidades = $cantidades . "$cantidad <br/>";
+                }
+
+
+                array_push($ventas, new Ventas($venta[0], $venta[1], $venta[2], $nombreEmpleado, $nombreCliente, $venta[5], $productos, $cantidades, $detalle->costo));
             }
         } else {
             $ventas = null;
@@ -191,13 +199,20 @@ class Ventas
                 $nombreCliente = Clientes::buscarnom($venta[4]);
 
                 $productos = '';
+                $cantidades = '';
 
                 $productosNombre = $detalle->idProductos;
+                $cantidadesPorProducto = $detalle->cantidades;
+
                 foreach ($productosNombre as $productoNombre) {
                     $productos = $productos . "$productoNombre[1] <br/>";
                 }
-                #$productos = str_replace(',', '', $productos);
-                array_push($ventas, new Ventas($venta[0], $venta[1], $venta[2], $nombreEmpleado, $nombreCliente, $venta[5], $productos, $detalle->cantidad, $detalle->costo));
+
+                foreach ($cantidadesPorProducto as $cantidad) {
+                    $cantidades = $cantidades . "$cantidad <br/>";
+                }
+
+                array_push($ventas, new Ventas($venta[0], $venta[1], $venta[2], $nombreEmpleado, $nombreCliente, $venta[5], $productos, $cantidades, $detalle->costo));
             }
         } else {
             $ventas = null;
@@ -330,6 +345,10 @@ if (isset($argc) && $argc == 2) {
         case 'subtotal':
             $subtotal = DetallesVentas::obtenerSubtotal([3, 1], [1, 1]);
             print_r($subtotal . "\n");
+            break;
+        case 'detalles':
+            $detalles = DetallesVentas::consultarDetallesVentas(5);
+            print_r($detalles);
             break;
     }
 }
