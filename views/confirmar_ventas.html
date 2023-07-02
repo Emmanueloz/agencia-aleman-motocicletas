@@ -172,72 +172,94 @@
         </div>
       </aside>
       <div class="container">
-        <div class="row">
-          <div class="col-sm-12 col-md-8 col-lg-7 col-12 mt-2 m-auto">
-            <h2>Confirmar nueva venta</h2>
-            <form action="confirmar_venta.php" method="post" class="row">
-              <input type="hidden" id="accion" name="accion" value="agregar" />
-              <div class="col-sm-6 mb-3">
-                <label for="empleado" class="form-label fw-bold"
-                  >Empleado</label
-                >
-                <br />
-                <input
-                  type="hidden"
-                  name="empleado"
-                  id="empleado"
-                  value="[id_empleado]"
-                />
-                <span>[nombre_empleado]</span>
-              </div>
+        <div class="col-sm-12 col-md-8 mt-2 m-auto">
+          <h2>Confirmar nueva venta</h2>
+          <form action="confirmar_venta.php" method="post" class="row">
+            <input type="hidden" id="accion" name="accion" value="[accion]" />
+            <div class="col-sm-4 mb-3">
+              <label for="empleado" class="form-label fw-bold">Empleado</label>
+              <br />
+              <input
+                type="hidden"
+                name="empleado"
+                id="empleado"
+                value="[id_empleado]"
+              />
+              <span>[nombre_empleado]</span>
+            </div>
 
-              <div class="col-sm-6 mb-3">
-                <label for="user" class="form-label fw-bold">Cliente</label>
-                <br />
-                <input
-                  type="hidden"
-                  name="cliente"
-                  id="cliente"
-                  value="[id_cliente]"
-                />
-                <span>[nombre_cliente]</span>
-              </div>
+            <div class="col-sm-4 mb-3">
+              <label for="user" class="form-label fw-bold">Cliente</label>
+              <br />
+              <input
+                type="hidden"
+                name="cliente"
+                id="cliente"
+                value="[id_cliente]"
+              />
+              <span>[nombre_cliente]</span>
+            </div>
+            <div class="col-sm-4 mb-3">
+              <label for="fecha-compra" class="form-label fw-bold">
+                Fecha venta
+              </label>
+              <input
+                type="date"
+                class="form-control-plaintext"
+                id="fecha-venta"
+                name="fecha-venta"
+                readonly
+                value="[fecha-venta]"
+              />
+            </div>
 
-              <div class="col-sm-6 mb-3">
-                <label for="productos" class="form-label fw-bold">
-                  Producto
-                </label>
-                <br />
-                [block: productos]
-                <div>
-                  <input
-                    type="hidden"
-                    id="id_producto"
-                    name="id_producto[]"
-                    value="[0]"
-                  />
-                  <span>[1] [2] $[3]</span>
+            <div class="mb-3">
+              <div class="row">
+                <div class="col-9">
+                  <label for="productos" class="form-label fw-bold">
+                    Productos
+                  </label>
+                  <br />
+                  [block: productos]
+                  <div class="mb-4">
+                    <input
+                      type="hidden"
+                      id="productos"
+                      name="productos[]"
+                      value="[0]"
+                    />
+                    <span>[1] [2] $[3]</span>
+                  </div>
+                  [/block: productos]
                 </div>
-                [/block: productos]
-              </div>
-              <div class="col-sm-6 mb-3">
-                <label for="fecha-compra" class="form-label fw-bold">
-                  Fecha venta
-                </label>
-                <input
-                  type="date"
-                  class="form-control-plaintext"
-                  id="fecha-venta"
-                  name="fecha-venta"
-                  readonly
-                  value="[fecha-venta]"
-                />
-              </div>
 
+                <div class="col-3">
+                  <label for="cantidades" class="form-label fw-bold">
+                    Cantidades
+                  </label>
+                  <br />
+                  [block: cantidades]
+                  <div>
+                    <input
+                      [solo_lectura]
+                      type="number"
+                      id="Cantidades"
+                      class="col-4 mb-1 [solo_lectura_estilo]"
+                      name="cantidades[]"
+                      min="1"
+                      value="[valor]"
+                    />
+                  </div>
+                  [/block: cantidades]
+                </div>
+              </div>
+            </div>
+
+            <div class="row [ocultar]">
               <div class="col-sm-4 mb-3">
-                <label for="subtotal" class="form-label fw-bold"
-                  >Subtotal</label
-                >
+                <label for="subtotal" class="form-label fw-bold">
+                  Subtotal
+                </label>
                 <input
                   type="text"
                   class="form-control-plaintext"
@@ -269,29 +291,28 @@
                   value="[costo]"
                 />
               </div>
+            </div>
 
-              <div class="d-flex justify-content-end">
-                <a
-                  class="btn btn-secondary m-1"
-                  href="./consultar_ventas.php"
-                  role="button"
-                >
-                  Cancelar
-                </a>
-                <a
-                  class="btn btn-warning m-1"
-                  href="./agregar_venta.php"
-                  role="button"
-                >
-                  Modificar
-                </a>
-
-                <button type="submit" class="btn btn-primary m-1" role="button">
-                  Aceptar
-                </button>
-              </div>
-            </form>
-          </div>
+            <div class="d-flex justify-content-end">
+              <a
+                class="btn btn-secondary m-1"
+                href="./consultar_ventas.php"
+                role="button"
+              >
+                Cancelar
+              </a>
+              <a class="btn btn-warning m-1" href="[modificar]" role="button">
+                Modificar
+              </a>
+              <button
+                type="submit"
+                class="btn btn-primary m-1 text-capitalize"
+                role="button"
+              >
+                [accion]
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </main>

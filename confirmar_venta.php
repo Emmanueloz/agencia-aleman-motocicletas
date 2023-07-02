@@ -18,15 +18,15 @@ Productos::init($mysqli);
 
 
 if (isset($_POST["accion"]) && $_POST["accion"] == "agregar") {
-    #print_r($_POST);
+    #
     $idVenta = Ventas::obtenerIdVenta();
     $idEmpleado = $_POST['empleado'];
     $idCliente = $_POST['cliente'];
-    $idProductos = $_POST['id_producto'];
+    $idProductos = $_POST['productos'];
     $fechaVenta = $_POST['fecha-venta'];
     $subtotal = $_POST['subtotal'];
     $iva = $_POST['iva'];
-    $cantidades = $_POST['cantidad'];;
+    $cantidades = $_POST['cantidades'];
     $costo = $_POST['costo'];
     $venta = new Ventas($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta, $idProductos, $cantidades, $costo);
     $venta->agregarVenta();
@@ -37,13 +37,8 @@ if (isset($_POST["accion"]) && $_POST["accion"] == "agregar") {
     $idCliente = $_POST["cliente"];;
     $nombreCliente = Clientes::buscarnom($idCliente);
 
-
     $idProductos = $_POST['productos'];
-    $cantidades = $_POST['cantidad'];
-
-    $subtotal = DetallesVentas::obtenerSubtotal($idProductos, $cantidades);
-    $iva = Ventas::generarIva($subtotal);
-    $costo = DetallesVentas::calcularCosto($subtotal, $iva);
+    $cantidades = isset($_POST['cantidades']) ? $_POST['cantidades'] : [];
 
     $idVenta = Ventas::obtenerIdVenta();
 
@@ -52,26 +47,68 @@ if (isset($_POST["accion"]) && $_POST["accion"] == "agregar") {
 
     $fechaVenta = $_POST["fecha-venta"];
 
+    if (isset($_POST["accion"]) && $_POST["accion"] == "procesar") {
+        $html->Asigna('accion', 'agregar');
+        $subtotal = DetallesVentas::obtenerSubtotal($idProductos, $cantidades);
+        $iva = Ventas::generarIva($subtotal);
+        $costo = DetallesVentas::calcularCosto($subtotal, $iva);
+        # valores del formulario
+        $html->Asigna("subtotal", $subtotal);
+        $html->Asigna("iva", $iva);
+
+        $html->Asigna("costo", $costo);
+        #$html->Asigna('modificar', '?procesar=modificar');
+        $html->Asigna('accion', 'agregar');
+        # valores de estilo
+        $html->Asigna('ocultar', '');
+        $html->Asigna('solo_lectura', 'readonly');
+        $html->Asigna('solo_lectura_estilo', 'form-control-plaintext');
+    } else {
+        # valores del formulario
+        $html->Asigna("iva", null);
+        $html->Asigna("subtotal", null);
+        $html->Asigna("costo", null);
+        $html->Asigna('accion', 'procesar');
+        $html->Asigna('modificar', './agregar_venta.php');
+        # valores de estilo
+        $html->Asigna('ocultar', 'd-none');
+        $html->Asigna('solo_lectura', '');
+        $html->Asigna('solo_lectura_estilo', 'form-control');
+    }
+    # valores del formulario
     $html->Asigna("id_empleado", $idEmpleado);
     $html->Asigna("nombre_empleado", $nombreEmpleado);
     $html->Asigna("id_cliente", $idCliente);
     $html->Asigna("nombre_cliente", $nombreCliente);
 
     $html->Asigna("fecha-venta", $fechaVenta);
-    $html->Asigna("iva", $iva);
-    $html->Asigna("subtotal", $subtotal);
-    $html->Asigna("costo", $costo);
 
     $productos = [];
 
     foreach ($idProductos as $idProducto) {
         $productoNom = Productos::consultPrecioMarcaModelo($idProducto);
-        #$productoNom = "$productoNom[1] $productoNom[2] \$$productoNom[3]";
+
         array_push($productos, $productoNom);
     }
-    #print_r($productos);
-    foreach ($productos as $producto) {
+
+    for ($i = 0; $i < count($productos); $i++) {
+        $producto = $productos[$i];
         $html->AsignaBloque('productos', $producto);
     }
+
+    for ($i = 0; $i < count($productos); $i++) {
+        $producto = $productos[$i];
+        if (count($cantidades) == 0) {
+            $cantidad['valor'] = 1;
+
+            $html->AsignaBloque('cantidades', $cantidad);
+        } else {
+            $cantidad['valor'] = $cantidades[$i];
+            $html->AsignaBloque('cantidades', $cantidad);
+        }
+    }
+
+
+
     echo $html->Muestra();
 }
