@@ -26,22 +26,22 @@ class DetallesVentas
         self::$bd = $bd;
     }
 
-    public static function obtenerSubtotal($idProductos)
+    public static function obtenerSubtotal($idProductos, $cantidades)
     {
         $subtotal = 0.0;
 
-        $precio = 0.0;
 
-        foreach ($idProductos as $idProducto) {
-            $consulta = self::$bd->prepare("SELECT productos.precio 
-            FROM productos
-            WHERE productos.id_producto = ?");
-            $consulta->bind_param("i", $idProducto);
+
+        $precio = 0.0;
+        for ($i = 0; $i < count($idProductos); $i++) {
+
+            $consulta = self::$bd->prepare("SELECT precio FROM productos WHERE id_producto = ?");
+            $consulta->bind_param("i", $idProductos[$i]);
             $consulta->execute();
             $consulta->bind_result($precio);
             $consulta->fetch();
             $consulta->close();
-            $subtotal = $subtotal + $precio;
+            $subtotal = $subtotal + ($precio * $cantidades[$i]);
         }
 
         return $subtotal;
@@ -52,28 +52,24 @@ class DetallesVentas
         return $subtotal + $iva;
     }
 
-    /*  public function mostrarDetalles($subtotal, $iva)
-    {
-        $detalleVenta = [];
-        array_push($detalleVenta, $this->idVenta, $this->idProductos);
-    } */
-
-
     public function agregarDetalles()
     {
         $idProductos = $this->idProductos;
+        $cantidades = $this->cantidad;
 
         foreach ($idProductos as $idProducto) {
-            $consulta = self::$bd->prepare("INSERT INTO detalles_venta VALUES(?,?,?,?)");
-            $consulta->bind_param(
-                "iiid",
-                $this->idVenta,
-                $idProducto,
-                $this->cantidad,
-                $this->costo
-            );
-            $consulta->execute();
-            $consulta->close();
+            foreach ($cantidades as $cantidad) {
+                $consulta = self::$bd->prepare("INSERT INTO detalles_venta VALUES(?,?,?,?)");
+                $consulta->bind_param(
+                    "iiid",
+                    $this->idVenta,
+                    $idProducto,
+                    $cantidad,
+                    $this->costo
+                );
+                $consulta->execute();
+                $consulta->close();
+            }
         }
     }
 

@@ -327,5 +327,9 @@ if (isset($argc) && $argc == 2) {
             $ventas = Ventas::consultaFiltradaRelacionada("productos", "Modelo");
             print_r($ventas);
             break;
+        case 'subtotal':
+            $subtotal = DetallesVentas::obtenerSubtotal([3, 1], [1, 1]);
+            print_r($subtotal . "\n");
+            break;
     }
 }
