@@ -57,7 +57,11 @@ if (isset($_POST["accion"]) && $_POST["accion"] == "agregar") {
         $html->Asigna("iva", $iva);
 
         $html->Asigna("costo", $costo);
-        #$html->Asigna('modificar', '?procesar=modificar');
+
+        $botonModificar = '<button class="btn btn-warning m-1" type="submit" name="accion"
+        value="modificar">Modificar</button>';
+
+        $html->Asigna('boton_modificar', $botonModificar);
         $html->Asigna('accion', 'agregar');
         # valores de estilo
         $html->Asigna('ocultar', '');
@@ -69,7 +73,13 @@ if (isset($_POST["accion"]) && $_POST["accion"] == "agregar") {
         $html->Asigna("subtotal", null);
         $html->Asigna("costo", null);
         $html->Asigna('accion', 'procesar');
-        $html->Asigna('modificar', './agregar_venta.php');
+
+        if (isset($_POST["accion"]) && $_POST["accion"] == "modificar") {
+            # code...
+        }
+        $botonModificar = '<a href="./agregar_venta.php" class="btn btn-warning m-1"> Modificar</a>';
+        $html->Asigna('boton_modificar', $botonModificar);
+
         # valores de estilo
         $html->Asigna('ocultar', 'd-none');
         $html->Asigna('solo_lectura', '');

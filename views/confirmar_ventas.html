@@ -175,7 +175,7 @@
         <div class="col-sm-12 col-md-8 mt-2 m-auto">
           <h2>Confirmar nueva venta</h2>
           <form action="confirmar_venta.php" method="post" class="row">
-            <input type="hidden" id="accion" name="accion" value="[accion]" />
+            <!-- <input type="hidden" id="accion" name="accion" value="[accion]" /> -->
             <div class="col-sm-4 mb-3">
               <label for="empleado" class="form-label fw-bold">Empleado</label>
               <br />
@@ -301,13 +301,13 @@
               >
                 Cancelar
               </a>
-              <a class="btn btn-warning m-1" href="[modificar]" role="button">
-                Modificar
-              </a>
+              [boton_modificar]
               <button
                 type="submit"
                 class="btn btn-primary m-1 text-capitalize"
                 role="button"
+                name="accion"
+                value="[accion]"
               >
                 [accion]
               </button>
