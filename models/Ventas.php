@@ -14,7 +14,7 @@ class Ventas
     public $idCliente;
     public $fechaVenta;
     public $idProductos;
-    public $cantidad;
+    public $cantidades;
     public $costo;
 
     private static $bd;
@@ -40,7 +40,7 @@ class Ventas
         return  $idVenta;
     }
 
-    public function __construct($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta, $idProductos, $cantidad, $costo)
+    public function __construct($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta, $idProductos, $cantidades, $costo)
     {
         $this->idVenta = $idVenta;
         $this->subtotal = $subtotal;
@@ -49,7 +49,7 @@ class Ventas
         $this->idCliente = $idCliente;
         $this->fechaVenta = $fechaVenta;
         $this->idProductos = $idProductos;
-        $this->cantidad = $cantidad;
+        $this->cantidades = $cantidades;
         $this->costo = $costo;
     }
 
@@ -57,7 +57,7 @@ class Ventas
     {
         $idVenta = $this->idVenta;
         $idProductos = $this->idProductos;
-        $cantidad = $this->cantidad;
+        $cantidades = $this->cantidades;
         $costo = $this->costo;
 
         $consulta = self::$bd->prepare("INSERT INTO ventas VALUES(null,?,?,?,?,?)");
@@ -71,7 +71,7 @@ class Ventas
         );
         $consulta->execute();
         $consulta->close();
-        $detalleVenta = new DetallesVentas($idVenta, $idProductos, $cantidad, $costo);
+        $detalleVenta = new DetallesVentas($idVenta, $idProductos, $cantidades, $costo);
         $detalleVenta->agregarDetalles();
     }
 

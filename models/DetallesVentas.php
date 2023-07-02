@@ -57,19 +57,18 @@ class DetallesVentas
         $idProductos = $this->idProductos;
         $cantidades = $this->cantidad;
 
-        foreach ($idProductos as $idProducto) {
-            foreach ($cantidades as $cantidad) {
-                $consulta = self::$bd->prepare("INSERT INTO detalles_venta VALUES(?,?,?,?)");
-                $consulta->bind_param(
-                    "iiid",
-                    $this->idVenta,
-                    $idProducto,
-                    $cantidad,
-                    $this->costo
-                );
-                $consulta->execute();
-                $consulta->close();
-            }
+
+        for ($i = 0; $i < count($idProductos); $i++) {
+            $consulta = self::$bd->prepare("INSERT INTO detalles_venta VALUES(?,?,?,?)");
+            $consulta->bind_param(
+                "iiid",
+                $this->idVenta,
+                $idProductos[$i],
+                $cantidades[$i],
+                $this->costo
+            );
+            $consulta->execute();
+            $consulta->close();
         }
     }
 
@@ -139,13 +138,6 @@ class DetallesVentas
             $consulta->close();
         }
 
-        /* function compararPorId($a, $b)
-        {
-            if ($a[0] == $b[0]) {
-                return 0;
-            }
-            return ($a[0] > $b[0]) ? 1 : -1;
-        } */
 
         if (count($detallesVentaArray) == 0 || isset($detallesVentaArray)) {
             foreach ($detallesVentaArray as $detalle) {

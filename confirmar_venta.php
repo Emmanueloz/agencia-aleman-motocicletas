@@ -26,9 +26,9 @@ if (isset($_POST["accion"]) && $_POST["accion"] == "agregar") {
     $fechaVenta = $_POST['fecha-venta'];
     $subtotal = $_POST['subtotal'];
     $iva = $_POST['iva'];
-    $cantidad = count($idProductos);
+    $cantidades = $_POST['cantidad'];;
     $costo = $_POST['costo'];
-    $venta = new Ventas($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta, $idProductos, $cantidad, $costo);
+    $venta = new Ventas($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta, $idProductos, $cantidades, $costo);
     $venta->agregarVenta();
     header('Location: consultar_ventas.php');
 } else {
@@ -38,10 +38,10 @@ if (isset($_POST["accion"]) && $_POST["accion"] == "agregar") {
     $nombreCliente = Clientes::buscarnom($idCliente);
 
 
-    $idProductos = $_POST["productos"];
-    $cantidad = count($idProductos);
+    $idProductos = $_POST['productos'];
+    $cantidades = $_POST['cantidad'];
 
-    $subtotal = DetallesVentas::obtenerSubtotal($idProductos);
+    $subtotal = DetallesVentas::obtenerSubtotal($idProductos, $cantidades);
     $iva = Ventas::generarIva($subtotal);
     $costo = DetallesVentas::calcularCosto($subtotal, $iva);
 
