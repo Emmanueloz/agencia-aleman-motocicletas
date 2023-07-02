@@ -171,7 +171,7 @@ class Ventas
                 break;
 
             case 'fecha':
-                $value = $value . "%";
+                $value = '%' . $value . '%';
                 $consulta = self::$bd->prepare("SELECT ventas.id_venta, ventas.subtotal, 
                 ventas.iva, ventas.id_empleado, 
                 ventas.id_cliente, ventas.fecha_venta
