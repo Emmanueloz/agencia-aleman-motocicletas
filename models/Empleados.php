@@ -131,7 +131,62 @@ class Empleados
         $consult->close();
         return $opc;
     }
+    public function update()
+    {
+        if ($consult = self::$bd->prepare("update empleados set rfc = ?, nombre = ?, 
+        direccion = ?, telefono = ?, correo = ?, puesto = ?, salario = ?, estudios = ? where id_empleado = ?")) {
+            $consult->bind_param(
+                "sssissisi",
+                $this->rfc,
+                $this->nombre,
+                $this->direccion,
+                $this->telefono,
+                $this->correo,
+                $this->puesto,
+                $this->salario,
+                $this->estudios,
+                $this->id_empleado
+            );
+
+            $consult->execute();
+            $consult->close();
+        }
+    }
+    public static function findId($id)
+    {
+
+        $emple = null;
+        $consult = self::$bd->prepare("select * from empleados where id_empleado = ?");
+        $consult->bind_param("i", $id);
+        $consult->execute();
+        $consult->bind_result(
+            $id,
+            $rfc,
+            $nombre,
+            $direccion,
+            $telefono,
+            $correo,
+            $puesto,
+            $salario,
+            $estudios
+        );
+        if ($consult->fetch()) {
+            $emple = new Empleados(
+                $id,
+                $rfc,
+                $nombre,
+                $direccion,
+                $telefono,
+                $correo,
+                $puesto,
+                $salario,
+                $estudios
+            );
+        }
+        return $emple;
+    }
 }
+
 
 
 if (isset($argc) && $argc == 2) {
@@ -159,6 +214,15 @@ if (isset($argc) && $argc == 2) {
             Empleados::init($mysqli);
             $empledos = new Empleados(0, 'RFC992', 'Roberto Carlos', '20noviembre', 9191200000, 'robe2@gmail.com', 'Desarrolador Java', 6000, 'maestria');
             $empledos->nuev();
+            break;
+        case 'modificar':
+            #Empleados::init($mysqli);
+            $emple = Empleados::findId(1);
+            print_r($emple);
+            $emple->rfc = "RFC1234";
+            $emple->nombre = "josue";
+            $emple->update();
+            print_r($emple);
             break;
     }
 }
