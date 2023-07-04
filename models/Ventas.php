@@ -89,7 +89,7 @@ class Ventas
         return $totalPaginas;
     }
 
-    public static function consultarVentas($pagina, $contenido)
+    public static function consultarVentas($pagina = null, $contenido = null)
     {
         $pagina = ($pagina - 1) * $contenido;
         $ventasArray = [];
@@ -101,8 +101,13 @@ class Ventas
         $idCliente = 0;
         $fechaVenta = '';
 
-        $consulta = self::$bd->prepare("SELECT id_venta, subtotal, iva, id_empleado, id_cliente, fecha_venta FROM ventas LIMIT ?,?");
-        $consulta->bind_param('ii', $pagina, $contenido);
+        if (!is_null($pagina) && !is_null($contenido)) {
+            $consulta = self::$bd->prepare("SELECT id_venta, subtotal, iva, id_empleado, id_cliente, fecha_venta FROM ventas LIMIT ?,?");
+            $consulta->bind_param('ii', $pagina, $contenido);
+        } else {
+            $consulta = self::$bd->prepare("SELECT id_venta, subtotal, iva, id_empleado, id_cliente, fecha_venta FROM ventas");
+        }
+
         $consulta->execute();
         $consulta->bind_result($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta);
 

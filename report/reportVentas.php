@@ -1,11 +1,22 @@
 <?php
 require('../fpdf/fpdf.php');
+require_once '../models/config.php';
+require_once '../models/Ventas.php';
+
+$mysqli = new mysqli($servidor, $usuario, $password, $bd);
+
+// Iniciando parámetros
+Ventas::init($mysqli);
+DetallesVentas::init($mysqli);
+Empleados::init($mysqli);
+Clientes::init($mysqli);
+Productos::init($mysqli);
+
 $pdf = new FPDF();
-$pdf->AddPage();
-$pdf->SetFont('Arial', 'B', 16);
+$pdf->AddPage('H');
 
 if (count($_GET) != 0) {
-
+    $pdf->SetFont('Arial', 'B', 16);
     if (isset($_GET['opcion']) && isset($_GET['search'])) {
         $opcion = $_GET['opcion'];
         $search = $_GET['search'];
@@ -18,7 +29,76 @@ if (count($_GET) != 0) {
         $pdf->Cell(100, 10, "Venta con el id: $idVenta", 0, 1);
     }
 } else {
-    $pdf->Cell(100, 10, "En proceso: general", 0, 1);
-}
 
-$pdf->Output('', 'Reporte de ventas', true);
+    $pdf->SetFont('Arial', 'B', 16);
+
+    #$pdf->Cell(250, 1, "Reporte: Ventas", 0, 1, 'C');
+    $pdf->Text(120, 12, "Reporte: Ventas");
+    $pdf->Ln(10);
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(20, 5, "Id", 1, 0, 'C');
+    $pdf->Cell(50, 5, "Empleado", 1, 0, 'C');
+    $pdf->Cell(50, 5, "Cliente", 1, 0, 'C');
+    $pdf->Cell(50, 5, "Productos", 1, 0, 'C');
+    $pdf->Cell(20, 5, "Cantidad", 1, 0, 'C');
+    $pdf->Cell(20, 5, "IVA", 1, 0, 'C');
+    $pdf->Cell(24, 5, "Subtotal", 1, 0, 'C');
+    $pdf->Cell(24, 5, "Total", 1, 0, 'C');
+    $pdf->Ln();
+
+
+    $ventasArray = Ventas::consultarVentas();
+    $pdf->SetFont('Arial', '', 10);
+
+
+    foreach ($ventasArray as $venta) {
+        $y_axis = $pdf->GetY();
+        $listProductos = explode("<br/>", $venta->idProductos);
+        $listaCantidad = explode("<br/>", $venta->cantidades);
+
+        $productos = "";
+
+        for ($i = 0; $i < count($listProductos); $i++) {
+            if (($i + 1) < count($listProductos)) {
+                $productos .= "$listProductos[$i]\n";
+            } else {
+                $productos .= "$listProductos[$i]";
+            }
+        }
+
+        $numLineas = substr_count($productos, "\n");
+        $altura = 10 * $numLineas;
+
+
+        $pdf->Cell(20, $altura, $venta->idVenta, "B", 0, 'C');
+        $pdf->Cell(50, $altura, utf8_decode($venta->idEmpleado), "B", 0, 'L');
+        $pdf->Cell(50, $altura, utf8_decode($venta->idCliente), "B", 0, 'L');
+
+
+        $pdf->MultiCell(50, 10, $productos, "B");
+        $pdf->SetXY(180, $y_axis);
+
+        $cantidades = "";
+
+        for ($i = 0; $i < count($listaCantidad); $i++) {
+            if (($i + 1) < count($listaCantidad)) {
+                $cantidades .= "$listaCantidad[$i]\n";
+            } else {
+                $cantidades .= "$listaCantidad[$i]";
+            }
+        }
+
+        $pdf->MultiCell(20, 10, $cantidades, "B", 'R');
+        $pdf->SetXY(200, $y_axis);
+
+        $pdf->Cell(20, $altura, $venta->iva, "B", 0, 'R');
+        $pdf->Cell(24, $altura, $venta->subtotal, "B", 0, 'R');
+        $pdf->Cell(24, $altura, $venta->costo, "B", 0, 'R');
+        $listProductos = null;
+        $listaCantidad = null;
+        $pdf->Ln();
+        #print_r($productos);
+    }
+}
+$pdf->Output('', 'Reporte de ventas'); 
+#print_r($ventasArray);
