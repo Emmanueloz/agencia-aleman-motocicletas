@@ -51,8 +51,14 @@ if (count($_GET) != 0) {
     $pdf->SetFont('Arial', '', 10);
 
 
+    $row = 0;
     foreach ($ventasArray as $venta) {
-        $y_axis = $pdf->GetY();
+        $row += 1;
+        if ($row > 6) {
+            $pdf->AddPage('H');
+            $row = 0;
+        }
+
         $listProductos = explode("<br/>", $venta->idProductos);
         $listaCantidad = explode("<br/>", $venta->cantidades);
 
@@ -69,6 +75,7 @@ if (count($_GET) != 0) {
         $numLineas = substr_count($productos, "\n");
         $altura = 10 * $numLineas;
 
+        $y_axis = $pdf->GetY();
 
         $pdf->Cell(20, $altura, $venta->idVenta, "B", 0, 'C');
         $pdf->Cell(50, $altura, utf8_decode($venta->idEmpleado), "B", 0, 'L');
@@ -94,8 +101,7 @@ if (count($_GET) != 0) {
         $pdf->Cell(20, $altura, $venta->iva, "B", 0, 'R');
         $pdf->Cell(24, $altura, $venta->subtotal, "B", 0, 'R');
         $pdf->Cell(24, $altura, $venta->costo, "B", 0, 'R');
-        $listProductos = null;
-        $listaCantidad = null;
+
         $pdf->Ln();
         #print_r($productos);
     }
