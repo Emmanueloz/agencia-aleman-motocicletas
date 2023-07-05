@@ -1,0 +1,15 @@
+.bg-lightblue{
+    background-color: #00205b;
+}
+.bg-lightblue-secondary{
+    background-color: #21417c;
+}
+.text-white:hover{
+    background-color: #3964b4;
+}
+.bg-lightblue .navar-toggler{
+    border-color: #ffffff;
+}
+.bg-lightblue .navar-toggler .navar-toggler-icon{
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,0.85)' stroke-linecap='round' stroke-miterlimit='10'd='M4 7h22M4 23h22'/%3E%3C/svg%3E");
+}

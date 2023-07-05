@@ -108,19 +108,20 @@
           <label for="param" class="fs-5"> Buscar productos por </label>
         </div>
         <div class="mx-sm-1 mb-1 col-12 col-md-2">
-          <select name="param" id="param" class="form-select" required>
-            <option value="id" selected>ID</option>
-            <option value="name">Modelo</option>
-            <option value="name">Marca</option>
-            <option value="name">Precio</option>
+          <select name="opcion" id="param" class="form-select" required>
+            <option [id_s] value="id" >ID</option>
+            <option [modelo_s] value="modelo">Modelo</option>
+            <option [marca_s] value="marca">Marca</option>
+            <option [precio_s] value="precio">Precio</option>
           </select>
         </div>
         <div class="col-12 mb-1 col-md-6 flex-md-grow-1">
           <input
             type="text"
             class="form-control"
-            name="search"
-            id="search"
+            name="value"
+            id="value"
+            value="[value]"
             placeholder="Buscar"
             required
           />
