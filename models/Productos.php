@@ -28,19 +28,18 @@ class Productos
     }
     public function save()
     {
-        if($consult = self::$bd->prepare("insert into productos values (0,?,?,?,?,?,?)"))
-        {
-            $consult->bind_param("ssssdi",
-            $this->numero_serie,
-            $this->marca,
-            $this->descripcion,
-            $this->modelo,
-            $this->precio,
-            $this->existencias
-        );
-        $consult->execute();
-        $consult->close();
-            
+        if ($consult = self::$bd->prepare("insert into productos values (0,?,?,?,?,?,?)")) {
+            $consult->bind_param(
+                "ssssdi",
+                $this->numero_serie,
+                $this->marca,
+                $this->descripcion,
+                $this->modelo,
+                $this->precio,
+                $this->existencias
+            );
+            $consult->execute();
+            $consult->close();
         }
     }
 
@@ -109,46 +108,52 @@ class Productos
         }
         $producto = [];
         $consult->execute();
-        $consult->bind_result($id_producto,$numero_serie,$marca,$descripcion,$modelo,$precio,$existencias);
-        while($consult->fetch())
-        {
-            array_push($producto,  new Productos($id_producto,$numero_serie,$marca,$descripcion,$modelo,$precio,$existencias));
+        $consult->bind_result($id_producto, $numero_serie, $marca, $descripcion, $modelo, $precio, $existencias);
+        while ($consult->fetch()) {
+            array_push($producto,  new Productos($id_producto, $numero_serie, $marca, $descripcion, $modelo, $precio, $existencias));
         }
         $consult->close();
         return $producto;
     }
-    public function update($bd)
- {
- if($consult = $bd->prepare("update productos set numero_serie = ?, marca = ?,
-descripcion = ?, modelo = ?, precio = ?"))
- {
- $consult->bind_param("issssi",
- $this->numero_serie,
- $this->marca,
- $this->modelo,
- $this->descripcion,
- $this->precio,
- );
- $consult->execute();
- $consult->close();
- }
- }
- public static function findId($id)
- {
- $consult = null;
- $consult = self::$bd->prepare("select * from productos where id = ?");
- $consult->bind_param("i", $id);
- $consult->execute();
- $consult->bind_result($id_producto, $numero_serie, $marca, $descripcion, $modelo,
-$precio);
- if($consult->fetch())
- {
- $producto = new Productos($id_producto, $numero_serie, $marca, $descripcion,
-$modelo, $precio);
- }
- return $producto;
- }
+    public function modificar()
+    {
+        if ($consult = self::$bd->prepare("update productos set numero_serie = ?, marca = ?, descripcion = ?, modelo = ?, precio = ?, existencias = ? where id_producto = ?")) {
+            $consult->bind_param(
+                "ssssdii",
+                $this->numero_serie,
+                $this->marca,
+                $this->modelo,
+                $this->descripcion,
+                $this->precio,
+                $this->existencias,
+                $this->id_producto
+            );
+            $consult->execute();
+            $consult->close();
+        }
+    }
+    public static function findId($id)
+    {
+        $consult = null;
+        $consult = self::$bd->prepare("select * from productos where id_producto = ?");
+        $consult->bind_param("i", $id);
+        $consult->execute();
+        $consult->bind_result($id_producto, $numero_serie, $marca, $descripcion, $modelo, $precio, $existencias);
+        if ($consult->fetch()) {
+            $producto = new Productos(
+                $id_producto,
+                $numero_serie,
+                $marca,
+                $descripcion,
+                $modelo,
+                $precio,
+                $existencias
+            );
+        }
+        return $producto;
+    }
 }
+
 if (isset($argc) && $argc == 2) {
     $mysqli = new mysqli("localhost", "root", "", "agenciabd");
     Productos::init($mysqli);
@@ -169,10 +174,18 @@ if (isset($argc) && $argc == 2) {
             Productos::init($mysqli);
             $producto = Productos::productoFiltrado('precio', '19.99');
             print_r($producto);
-            break;    
+            break;
         case 'nuevo':
-            $producto = new Productos(6,'JPG23','Marca 6', 'Rojo','Modelo F',1900,3);
+            $producto = new Productos(6, 'JPG23', 'Marca 6', 'Rojo', 'Modelo F', 1900, 3);
             $producto->save();
+            break;
+        case 'modificar':
+            $producto = Productos::findId(2);
+            print_r($producto);
+            $producto->numero_serie = "cambio del numero de serie";
+            $producto->modelo = "cambio del modelo";
+            $producto->modificar();
+            print_r($producto);
             break;
     }
 }
