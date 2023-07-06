@@ -30,16 +30,6 @@ class Ventas
         return $iva;
     }
 
-    public static function obtenerIdVenta()
-    {
-        $idVenta = 1;
-        $consulta = self::$bd->prepare("SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'agenciaBD' AND TABLE_NAME = 'ventas'");
-        $consulta->execute();
-        $consulta->bind_result($idVenta);
-        $consulta->fetch();
-        return  $idVenta;
-    }
-
     public function __construct($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta, $idProductos, $cantidades, $costo)
     {
         $this->idVenta = $idVenta;
@@ -55,7 +45,6 @@ class Ventas
 
     public function agregarVenta()
     {
-        $idVenta = $this->idVenta;
         $idProductos = $this->idProductos;
         $cantidades = $this->cantidades;
         $costo = $this->costo;
@@ -70,6 +59,7 @@ class Ventas
             $this->fechaVenta
         );
         $consulta->execute();
+        $idVenta = $consulta->insert_id;
         $consulta->close();
         $detalleVenta = new DetallesVentas($idVenta, $idProductos, $cantidades, $costo);
         $detalleVenta->agregarDetalles();
@@ -354,6 +344,16 @@ if (isset($argc) && $argc == 2) {
         case 'detalles':
             $detalles = DetallesVentas::consultarDetallesVentas(5);
             print_r($detalles);
+            break;
+        case 'agrega':
+            $idProductos = [3, 5, 1];
+            $cantidades = [1, 1, 2];
+            $subtotal = DetallesVentas::obtenerSubtotal($idProductos, $cantidades);
+            $iva = Ventas::generarIva($subtotal);
+            $costo = DetallesVentas::calcularCosto($subtotal, $iva);
+            date_default_timezone_set('America/Mexico_City'); # Zona horaria para Mexico
+            $fecha = date("Y-m-d");
+            $venta = new Ventas('0', $subtotal, $iva, 4, 1, $fecha, $idProductos, $cantidades, $costo);
             break;
     }
 }

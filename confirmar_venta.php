@@ -18,8 +18,7 @@ Productos::init($mysqli);
 
 
 if (isset($_POST["accion"]) && $_POST["accion"] == "agregar") {
-    #
-    $idVenta = Ventas::obtenerIdVenta();
+
     $idEmpleado = $_POST['empleado'];
     $idCliente = $_POST['cliente'];
     $idProductos = $_POST['productos'];
@@ -28,7 +27,7 @@ if (isset($_POST["accion"]) && $_POST["accion"] == "agregar") {
     $iva = $_POST['iva'];
     $cantidades = $_POST['cantidades'];
     $costo = $_POST['costo'];
-    $venta = new Ventas($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta, $idProductos, $cantidades, $costo);
+    $venta = new Ventas(0, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta, $idProductos, $cantidades, $costo);
     $venta->agregarVenta();
     header('Location: consultar_ventas.php');
 } else {
@@ -39,8 +38,6 @@ if (isset($_POST["accion"]) && $_POST["accion"] == "agregar") {
 
     $idProductos = $_POST['productos'];
     $cantidades = isset($_POST['cantidades']) ? $_POST['cantidades'] : [];
-
-    $idVenta = Ventas::obtenerIdVenta();
 
     $html = new SpynTPL('views/');
     $html->Fichero('confirmar_ventas.html');
