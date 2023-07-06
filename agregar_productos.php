@@ -15,9 +15,9 @@ if (isset($_POST['numero_serie'])) {
     $modelo = $_POST['modelo'];
     $descripcion = $_POST['descripcion'];
     $precio = $_POST['precio'];
-    $existencias=$_POST['existencias'];
+    $existencias = $_POST['existencias'];
 
-    $producto = new Productos(0, $numero_serie, $marca, $modelo, $descripcion, $precio, $existencias);
+    $producto = new Productos(0, $numero_serie, $marca, $descripcion, $modelo, $precio, $existencias);
     $producto->save();
     unset($_POST);
     header("Location: consulta_productos.php");
@@ -25,7 +25,7 @@ if (isset($_POST['numero_serie'])) {
 }
 $title = 'Agregar nuevo producto';
 $target = 'agregar_productos.php';
-$products = Productos::findAll();
+#$products = Productos::findAll();
 $html = new SpynTPL('views/');
 $html->Fichero('frmProducto.html');
 $html->Asigna('title', $title);

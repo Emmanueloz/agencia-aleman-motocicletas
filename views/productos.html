@@ -92,7 +92,7 @@
       </ol>
     </div>
     <div>
-      <a href="./agregar_producto.html" class="btn btn-primary"> Agregar </a>
+      <a href="./agregar_productos.php" class="btn btn-primary"> Agregar </a>
     </div>
   </aside>
 
@@ -108,7 +108,7 @@
           <label for="param" class="fs-5"> Buscar productos por </label>
         </div>
         <div class="mx-sm-1 mb-1 col-12 col-md-2">
-          <select name="opcion" id="param" class="form-select" required>
+          <select name="opcion" id="param" class="form-select">
             <option [id_s] value="id" >ID</option>
             <option [modelo_s] value="modelo">Modelo</option>
             <option [marca_s] value="marca">Marca</option>
@@ -123,7 +123,6 @@
             id="value"
             value="[value]"
             placeholder="Buscar"
-            required
           />
         </div>
       </div>

@@ -122,8 +122,8 @@ class Productos
                 "ssssdii",
                 $this->numero_serie,
                 $this->marca,
-                $this->modelo,
                 $this->descripcion,
+                $this->modelo,
                 $this->precio,
                 $this->existencias,
                 $this->id_producto
@@ -132,7 +132,7 @@ class Productos
             $consult->close();
         }
     }
-    public static function findId($id)
+    public static function consultaProductoId($id)
     {
         $consult = null;
         $consult = self::$bd->prepare("select * from productos where id_producto = ?");
@@ -151,6 +151,15 @@ class Productos
             );
         }
         return $producto;
+    }
+    public function eliminarProducto()
+    {
+        if($consult = self::$bd->prepare("delete from productos where id_producto = ?"))
+        {
+            $consult->bind_param("i", $this->id_producto );
+            $consult->execute();
+            $consult->close();
+        }
     }
 }
 
@@ -180,12 +189,19 @@ if (isset($argc) && $argc == 2) {
             $producto->save();
             break;
         case 'modificar':
-            $producto = Productos::findId(2);
+            $producto = Productos::consultaProductoId(2);
             print_r($producto);
             $producto->numero_serie = "cambio del numero de serie";
             $producto->modelo = "cambio del modelo";
             $producto->modificar();
             print_r($producto);
             break;
+        case "eliminar":
+            Productos::init($mysqli);
+            $producto = Productos::consultaProductoId(9);
+            print_r($producto);
+            $producto->eliminarProducto($mysqli);
+            print("Registro eliminado");
+            break;    
     }
 }
