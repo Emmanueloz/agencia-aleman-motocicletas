@@ -67,38 +67,39 @@
     </aside>
     <main class="container">
         <section class="row col-lg-8 m-auto">
-            <form method="POST" action="[target]" >
+            <form method="POST" action="[target]" class="col">
+                <input type="hidden" value="[id_empleado]" name="id_empleado">
                 <div class="form-group col-12">
                     <label for="rfc">RFC</label>
-                    <input type="text" id="rfc" name="rfc" class="form-control">
+                    <input type="text" id="rfc" name="rfc" class="form-control" value="[rfc]">
                 </div>
                 <div class="form-group col-12">
                     <label for="nombre">Nombre</label>
-                    <input type="text" id="nombre" name="nombre" class="form-control">
+                    <input type="text" id="nombre" name="nombre" class="form-control" value="[nombre]">
                 </div>
                 <div class="form-group col-12">
                     <label for="direccion">Direccion</label>
-                    <input type="text" id="direccion" name="direccion" class="form-control">
+                    <input type="text" id="direccion" name="direccion" class="form-control" value="[direccion]">
                 </div>
                 <div class="form-group col-12">
                     <label for="Telefono">Telefono</label>
-                    <input type="tel" id="telefono" name="telefono" class="form-control">
+                    <input type="tel" id="telefono" name="telefono" class="form-control" value="[telefono]">
                 </div>
                 <div class="form-group col-12">
                     <label for="correo">correo</label>
-                    <input type="email" id="correo" name="correo"class="form-control">
+                    <input type="email" id="correo" name="correo"class="form-control" value="[correo]">
                 </div>
                 <div class="form-group col-12">
                     <label for="puesto">puesto</label>
-                    <input type="text" id="puesto" name="puesto"class="form-control">
+                    <input type="text" id="puesto" name="puesto"class="form-control" value="[puesto]">
                 </div>
                 <div class="form-group col-12">
                     <label for="salario">salario</label>
-                    <input type="text" id="salario" name="salario" class="form-control">
+                    <input type="text" id="salario" name="salario" class="form-control" value="[salario]">
                 </div>
                 <div class="form-group col-12">
                     <label for="estudios">estudios</label>
-                    <input type="text" id="estudios" name="estudios" class="form-control">
+                    <input type="text" id="estudios" name="estudios" class="form-control" value="[estudio]">
                 </div>
                 <div class="mt-2">
                     <a class="btn btn-secondary" href="./empleados.html">Cancelar</a>

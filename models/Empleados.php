@@ -152,7 +152,7 @@ class Empleados
             $consult->close();
         }
     }
-    public static function findId($id)
+    public static function consultaEmpleadoId($id)
     {
 
         $emple = null;
@@ -184,6 +184,16 @@ class Empleados
             );
         }
         return $emple;
+    }
+
+    public function Eliminar($bd)
+    {
+        if($consult = $bd->prepare("delete from Empleados where id_empleado=?"))
+        {
+          $consult->bind_param("i", $this->id_empleado);
+          $consult->execute();
+          $consult->close();
+        }
     }
 }
 
@@ -217,12 +227,19 @@ if (isset($argc) && $argc == 2) {
             break;
         case 'modificar':
             #Empleados::init($mysqli);
-            $emple = Empleados::findId(1);
+            $emple = Empleados::consultaEmpleadoId(1);
             print_r($emple);
             $emple->rfc = "RFC1234";
             $emple->nombre = "josue";
             $emple->update();
             print_r($emple);
             break;
+            case 'Eliminar':
+                Empleados::consultaEmpleadoId($mysqli, 1);
+                $empledos = Empleados::consultaEmpleadoId(1);
+                print_r($empledos);
+                $empledos->Eliminar($mysqli);
+                print("Registro Eliminado");
+                break;
     }
 }
