@@ -11,16 +11,22 @@ Empleados::init($mysqli);
 Clientes::init($mysqli);
 Productos::init($mysqli);
 
+// Configurando fecha
+date_default_timezone_set('America/Mexico_City');
+$fecha = date("Y-m-d");
+
 $pdf = new FPDF();
 $pdf->AddPage('H');
 
 $pdf->SetFont('Arial', 'B', 16);
-
 #$pdf->Cell(250, 1, "Reporte: Ventas", 0, 1, 'C');
 $pdf->Text(120, 12, "Reporte: Ventas");
+$pdf->Ln(5);
+$pdf->SetFont('Arial', '', 14);
+$pdf->Cell(20, 5, "Fecha del reporte: $fecha");
 $pdf->Ln(10);
 $pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(20, 5, "Id", 1, 0, 'C');
+$pdf->Cell(20, 5, "ID", 1, 0, 'C');
 $pdf->Cell(50, 5, "Empleado", 1, 0, 'C');
 $pdf->Cell(50, 5, "Cliente", 1, 0, 'C');
 $pdf->Cell(50, 5, "Productos", 1, 0, 'C');

@@ -86,7 +86,7 @@ if (isset($_GET['search'])  && !empty(trim($_GET['search']))) {
 
     $html->AsignaBloque('paginas', null);
 
-    $html->Asigna('link_report', 'reportVentas.php');
+    #$html->Asigna('link_report', 'reportVentas.php');
     $html->Asigna('link_report', "reportVentas.php?opcion=$opcion&search=$search");
     $html->Asigna('reporte', 'Reporte de consulta');
     $html->Asigna('value', $search);
