@@ -10,13 +10,14 @@ $html->Asigna('modelo_s', '');
 $html->Asigna('marca_s','');
 $html->Asigna('precio_s','');
 $html->Asigna('value','');
+$html->Asigna('title', 'Lista de productos');
 
 $mysqli = new mysqli($servidor, $usuario, $password, $bd);
 Productos::init($mysqli);
-if(isset($_POST['value']) && !empty(trim($_POST['value'])))
+if(isset($_GET['value']) && !empty(trim($_GET['value'])))
 {
-    $opcion = $_POST['opcion'];
-    $value = $_POST['value'];
+    $opcion = $_GET['opcion'];
+    $value = $_GET['value'];
     switch ($opcion) {
         case 'id':
             $html->Asigna('id_s', 'selected');
@@ -36,10 +37,14 @@ if(isset($_POST['value']) && !empty(trim($_POST['value'])))
     {
         $html->AsignaBloque('productos', null);
     }
+        $html->Asigna('link_report',"reportProductos.php?opcion=$opcion&value=$value" );
+        $html->Asigna('reporte',"Reporte de consulta");
         $html->Asigna('value', $value);
 }
 else
 {
+    $html->Asigna('link_report',"reportProductos.php" );
+    $html->Asigna('reporte',"Reporte general");
     $productos = Productos::findAll();
 }
 
