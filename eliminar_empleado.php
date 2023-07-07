@@ -14,4 +14,4 @@ $empledos = Empleados::consultaEmpleadoId($id_empleado);
 $empledos->Eliminar($mysqli);
 $msg = 'Registro Eliminado';
 }
-header('Location: vista_empleados.php');
+header("Location: vista_empleados.php?msg=$msg");

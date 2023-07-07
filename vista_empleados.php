@@ -4,8 +4,7 @@ require_once 'models/config.php';
 require_once 'models/Empleados.php';
 
 $msg = '';
-if(isset($_GET['msg']))
-{
+if (isset($_GET['msg'])) {
     $content = $_GET['msg'];
     $msg = "<div class='alert alert-success alert-dismissible fade show'
     role='alert'><button type='button' class='btn-close'
@@ -27,9 +26,13 @@ $html->Asigna('value', '');
 $mysqli = new mysqli($servidor, $usuario, $password, $bd);
 Empleados::init($mysqli);
 
-if (isset($_POST['value']) && !empty(trim($_POST['value']))) {
-    $opcion = $_POST['opcion'];
-    $value = $_POST['value'];
+if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
+    $opcion = $_GET['opcion'];
+    $value = $_GET['value'];
+    $html->Asigna('link_report', "reportEmpleados.php?opcion=$opcion&value=$value");
+    $html->Asigna('reporte', 'Reporte de consulta');
+
+
 
 
     switch ($opcion) {
@@ -55,6 +58,8 @@ if (isset($_POST['value']) && !empty(trim($_POST['value']))) {
     $html->Asigna('value', $value);
 } else {
     $emples = Empleados::consul();
+    $html->Asigna('link_report', "reportEmpleados.php");
+    $html->Asigna('reporte', 'Reporte General');
 }
 
 

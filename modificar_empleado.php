@@ -26,7 +26,7 @@ if (isset($_GET['id_empleado']))
     $html->Asigna('correo', $empledos->correo);
     $html->Asigna('puesto', $empledos->puesto);
     $html->Asigna('salario', $empledos->salario);
-    $html->Asigna('estudios', $empledos->estudios);
+    $html->Asigna('estudio', $empledos->estudios);
 }
 else if (isset($_POST['id_empleado']))
 {
