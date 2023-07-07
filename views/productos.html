@@ -158,10 +158,28 @@
                 <td>[modelo]</td>
                 <td>[descripcion]</td>
                 <td>[precio]</td>
-                <td>  
+                <td> 
+                  <div class=""></div>
                   <div class="btn-group" role="group" aria-label="Basic outlined example">
                     <a href="./modificar_producto.php?id=[id_producto]" class="btn btn-outline-primary">Editar</a>
-                    <button type="button" class="btn btn-outline-primary">Eliminar</button>
+                    <button type="button" class="btn btn-outline-primary" 
+                    data-bs-toggle="modal" data-bs-target="#miModal[id_producto]">Eliminar</button>
+                    <div class="modal fade" id="miModal[id_producto]" >
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title fs-5">Eliminar producto</h4>
+                            <button type="button" class="btn-close"
+                             data-bs-dismiss="modal" arialabel="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            ¿Estas seguro de eliminar el producto [marca] [modelo]?
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Cerrar</button>
+                            <a href="./eliminar_producto.php?id=[id_producto]" class="btn btn-danger" >Aceptar</a>
+                          </div>
                   </div>
                 </td>
             </tr>
