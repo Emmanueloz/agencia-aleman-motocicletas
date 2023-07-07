@@ -48,6 +48,13 @@ class Productos
     public static function findAll()
     {
         $products = [];
+        $id_producto = [];
+        $numero_serie = [];
+        $marca = [];
+        $descripcion = [];
+        $modelo = [];
+        $precio = [];
+        $existencias = [];
 
         $consult = self::$bd->prepare("select * from productos");
         $consult->execute();
@@ -62,6 +69,7 @@ class Productos
     public static function cosultMarcaModelo($valor)
     {
         $id = [];
+        $id_producto = [];
         $valor = "%" . $valor . "%";
         $consult = self::$bd->prepare("select id_producto from productos where (marca like ? or modelo like ?)");
         $consult->bind_param('ss', $valor, $valor);
@@ -76,6 +84,9 @@ class Productos
     public static function consultPrecioMarcaModelo($id_producto)
     {
         $producto = [];
+        $precio = [];
+        $marca = [];
+        $modelo = [];
         $consult = self::$bd->prepare("select marca, modelo, precio from productos where id_producto = ?");
         $consult->bind_param('i', $id_producto);
         $consult->execute();
@@ -109,6 +120,15 @@ class Productos
                 break;
         }
         $producto = [];
+        $products = [];
+        $id_producto = [];
+        $numero_serie = [];
+        $marca = [];
+        $descripcion = [];
+        $modelo = [];
+        $precio = [];
+        $existencias = [];
+
         $consult->execute();
         $consult->bind_result($id_producto, $numero_serie, $marca, $descripcion, $modelo, $precio, $existencias);
         while ($consult->fetch()) {
@@ -137,6 +157,13 @@ class Productos
 
     public static function consultaProductoId($id)
     {
+        $id_producto = [];
+        $numero_serie = [];
+        $marca = [];
+        $descripcion = [];
+        $modelo = [];
+        $precio = [];
+        $existencias = [];
         $consult = self::$bd->prepare("select * from productos where id_producto = ?");
         $consult->bind_param("i", $id);
         $consult->execute();
