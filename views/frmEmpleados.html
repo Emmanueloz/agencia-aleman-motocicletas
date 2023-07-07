@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./bootstrap-5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <title>[title]</title>
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-lightblue">
+            <div class="container-fluid">
+                <h1 class="text-light">Agencia Motocicletas</h1>
+                <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse w-20 justify-content-end" id="collapsibleNavId">
+                    <ul class="navbar-nav mt-2 mt-sm-1 justify-content-end align-items-end align-items-lg-center">
+                        <li class="nav-item mx-sm-1 mt-sm-0 mt-1 fs-4">
+                            <a class="nav-link active text-decoration-underline text-light" aria-current="page"
+                                href="./empleados.html" aria-current="page">
+                                Empleados
+                            </a>
+                        </li>
+                        <li class="nav-item mx-sm-1 mt-sm-0 mt-1 fs-4">
+                            <a class="nav-link text-light" aria-current="page" href="./clientes.html"
+                                aria-current="page">
+                                Clientes
+                            </a>
+                        </li>
+                        <li class="nav-item mx-sm-1 mt-sm-0 mt-1 fs-4">
+                            <a class="nav-link text-light" aria-current="page" href="./productos.html"
+                                aria-current="page">
+                                Productos
+                            </a>
+                        </li>
+                        <li class="nav-item mx-sm-1 mt-sm-0 mt-1 fs-4">
+                            <a class="nav-link  text-light" aria-current="page" href="./ventas.html"
+                                aria-current="page">
+                                Ventas
+                            </a>
+                        </li>
+                        <li class="nav-item mx-sm-1 mt-sm-0 mt-1 btn-small">
+                            <a class="btn btn-danger" href="../login.html" aria-current="page">
+                                Cerrar Sesión
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <aside class="d-flex justify-content-between m-1 p-1 bg-body-tertiary">
+        <div aria-label="breadcrumb">
+            <ol class="breadcrumb d-flex align-items-center">
+                <li class="breadcrumb-item"><a href="./index.html">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="./empleados.html">Empleados</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Agregar</li>
+            </ol>
+        </div>
+
+    </aside>
+    <main class="container">
+        <section class="row col-lg-8 m-auto">
+            <form method="POST" action="[target]" class="col">
+                <input type="hidden" value="[id_empleado]" name="id_empleado">
+                <div class="form-group col-12">
+                    <label for="rfc">RFC</label>
+                    <input required type="text" id="rfc" name="rfc" class="form-control" value="[rfc]">
+                </div>
+                <div class="form-group col-12">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" class="form-control" value="[nombre]">
+                </div>
+                <div class="form-group col-12">
+                    <label for="direccion">Direccion</label>
+                    <input required type="text" id="direccion" name="direccion" class="form-control" value="[direccion]">
+                </div>
+                <div class="form-group col-12">
+                    <label for="Telefono">Telefono</label>
+                    <input required type="tel" id="telefono" name="telefono" class="form-control" value="[telefono]">
+                </div>
+                <div class="form-group col-12">
+                    <label for="correo">correo</label>
+                    <input required type="email" id="correo" name="correo"class="form-control" value="[correo]">
+                </div>
+                <div class="form-group col-12">
+                    <label for="puesto">puesto</label>
+                    <input required type="text" id="puesto" name="puesto"class="form-control" value="[puesto]">
+                </div>
+                <div class="form-group col-12">
+                    <label for="salario">salario</label>
+                    <input required type="text" id="salario" name="salario" class="form-control" value="[salario]">
+                </div>
+                <div class="form-group col-12">
+                    <label for="estudios">estudios</label>
+                    <input required type="text" id="estudios" name="estudios" class="form-control" value="[estudio]">
+                </div>
+                <div class="mt-2">
+                    <a class="btn btn-secondary" href="./empleados.html">Cancelar</a>
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                </div>
+            </form>
+        </section>
+    </main>
+    <script src="./bootstrap-5.3.0/js/popper.min.js"></script>
+    <script src="./bootstrap-5.3.0/js/bootstrap.min.js"></script>
+</body>
+</html>
