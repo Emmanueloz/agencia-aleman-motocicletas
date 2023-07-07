@@ -6,7 +6,7 @@ $pdf=new FPDF();
 $pdf->AddPage();
 $pdf->SetFont('Times');
 
-$pdf->Image('../img/encabezado.jpg', 10, 10, 190);
+#$pdf->Image('../img/encabezado.jpg', 10, 10, 190);
 $pdf->Ln(50);
 
 $pdf->Cell(180,1, utf8_decode('PELÍCULAS'),0,0,'C');
