@@ -3,8 +3,18 @@ require_once 'SpynTPL.php';
 require_once 'models/config.php';
 require_once 'models/Empleados.php';
 
+$msg = '';
+if(isset($_GET['msg']))
+{
+    $content = $_GET['msg'];
+    $msg = "<div class='alert alert-success alert-dismissible fade show'
+    role='alert'><button type='button' class='btn-close'
+    data-bs-dismiss='alert' aria-label='Close'></button>$content</div>";
+}
+
 $html = new SpynTPL('views/');
 $html->Fichero('empleados.html');
+$html->Asigna('msg', $msg);
 $html->Asigna('title', 'lista de empleados');
 $html->Asigna('id_empleado_s', '');
 $html->Asigna('rfc_s', '');
@@ -20,6 +30,7 @@ Empleados::init($mysqli);
 if (isset($_POST['value']) && !empty(trim($_POST['value']))) {
     $opcion = $_POST['opcion'];
     $value = $_POST['value'];
+
 
     switch ($opcion) {
         case 'id':
