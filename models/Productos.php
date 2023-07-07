@@ -22,10 +22,12 @@ class Productos
         $this->precio = $precio;
         $this->existencias = $existencias;
     }
+
     public static function init($bd)
     {
         self::$bd = $bd;
     }
+
     public function save()
     {
         if ($consult = self::$bd->prepare("insert into productos values (0,?,?,?,?,?,?)")) {
@@ -132,9 +134,9 @@ class Productos
             $consult->close();
         }
     }
+
     public static function consultaProductoId($id)
     {
-        $consult = null;
         $consult = self::$bd->prepare("select * from productos where id_producto = ?");
         $consult->bind_param("i", $id);
         $consult->execute();
@@ -149,14 +151,14 @@ class Productos
                 $precio,
                 $existencias
             );
+            return $producto;
         }
-        return $producto;
     }
+
     public function eliminarProducto()
     {
-        if($consult = self::$bd->prepare("delete from productos where id_producto = ?"))
-        {
-            $consult->bind_param("i", $this->id_producto );
+        if ($consult = self::$bd->prepare("delete from productos where id_producto = ?")) {
+            $consult->bind_param("i", $this->id_producto);
             $consult->execute();
             $consult->close();
         }
@@ -172,8 +174,9 @@ if (isset($argc) && $argc == 2) {
             print_r($products);
             break;
         case 'id':
-            $id = Productos::cosultMarcaModelo('2');
-            print_r($id);
+            #$id = Productos::cosultMarcaModelo('2');
+            $producto = Productos::consultaProductoId(1);
+            print_r($producto);
             break;
         case 'consulta':
             $producto = Productos::consultPrecioMarcaModelo(1);
@@ -202,6 +205,6 @@ if (isset($argc) && $argc == 2) {
             print_r($producto);
             $producto->eliminarProducto($mysqli);
             print("Registro eliminado");
-            break;    
+            break;
     }
 }

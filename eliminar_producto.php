@@ -9,6 +9,10 @@ if(isset($_GET['id']))
 {
     $mysqli = new mysqli($servidor, $usuario, $password, $bd);
     $id = $_GET['id'];
-    print_r($id);
+    Productos::init($mysqli);
+    $producto = Productos::consultaProductoId($id);
+    $producto->eliminarProducto();
+    $mensaje = "Registro eliminado";
+    header("Location: consulta_productos.php");
 
 }
