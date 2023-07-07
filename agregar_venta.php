@@ -8,7 +8,6 @@ $mysqli = new mysqli($servidor, $usuario, $password, $bd);
 
 
 Ventas::init($mysqli);
-DetallesVentas::init($mysqli);
 Empleados::init($mysqli);
 Clientes::init($mysqli);
 Productos::init($mysqli);

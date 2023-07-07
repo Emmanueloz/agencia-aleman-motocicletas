@@ -4,7 +4,9 @@ require_once 'Empleados.php';
 require_once 'Clientes.php';
 require_once 'Productos.php';
 //require_once 'models/config.php';
-
+/**
+ *  Permite crear los objetos, llamar métodos relacionados al modulo de ventas
+ */
 class Ventas
 {
     public $idVenta;
@@ -18,18 +20,37 @@ class Ventas
     public $costo;
 
     private static $bd;
-
+    /**
+     * Método mas importante para agregar la conexión a la base de datos
+     * @param object $bd Conexión a la base de datos.
+     */
     public static function init($bd)
     {
         self::$bd = $bd;
+        DetallesVentas::init($bd);
     }
-
+    /**
+     * Para agregar una venta se necesita calcular el iva.
+     * @param double $subtotal Se manda el subtotal de la venta, se obtiene llamando al método de la clase DetallesVentas
+     */
     public static function generarIva($subtotal)
     {
         $iva = $subtotal * 0.16;
         return $iva;
     }
 
+    /**
+     * Se pasa los datos necesarios para crear un objeto de ventas
+     * @param int $idVenta
+     * @param double $subtotal 
+     * @param double $iva
+     * @param int $idEmpleado
+     * @param int $idCliente
+     * @param string $fechaVenta Con el **formato Y-m-d**
+     * @param array $iProductos Id de los productos a vender
+     * @param array $cantidades Cantidades por producto a vender, en el mismo orden correspondiente al $idVenta.
+     * @param double $costo Total de la venta
+     */
     public function __construct($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta, $idProductos, $cantidades, $costo)
     {
         $this->idVenta = $idVenta;
@@ -59,6 +80,9 @@ class Ventas
             $this->fechaVenta
         );
         $consulta->execute();
+        /**
+         * Se obtiene la id de la nueva inserción  de la tabla ventas para el objeto de DetallesVentas
+         */
         $idVenta = $consulta->insert_id;
         $consulta->close();
         $detalleVenta = new DetallesVentas($idVenta, $idProductos, $cantidades, $costo);
@@ -306,7 +330,6 @@ if (isset($argc) && $argc == 2) {
     $mysqli = new mysqli("localhost", "root", "", "agenciaBD");
 
     Ventas::init($mysqli);
-    DetallesVentas::init($mysqli);
     Empleados::init($mysqli);
     Clientes::init($mysqli);
     Productos::init($mysqli);
