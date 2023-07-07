@@ -69,7 +69,7 @@ class Productos
     public static function cosultMarcaModelo($valor)
     {
         $id = [];
-        $id_producto = [];
+        $id_producto = 0;
         $valor = "%" . $valor . "%";
         $consult = self::$bd->prepare("select id_producto from productos where (marca like ? or modelo like ?)");
         $consult->bind_param('ss', $valor, $valor);
@@ -83,17 +83,19 @@ class Productos
     }
     public static function consultPrecioMarcaModelo($id_producto)
     {
+        $id = 0;
+        $precio = '';
+        $marca = '';
+        $modelo = '';
+
         $producto = [];
-        $precio = [];
-        $marca = [];
-        $modelo = [];
-        $consult = self::$bd->prepare("select marca, modelo, precio from productos where id_producto = ?");
+        $consult = self::$bd->prepare("select id_producto, marca, modelo, precio from productos where id_producto = ?");
         $consult->bind_param('i', $id_producto);
         $consult->execute();
-        $consult->bind_result($precio, $marca, $modelo);
+        $consult->bind_result($id, $precio, $marca, $modelo);
         $consult->fetch();
 
-        array_push($producto, $precio, $marca, $modelo);
+        array_push($producto, $id, $precio, $marca, $modelo);
         $consult->close();
         return ($producto);
     }
@@ -191,9 +193,8 @@ class Productos
         }
     }
 }
-
-if (isset($argc) && $argc == 2) {
-    $mysqli = new mysqli("localhost", "root", "", "agenciabd");
+/* if (isset($argc) && $argc == 2) {
+    $mysqli = new mysqli("localhost", "root", "", "agenciaBD");
     Productos::init($mysqli);
     switch ($argv[1]) {
         case 'todos':
@@ -209,29 +210,6 @@ if (isset($argc) && $argc == 2) {
             $producto = Productos::consultPrecioMarcaModelo(1);
             print_r($producto);
             break;
-        case 'filtro':
-            Productos::init($mysqli);
-            $producto = Productos::productoFiltrado('precio', '19.99');
-            print_r($producto);
-            break;
-        case 'nuevo':
-            $producto = new Productos(6, 'JPG23', 'Marca 6', 'Rojo', 'Modelo F', 1900, 3);
-            $producto->save();
-            break;
-        case 'modificar':
-            $producto = Productos::consultaProductoId(2);
-            print_r($producto);
-            $producto->numero_serie = "cambio del numero de serie";
-            $producto->modelo = "cambio del modelo";
-            $producto->modificar();
-            print_r($producto);
-            break;
-        case "eliminar":
-            Productos::init($mysqli);
-            $producto = Productos::consultaProductoId(9);
-            print_r($producto);
-            $producto->eliminarProducto($mysqli);
-            print("Registro eliminado");
-            break;
-    }
+        }
 }
+ */

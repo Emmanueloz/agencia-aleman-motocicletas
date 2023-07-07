@@ -70,6 +70,7 @@ class Empleados
         return $emplea;
     }
     public static function nom($nombre)
+
     {
         $id = [];
         $nombre = "%" . $nombre . "%";
@@ -188,7 +189,7 @@ class Empleados
 
     public function Eliminar($bd)
     {
-        if ($consult = $bd->prepare("delete from Empleados where id_empleado=?")) {
+        if ($consult = $bd->prepare("delete from empleados where id_empleado=?")) {
             $consult->bind_param("i", $this->id_empleado);
             $consult->execute();
             $consult->close();
@@ -196,10 +197,9 @@ class Empleados
     }
 }
 
-
-
+/* 
 if (isset($argc) && $argc == 2) {
-    $mysqli = new mysqli("localhost", "root", "", "agenciabd");
+    $mysqli = new mysqli("localhost", "root", "", "agenciaBD");
     Empleados::init($mysqli);
     switch ($argv[1]) {
         case 'consul_emple':
@@ -242,3 +242,4 @@ if (isset($argc) && $argc == 2) {
             break;
     }
 }
+*/

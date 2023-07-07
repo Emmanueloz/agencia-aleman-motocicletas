@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agencia Alemán</title>
+    <link rel="stylesheet" href="../bootstrap-5.3.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../style.css" />
+    <link
+      rel="shortcut icon"
+      href="../public/favicon.png"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg bg-lightblue">
+        <div class="container-fluid">
+          <h1 class="text-light">Agencia Motocicletas</h1>
+          <button
+            class="navbar-toggler d-lg-none"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapsibleNavId"
+            aria-controls="collapsibleNavId"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            class="collapse navbar-collapse w-20 justify-content-end"
+            id="collapsibleNavId"
+          >
+            <ul
+              class="navbar-nav mt-2 mt-sm-1 justify-content-end align-items-end align-items-lg-center"
+            >
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1 fs-4">
+                <a
+                  class="nav-link dropdown-toggle text-light fs-4"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Empleados
+                </a>
+                <ul class="dropdown-menu bg-lightblue-secondary">
+                  <li>
+                    <a class="dropdown-item text-white" href="./empleados.html"
+                      >Consultar</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./agregar_empleados.html"
+                    >
+                      Agregar
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1 fs-4">
+                <a
+                  class="nav-link dropdown-toggle text-light fs-4"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Clientes
+                </a>
+                <ul class="dropdown-menu bg-lightblue-secondary">
+                  <li>
+                    <a class="dropdown-item text-white" href="./clientes.html">
+                      Consultar
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./agregar_cliente.html"
+                    >
+                      Agregar
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1 fs-4">
+                <a
+                  class="nav-link dropdown-toggle text-light fs-4"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Productos
+                </a>
+                <ul class="dropdown-menu bg-lightblue-secondary">
+                  <li>
+                    <a class="dropdown-item text-white" href="./productos.html"
+                      >Consultar</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./agregar_producto.html"
+                    >
+                      Agregar
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1 fs-4">
+                <a
+                  class="nav-link dropdown-toggle text-light fs-4 fw-bold"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Ventas
+                </a>
+                <ul class="dropdown-menu bg-lightblue-secondary">
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./consultar_ventas.php"
+                    >
+                      Consultar
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./agregar_ventas.php"
+                    >
+                      Agregar
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item mx-sm-1 mt-sm-0 mt-1 btn-small">
+                <a class="btn btn-danger" href="#" aria-current="page">
+                  Cerrar Sesión
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <aside class="d-flex justify-content-between m-1 p-1 bg-body-tertiary">
+        <div aria-label="breadcrumb">
+          <ol class="breadcrumb d-flex align-items-center">
+            <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+            <li class="breadcrumb-item">
+              <a href="./consultar_ventas.php">Ventas</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="./agregar_venta.php">Agregar</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              Confirmar
+            </li>
+          </ol>
+        </div>
+      </aside>
+      <div class="container">
+        <div class="col-sm-12 col-md-8 mt-2 m-auto">
+          <h2>Confirmar nueva venta</h2>
+          <form action="confirmar_venta.php" method="post" class="row">
+            <!-- <input type="hidden" id="accion" name="accion" value="[accion]" /> -->
+            <div class="col-sm-4 mb-3">
+              <label for="empleado" class="form-label fw-bold">Empleado</label>
+              <br />
+              <input
+                type="hidden"
+                name="empleado"
+                id="empleado"
+                value="[id_empleado]"
+              />
+              <span>[nombre_empleado]</span>
+            </div>
+
+            <div class="col-sm-4 mb-3">
+              <label for="user" class="form-label fw-bold">Cliente</label>
+              <br />
+              <input
+                type="hidden"
+                name="cliente"
+                id="cliente"
+                value="[id_cliente]"
+              />
+              <span>[nombre_cliente]</span>
+            </div>
+            <div class="col-sm-4 mb-3">
+              <label for="fecha-compra" class="form-label fw-bold">
+                Fecha venta
+              </label>
+              <input
+                type="date"
+                class="form-control-plaintext"
+                id="fecha-venta"
+                name="fecha-venta"
+                readonly
+                value="[fecha-venta]"
+              />
+            </div>
+
+            <div class="mb-3">
+              <div class="row">
+                <div class="col-9">
+                  <label for="productos" class="form-label fw-bold">
+                    Productos
+                  </label>
+                  <br />
+                  [block: productos]
+                  <div class="mb-4">
+                    <input
+                      type="hidden"
+                      id="productos"
+                      name="productos[]"
+                      value="[0]"
+                    />
+                    <span>[1] [2] $[3]</span>
+                  </div>
+                  [/block: productos]
+                </div>
+
+                <div class="col-3">
+                  <label for="cantidades" class="form-label fw-bold">
+                    Cantidades
+                  </label>
+                  <br />
+                  [block: cantidades]
+                  <div>
+                    <input
+                      [solo_lectura]
+                      type="number"
+                      id="Cantidades"
+                      class="col-4 mb-1 [solo_lectura_estilo]"
+                      name="cantidades[]"
+                      min="1"
+                      value="[valor]"
+                    />
+                  </div>
+                  [/block: cantidades]
+                </div>
+              </div>
+            </div>
+
+            <div class="row [ocultar]">
+              <div class="col-sm-4 mb-3">
+                <label for="subtotal" class="form-label fw-bold">
+                  Subtotal
+                </label>
+                <input
+                  type="text"
+                  class="form-control-plaintext"
+                  id="subtotal"
+                  name="subtotal"
+                  readonly
+                  value="[subtotal]"
+                />
+              </div>
+              <div class="col-sm-4 mb-3">
+                <label for="iva" class="form-label fw-bold">IVA</label>
+                <input
+                  type="text"
+                  class="form-control-plaintext"
+                  id="iva"
+                  name="iva"
+                  readonly
+                  value="[iva]"
+                />
+              </div>
+              <div class="col-sm-4 mb-3">
+                <label for="total" class="form-label fw-bold">Total</label>
+                <input
+                  type="text"
+                  class="form-control-plaintext"
+                  id="costo"
+                  name="costo"
+                  readonly
+                  value="[costo]"
+                />
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-end">
+              <a
+                class="btn btn-secondary m-1"
+                href="./consultar_ventas.php"
+                role="button"
+              >
+                Cancelar
+              </a>
+              [boton_modificar]
+              <button
+                type="submit"
+                class="btn btn-primary m-1 text-capitalize"
+                role="button"
+                name="accion"
+                value="[accion]"
+              >
+                [accion]
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+    <script src="../bootstrap-5.3.0/js/popper.min.js"></script>
+    <script src="../bootstrap-5.3.0/js/bootstrap.min.js"></script>
+  </body>
+</html>
