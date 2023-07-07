@@ -70,6 +70,94 @@ public static function buscarnom($id_cliente)
     return $nombre;
 }
 
+public static function busquedafil($opciones, $value)
+{
+    switch($opciones)
+    {
+        case 'idcli':
+            $consulta = self::$bd->prepare("select * from clientes where id_cliente = ?");
+            $consulta->bind_param('i', $value);
+            break;
+        case 'nomcli':
+            $consulta = self::$bd->prepare("select * from clientes where nombre like ?");
+            $value = $value . '%';
+            $consulta->bind_param("s", $value);
+            break;
+        case 'rfccli':
+            $consulta = self::$bd->prepare("select * from clientes where rfc like ?");
+            $value = $value . '%';
+            $consulta->bind_param("s", $value);
+            break;
+    }
+    $consclientes = [];
+    $consulta->execute();
+    $consulta->bind_result($id_cliente, $rfc, $nombre, $direccion, $telefono, $correo, $genero);
+    while($consulta->fetch())
+    {
+        array_push($consclientes, new Clientes($id_cliente, $rfc, $nombre, $direccion, $telefono, $correo, $genero));
+    }
+    $consulta->close();
+    return $consclientes;
+}
+
+public function agregar()
+{
+    if($consulta = self::$bd->prepare("insert into clientes values(null, ?, ?, ?, ?, ?, ?)"));
+    {
+        $consulta->bind_param('ssssss',
+        $this->rfc,
+        $this->nombre,
+        $this->direccion,
+        $this->telefono,
+        $this->correo,
+        $this->genero);
+
+        $consulta->execute();
+        $consulta->close();
+    }
+}
+
+public function modificar()
+{
+    if($consulta = self::$bd->prepare("update clientes set rfc = ?, nombre = ?, direccion = ?, telefono = ?, correo = ?, genero = ? where id_cliente = ?"))
+    {
+        $consulta->bind_param('ssssssi',
+        $this->rfc,
+        $this->nombre,
+        $this->direccion,
+        $this->telefono,
+        $this->correo,
+        $this->genero,
+        $this->id_cliente);
+
+        $consulta->execute();
+        $consulta->close();
+    }
+}
+
+public static function buscarid($id)
+{
+    $cliente = null;
+    $consulta = self::$bd->prepare("select * from clientes where id_cliente = ?");
+    $consulta->bind_param('i', $id);
+    $consulta->execute();
+    $consulta->bind_result($id_cliente, $rfc, $nombre, $direccion, $telefono, $correo, $genero);
+    if($consulta->fetch())
+    {
+        $cliente = new Clientes($id_cliente, $rfc, $nombre, $direccion, $telefono, $correo, $genero);
+    }
+    return $cliente;
+}
+
+public function eliminar($bd)
+{
+    if($consulta = $bd->prepare("delete from clientes where id_cliente = ?"))
+    {
+        $consulta->bind_param('i', $this->id_cliente);
+        $consulta->execute();
+        $consulta->close();
+    }
+}
 
 }
 
@@ -91,6 +179,29 @@ if (isset($argc) && $argc == 2)
             $nombre = Clientes::buscarnom(4);
             print($nombre);
             break;
-
+        case 'filtro':
+            #Clientes::init($mysqli);
+            $consclientes = Clientes::busquedafil('nomcli', 'Cliente 3');
+            print_r($consclientes);
+            break;
+        case 'nuevo':
+            Clientes::init($mysqli);
+            $clientes = new Clientes(0, 'RFC7', 'Cliente 7', 'Direccion 7', '0987654321', 'cliente7@ejemplo.com', 'F');
+            $clientes->agregar();
+            break;
+        case 'actualizar':
+            $cliente = Clientes::buscarid(1);
+            print_r($cliente);
+            $cliente->rfc = "RFC1";
+            $cliente->telefono = "0123456789";
+            $cliente->modificar($mysqli);
+            print_r($cliente);
+            break;
+        case 'eliminarcli':
+            $client = Clientes::buscarid(1);
+            print_r($client);
+            $client->eliminar($mysqli);
+            print("Registro eliminado");
+            break;
     }
 }

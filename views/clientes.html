@@ -92,39 +92,44 @@
         <div aria-label="breadcrumb">
             <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                <li class="breadcrumb-item"><a href="clientes.html">Clientes</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Agregar</li>
+                <li class="breadcrumb-item active" aria-current="page">Clientes</li>
             </ul>
         </div>
+        <a href="agregar_clientes.php" class="btn btn-primary">Agregar</a>
     </section>
 
 
     <section class="container mt-3">
-        <form action="" method="" class="row">
+        <form action="./vista_clientes.php" method="GET" class="row">
             <div class="col-12 col-md-4">
                 <label for="opcion" class="col-12 col-md-4 col-form-label">Buscar cliente</label>
             </div>
             <div class="col-12 col-md-2">
                 <select class="form-control" name="opcion" id="opcion">
-                    <option value="">Nombre</option>
-                    <option value="">Apellidos</option>
-                    <option value="">Id</option>
+                    <option [idcli_s] value="idcli">Id Cliente</option>
+                    <option [nomcli_s] value="nomcli">Nombre</option>
+                    <option [rfccli_s] value="rfccli">RFC</option>
                 </select>
             </div>
         </div>
         <div class="col-12 col-md-4">
-            <input class="form-control" type="text" name="value" id="value" value="">
+            <input class="form-control" type="text" name="value" id="value" value="[value]">
         </div>
             <div class="col-12 col-md-2">
                 <button class="btn btn-primary" type="submit">Buscar</button>
             </div>
         </form>
     </section>
+    <br>
 
     <section class="container">
-    <div class="table-responsive">
+      [msg]
+    <div class="d-flex px-3 justify-content-between align-items-center">
+      <span class="text-secondary fs-3">[titulo]</span>
+      <a href="./report/[link_report]" class="btn btn-sm btn-warning">[reporte]</a>
+    </div>
+    <div class="table-responsive p-3">
     <table class="table table-bordered border-primary mt-3">
-        <caption class="caption-top fs-2">[titulo]</caption>
         <tr>
             <th>Id Cliente</th>
             <th>RFC</th>
@@ -147,9 +152,22 @@
             <td>[genero]</td>
             <td>
                 <div class="btn-group">
-                <a class="btn btn-info" href="modificar_cliente.html" role="button">Modificar</a>
-                <a class="btn btn-secondary" href="" role="button">Eliminar</a>
+                <a class="btn btn-secondary" href="./report/reportClientes.php?id_cliente=[id_cliente]">Reporte</a>
+                <a class="btn btn-info" href="modificar_clientes.php?id_cliente=[id_cliente]" role="button">Modificar</a>
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#detalle[id_cliente]">Eliminar</button>
+                <div class="modal fade" id="detalle[id_cliente]">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title fs-5">Eliminar Cliente</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <div class="modal-body">¿Quieres eliminar al cliente [nombre]?</div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                  <a href="./eliminar_clientes.php?id_cliente=[id_cliente]" class="btn btn-danger">Aceptar</a>
+                </div>
+              </div>          
             </td>
         </tr>
         [/block: general]
