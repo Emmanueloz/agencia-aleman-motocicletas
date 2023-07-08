@@ -93,7 +93,7 @@ if (isset($_GET['search'])  && !empty(trim($_GET['search']))) {
     $html->Asigna('link_report', 'reportVentas.php');
     $html->Asigna('reporte', 'Reporte general');
 
-    $ventas = Ventas::consultarVentas($paginaActual, $contenido);
+    $ventas = Ventas::consultarRegistroVentas($paginaActual, $contenido);
 
     if (count($ventas) == 0) {
         $html->AsignaBloque('ventas', null);

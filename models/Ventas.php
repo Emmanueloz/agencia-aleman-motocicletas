@@ -90,7 +90,28 @@ class Ventas
         $consulta->close();
         $detalleVenta = new DetallesVentas($idVenta, $idProductos, $cantidades, $costo);
         $detalleVenta->agregarDetalles();
+        $venta = self::consultarVenta($idVenta);
+        self::agregarRegistroVenta($venta);
     }
+
+    private static function agregarRegistroVenta($venta)
+    {
+        $consulta = self::$bd->prepare("INSERT INTO registro_ventas VALUES(?,?,?,?,?,?,?,?,?)");
+        $consulta->bind_param(
+            'issssiddd',
+            $venta->idVenta,
+            $venta->idEmpleado,
+            $venta->idCliente,
+            $venta->fechaVenta,
+            $venta->idProductos,
+            $venta->cantidades,
+            $venta->iva,
+            $venta->subtotal,
+            $venta->costo
+        );
+        $consulta->execute();
+    }
+
 
     public static function totalPaginas($contenido)
     {
@@ -106,11 +127,47 @@ class Ventas
         return $totalPaginas;
     }
 
-    public static function consultarVentas($pagina = null, $contenido = null)
+    public static function consultarRegistroVentas($pagina = null, $contenido = null)
     {
-        $pagina = ($pagina - 1) * $contenido;
-        $ventasArray = [];
+        $pagina -= 1;
         $ventas = [];
+        $idVenta = 0;
+        $empleado = '';
+        $cliente = '';
+        $fecha = '';
+        $productos = '';
+        $cantidad = 0;
+        $subtotal = 0.0;
+        $iva = 0.0;
+        $costo = 0.0;
+
+        if (!is_null($pagina) && !is_null($contenido)) {
+            $consulta = self::$bd->prepare('SELECT * FROM registro_ventas LIMIT ?,?');
+            $consulta->bind_param('ii', $pagina, $contenido);
+        } else {
+            $consulta = self::$bd->prepare('SELECT * FROM registro_ventas');
+        }
+
+        #$consulta = self::$bd->prepare('SELECT * FROM registro_ventas');
+
+        $consulta->execute();
+        $consulta->bind_result($idVenta, $empleado, $cliente, $fecha, $productos, $cantidad, $iva, $subtotal, $costo);
+
+        while ($consulta->fetch()) {
+
+            array_push($ventas, new Ventas($idVenta, $subtotal, $iva, $empleado, $cliente, $fecha, $productos, $cantidad, $costo));
+        }
+
+        $consulta->close();
+
+        return $ventas;
+    }
+
+    public static function consultarVenta($id)
+    {
+
+        $ventasArray = [];
+        $venta = null;
         $idVenta = 0;
         $subtotal = 0;
         $iva = 0;
@@ -118,12 +175,9 @@ class Ventas
         $idCliente = 0;
         $fechaVenta = '';
 
-        if (!is_null($pagina) && !is_null($contenido)) {
-            $consulta = self::$bd->prepare("SELECT id_venta, subtotal, iva, id_empleado, id_cliente, fecha_venta FROM ventas LIMIT ?,?");
-            $consulta->bind_param('ii', $pagina, $contenido);
-        } else {
-            $consulta = self::$bd->prepare("SELECT id_venta, subtotal, iva, id_empleado, id_cliente, fecha_venta FROM ventas");
-        }
+
+        $consulta = self::$bd->prepare("SELECT id_venta, subtotal, iva, id_empleado, id_cliente, fecha_venta FROM ventas WHERE id_venta = ?");
+        $consulta->bind_param('i', $id);
 
         $consulta->execute();
         $consulta->bind_result($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta);
@@ -137,12 +191,12 @@ class Ventas
         $consulta->close();
 
         if (isset($ventasArray)) {
-            foreach ($ventasArray as $venta) {
-                $id = $venta[0];
+            foreach ($ventasArray as $ventaA) {
+                $id = $ventaA[0];
                 $detalle =  DetallesVentas::consultarDetallesVentas($id);
                 $detalle = $detalle[0];
-                $nombreEmpleado = Empleados::id_emple($venta[3]);
-                $nombreCliente = Clientes::buscarnom($venta[4]);
+                $nombreEmpleado = Empleados::id_emple($ventaA[3]);
+                $nombreCliente = Clientes::buscarnom($ventaA[4]);
 
                 $productos = '';
                 $cantidades = '';
@@ -159,14 +213,11 @@ class Ventas
                     $cantidades = $cantidades . "$cantidad <br/>";
                 }
 
-
-                array_push($ventas, new Ventas($venta[0], $venta[1], $venta[2], $nombreEmpleado, $nombreCliente, $venta[5], $productos, $cantidades, $detalle->costo));
+                $venta = new Ventas($ventaA[0], $ventaA[1], $ventaA[2], $nombreEmpleado, $nombreCliente, $ventaA[5], $productos, $cantidades, $detalle->costo);
             }
-        } else {
-            $ventas = null;
         }
 
-        return $ventas;
+        return $venta;
     }
 
     public static function consultaFiltrada($filtro, $value)
@@ -343,12 +394,13 @@ if (isset($argc) && $argc == 2) {
             print_r($ventas);
             break;
         case "id":
-            $ventas = Ventas::consultaFiltrada("id", 3);
+            #$ventas = Ventas::consultaFiltrada("id", 3);
+            $ventas = Ventas::consultarVenta(1);
             print_r($ventas);
             break;
         case 'ventas':
             $pagina = 1;
-            $ventas = Ventas::consultarVentas($pagina, 5);
+            $ventas = Ventas::consultarRegistroVentas($pagina, 5);
             print_r($ventas);
             break;
         case 'paginasTotal':
