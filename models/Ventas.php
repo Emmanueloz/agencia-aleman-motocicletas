@@ -98,7 +98,7 @@ class Ventas
     {
         $consulta = self::$bd->prepare("INSERT INTO registro_ventas VALUES(?,?,?,?,?,?,?,?,?)");
         $consulta->bind_param(
-            'issssiddd',
+            'isssssddd',
             $venta->idVenta,
             $venta->idEmpleado,
             $venta->idCliente,
@@ -136,7 +136,7 @@ class Ventas
         $cliente = '';
         $fecha = '';
         $productos = '';
-        $cantidad = 0;
+        $cantidad = '';
         $subtotal = 0.0;
         $iva = 0.0;
         $costo = 0.0;
@@ -235,21 +235,13 @@ class Ventas
 
         switch ($filtro) {
             case 'id':
-                $consulta = self::$bd->prepare("SELECT ventas.id_venta, ventas.subtotal, 
-                ventas.iva, ventas.id_empleado, 
-                ventas.id_cliente, ventas.fecha_venta
-                FROM ventas
-                WHERE ventas.id_venta = ?");
+                $consulta = self::$bd->prepare("SELECT * FROM ventas WHERE id_venta = ?");
                 $consulta->bind_param('i', $value);
                 break;
 
             case 'fecha':
                 $value = '%' . $value . '%';
-                $consulta = self::$bd->prepare("SELECT ventas.id_venta, ventas.subtotal, 
-                ventas.iva, ventas.id_empleado, 
-                ventas.id_cliente, ventas.fecha_venta
-                FROM ventas
-                WHERE ventas.fecha_venta like ?");
+                $consulta = self::$bd->prepare("SELECT * FROM ventas WHERE fecha like ?");
                 $consulta->bind_param('s', $value);
                 break;
         }
@@ -259,37 +251,10 @@ class Ventas
 
         while ($consulta->fetch()) {
 
-            array_push($ventasArray, [$idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta]);
+            array_push($ventasArray,);
         }
         $consulta->close();
 
-        if (isset($ventasArray)) {
-            foreach ($ventasArray as $venta) {
-                $id = $venta[0];
-                $detalle =  DetallesVentas::consultarDetallesVentas($id);
-                $detalle = $detalle[0];
-                $nombreEmpleado = Empleados::id_emple($venta[3]);
-                $nombreCliente = Clientes::buscarnom($venta[4]);
-
-                $productos = '';
-                $cantidades = '';
-
-                $productosNombre = $detalle->idProductos;
-                $cantidadesPorProducto = $detalle->cantidades;
-
-                foreach ($productosNombre as $productoNombre) {
-                    $productos = $productos . "$productoNombre[1] <br/>";
-                }
-
-                foreach ($cantidadesPorProducto as $cantidad) {
-                    $cantidades = $cantidades . "$cantidad <br/>";
-                }
-
-                array_push($ventas, new Ventas($venta[0], $venta[1], $venta[2], $nombreEmpleado, $nombreCliente, $venta[5], $productos, $cantidades, $detalle->costo));
-            }
-        } else {
-            $ventas = null;
-        }
 
         return $ventas;
     }
