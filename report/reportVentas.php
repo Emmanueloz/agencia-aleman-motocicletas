@@ -13,29 +13,38 @@ Productos::init($mysqli);
 
 // Configurando fecha
 date_default_timezone_set('America/Mexico_City');
-$fecha = date("Y-m-d");
+$fecha = date("d-m-Y");
+
+$tipo = isset($_GET['opcion']) ? 'Consulta' : (isset($_GET['venta']) ? 'Individual' : 'General');
 
 $pdf = new FPDF();
 $pdf->AddPage('H');
-
+// Titulo
 $pdf->SetFont('Arial', 'B', 16);
-#$pdf->Cell(250, 1, "Reporte: Ventas", 0, 1, 'C');
 $pdf->Text(120, 12, "Reporte: Ventas");
 $pdf->Ln(5);
+
+// Datos del reporte
 $pdf->SetFont('Arial', '', 14);
-$pdf->Cell(20, 5, "Fecha del reporte: $fecha");
+$pdf->Cell(136, 10, "Fecha del reporte: $fecha", 1, 0);
+$pdf->Cell(136, 10, "Tipo de reporte: $tipo", 1, 1);
 $pdf->Ln(10);
+
+// Tabla del reporte
+// Encabezado
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(20, 5, "ID", 1, 0, 'C');
 $pdf->Cell(50, 5, "Empleado", 1, 0, 'C');
 $pdf->Cell(50, 5, "Cliente", 1, 0, 'C');
-$pdf->Cell(50, 5, "Productos", 1, 0, 'C');
-$pdf->Cell(20, 5, "Cantidad", 1, 0, 'C');
+$pdf->Cell(60, 5, "Productos", 1, 0, 'C');
+$pdf->Cell(24, 5, "Cantidad", 1, 0, 'C');
 $pdf->Cell(20, 5, "IVA", 1, 0, 'C');
 $pdf->Cell(24, 5, "Subtotal", 1, 0, 'C');
 $pdf->Cell(24, 5, "Total", 1, 0, 'C');
 $pdf->Ln();
 
+
+// Contenido de la tabla
 
 if (isset($_GET['opcion']) && isset($_GET['search'])) {
     $opcion = $_GET['opcion'];
@@ -82,8 +91,8 @@ foreach ($ventasArray as $venta) {
     $pdf->Cell(50, $altura, utf8_decode($venta->idCliente), "B", 0, 'L');
 
 
-    $pdf->MultiCell(50, 10, $productos, "B");
-    $pdf->SetXY(180, $y_axis);
+    $pdf->MultiCell(60, 10, $productos, "B", 'L');
+    $pdf->SetXY(190, $y_axis);
 
     $cantidades = "";
 
@@ -95,16 +104,16 @@ foreach ($ventasArray as $venta) {
         }
     }
 
-    $pdf->MultiCell(20, 10, $cantidades, "B", 'R');
-    $pdf->SetXY(200, $y_axis);
+    $pdf->MultiCell(24, 10, $cantidades, "B", 'C');
+    $pdf->SetXY(214, $y_axis);
 
-    $pdf->Cell(20, $altura, $venta->iva, "B", 0, 'R');
-    $pdf->Cell(24, $altura, $venta->subtotal, "B", 0, 'R');
-    $pdf->Cell(24, $altura, $venta->costo, "B", 0, 'R');
+    $pdf->Cell(20, $altura, "$" . $venta->iva, "B", 0, 'R');
+    $pdf->Cell(24, $altura, "$" . $venta->subtotal, "B", 0, 'R');
+    $pdf->Cell(24, $altura, "$" . $venta->costo, "B", 0, 'R');
 
     $pdf->Ln();
     #print_r($productos);
 }
 
-$pdf->Output('', 'Reporte de ventas'); 
+$pdf->Output('', "Reporte-Ventas-$fecha-$tipo"); 
 #print_r($ventasArray);
