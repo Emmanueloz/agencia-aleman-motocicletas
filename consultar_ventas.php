@@ -98,6 +98,8 @@ if (isset($_GET['search'])  && !empty(trim($_GET['search']))) {
     if (count($ventas) == 0) {
         $html->AsignaBloque('ventas', null);
         $html->AsignaBloque('paginas', null);
+        $mensaje = "<h4 class='text-secondary text-center' >No se encontró ninguna venta. Agrega una venta</h4>";
+        $html->Asigna('mensaje', $mensaje);
     }
 
     for ($pa = 1; $pa <= $totalPaginas; $pa++) {
