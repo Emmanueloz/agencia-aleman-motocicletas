@@ -28,6 +28,9 @@ class Ventas
     {
         self::$bd = $bd;
         DetallesVentas::init($bd);
+        Empleados::init($bd);
+        Clientes::init($bd);
+        Productos::init($bd);
     }
     /**
      * Para agregar una venta se necesita calcular el iva.
@@ -328,11 +331,7 @@ class Ventas
 
 if (isset($argc) && $argc == 2) {
     $mysqli = new mysqli("localhost", "root", "", "agenciaBD");
-
     Ventas::init($mysqli);
-    Empleados::init($mysqli);
-    Clientes::init($mysqli);
-    Productos::init($mysqli);
 
     switch ($argv[1]) {
         case 'empleados':

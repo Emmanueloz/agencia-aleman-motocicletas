@@ -3,18 +3,12 @@
 #print_r($_POST);
 require_once 'SpynTPL.php';
 require_once 'models/config.php';
-require_once 'models/DetallesVentas.php';
 require_once 'models/Ventas.php';
 
 $mysqli = new mysqli($servidor, $usuario, $password, $bd);
 
 
 Ventas::init($mysqli);
-Empleados::init($mysqli);
-Clientes::init($mysqli);
-Productos::init($mysqli);
-
-
 
 if (isset($_POST["accion"]) && $_POST["accion"] == "agregar") {
 

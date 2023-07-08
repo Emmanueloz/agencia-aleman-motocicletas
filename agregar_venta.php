@@ -1,16 +1,12 @@
 <?php
 require_once 'SpynTPL.php';
 require_once 'models/config.php';
-require_once 'models/DetallesVentas.php';
 require_once 'models/Ventas.php';
 
 $mysqli = new mysqli($servidor, $usuario, $password, $bd);
 
 
 Ventas::init($mysqli);
-Empleados::init($mysqli);
-Clientes::init($mysqli);
-Productos::init($mysqli);
 
 $titulo = "Agregar una nueva venta";
 date_default_timezone_set('America/Mexico_City'); # Zona horaria para Mexico

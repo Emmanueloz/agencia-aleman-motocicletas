@@ -1,7 +1,6 @@
 <?php
 require_once 'SpynTPL.php';
 require_once 'models/config.php';
-require_once 'models/DetallesVentas.php';
 require_once 'models/Ventas.php';
 
 $titulo = "Lista de ventas";
@@ -24,9 +23,6 @@ $mysqli = new mysqli($servidor, $usuario, $password, $bd);
 
 // Iniciando parámetros
 Ventas::init($mysqli);
-Empleados::init($mysqli);
-Clientes::init($mysqli);
-Productos::init($mysqli);
 
 $contenido = 5;
 $totalPaginas = Ventas::totalPaginas($contenido);
@@ -52,7 +48,6 @@ if (isset($_GET['search'])  && !empty(trim($_GET['search']))) {
   ></path>
 </svg>
 </a>';
-
 
     switch ($opcion) {
         case 'id':
