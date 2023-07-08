@@ -67,11 +67,7 @@ if (isset($_GET['search'])  && !empty(trim($_GET['search']))) {
             break;
     }
 
-    if ($opcion == "id" || $opcion == "fecha") {
-        $ventas = Ventas::consultaFiltrada($opcion, $search);
-    } else {
-        $ventas = Ventas::consultaFiltradaRelacionada($opcion, $search);
-    }
+    $ventas = Ventas::consultaFiltrada($opcion, $search);
 
     if (count($ventas) == 0) {
         $html->AsignaBloque('ventas', null);

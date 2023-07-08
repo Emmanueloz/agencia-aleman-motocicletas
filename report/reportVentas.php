@@ -40,11 +40,8 @@ $pdf->Ln();
 if (isset($_GET['opcion']) && isset($_GET['search'])) {
     $opcion = $_GET['opcion'];
     $search = $_GET['search'];
-    if ($opcion == 'id' || $opcion == 'fecha') {
-        $ventasArray = Ventas::consultaFiltrada($opcion, $search);
-    } else {
-        $ventasArray = Ventas::consultaFiltradaRelacionada($opcion, $search);
-    }
+
+    $ventasArray = Ventas::consultaFiltrada($opcion, $search);
 } elseif (isset($_GET['venta'])) {
     $id = $_GET['venta'];
     $ventasArray = Ventas::consultaFiltrada('id', $id);

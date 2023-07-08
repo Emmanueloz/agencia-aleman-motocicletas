@@ -222,123 +222,56 @@ class Ventas
 
     public static function consultaFiltrada($filtro, $value)
     {
-        $ventasArray = [];
         $ventas = [];
-
         $idVenta = 0;
-        $subtotal = 0;
-        $iva = 0;
-        $idEmpleado = 0;
-        $idCliente = 0;
-        $fechaVenta = '';
+        $empleado = '';
+        $cliente = '';
+        $fecha = '';
+        $productos = '';
+        $cantidad = '';
+        $subtotal = 0.0;
+        $iva = 0.0;
+        $costo = 0.0;
 
 
         switch ($filtro) {
             case 'id':
-                $consulta = self::$bd->prepare("SELECT * FROM ventas WHERE id_venta = ?");
+                $consulta = self::$bd->prepare("SELECT * FROM registro_ventas WHERE id_venta = ?");
                 $consulta->bind_param('i', $value);
                 break;
 
             case 'fecha':
                 $value = '%' . $value . '%';
-                $consulta = self::$bd->prepare("SELECT * FROM ventas WHERE fecha like ?");
+                $consulta = self::$bd->prepare("SELECT * FROM registro_ventas WHERE fecha like ?");
+                $consulta->bind_param('s', $value);
+                break;
+            case 'empleados':
+                $value = '%' . $value . '%';
+                $consulta = self::$bd->prepare("SELECT * FROM registro_ventas WHERE empleado like ?");
+                $consulta->bind_param('s', $value);
+                break;
+            case 'clientes':
+                $value = '%' . $value . '%';
+                $consulta = self::$bd->prepare("SELECT * FROM registro_ventas WHERE cliente like ?");
+                $consulta->bind_param('s', $value);
+                break;
+            case 'productos':
+                $value = '%' . $value . '%';
+                $consulta = self::$bd->prepare("SELECT * FROM registro_ventas WHERE productos like ?");
                 $consulta->bind_param('s', $value);
                 break;
         }
 
         $consulta->execute();
-        $consulta->bind_result($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta);
+        $consulta->bind_result($idVenta, $empleado, $cliente, $fecha, $productos, $cantidad, $iva, $subtotal, $costo);
+
 
         while ($consulta->fetch()) {
 
-            array_push($ventasArray,);
+            array_push($ventas, new Ventas($idVenta, $subtotal, $iva, $empleado, $cliente, $fecha, $productos, $cantidad, $costo));
         }
         $consulta->close();
 
-
-        return $ventas;
-    }
-
-    public static function consultaFiltradaRelacionada($filtro, $value)
-    {
-        $idVentas = [];
-        $ventas = [];
-        $idVenta = 0;
-        $idEmpleado = 0;
-        $idCliente = 0;
-
-
-        switch ($filtro) {
-            case 'empleados':
-                $idEmpleados = Empleados::nom($value);
-
-                if (count($idEmpleados) != 0) {
-                    foreach ($idEmpleados as $idEmpleado) {
-                        $consulta = self::$bd->prepare("SELECT id_venta FROM ventas WHERE id_empleado = ?");
-                        $consulta->bind_param("i", $idEmpleado);
-                        $consulta->execute();
-                        $consulta->bind_result($idVenta);
-                        while ($consulta->fetch()) {
-                            array_push($idVentas, $idVenta);
-                        }
-                    }
-                    $consulta->close();
-                }
-
-                break;
-            case 'clientes':
-                $idClientes = Clientes::buscarcli($value);
-
-                if (count($idClientes) != 0) {
-                    foreach ($idClientes as $idCliente) {
-                        $consulta = self::$bd->prepare("SELECT id_venta FROM ventas WHERE id_cliente = ?");
-                        $consulta->bind_param("i", $idCliente);
-                        $consulta->execute();
-                        $consulta->bind_result($idVenta);
-
-                        while ($consulta->fetch()) {
-                            array_push($idVentas, $idVenta);
-                        }
-                    }
-                    $consulta->close();
-                }
-                break;
-            case 'productos':
-                $idProductos = Productos::cosultMarcaModelo($value);
-
-                if (count($idProductos) != 0) {
-                    foreach ($idProductos as $idProducto) {
-                        $consulta = self::$bd->prepare("SELECT id_venta FROM detalles_venta WHERE id_producto = ?");
-                        $consulta->bind_param("i", $idProducto);
-                        $consulta->execute();
-                        $consulta->bind_result($idVenta);
-                        while ($consulta->fetch()) {
-                            array_push($idVentas, $idVenta);
-                        }
-                    }
-                    $consulta->close();
-                }
-                break;
-        }
-
-        function compararPorIdVenta($a, $b)
-        {
-            if ($a->idVenta == $b->idVenta) {
-                return 0;
-            }
-            return ($a->idVenta > $b->idVenta) ? 1 : -1;
-        }
-
-        if (isset($idVentas) || count($idVentas) != 0) {
-            $idVentas = array_unique($idVentas);
-            foreach ($idVentas as $idVenta) {
-                $venta = self::consultaFiltrada("id", $idVenta);
-                array_push($ventas, $venta[0]);
-            }
-            usort($ventas, 'compararPorIdVenta');
-        } else {
-            $ventas = null;
-        }
 
         return $ventas;
     }
@@ -350,14 +283,6 @@ if (isset($argc) && $argc == 2) {
     Ventas::init($mysqli);
 
     switch ($argv[1]) {
-        case 'empleados':
-            $ventas = Ventas::consultaFiltradaRelacionada("empleados", "robe");
-            print_r($ventas);
-            break;
-        case 'clientes':
-            $ventas = Ventas::consultaFiltradaRelacionada("clientes", "ju");
-            print_r($ventas);
-            break;
         case "id":
             #$ventas = Ventas::consultaFiltrada("id", 3);
             $ventas = Ventas::consultarVenta(1);
@@ -371,10 +296,6 @@ if (isset($argc) && $argc == 2) {
         case 'paginasTotal':
             $totalPaginas = Ventas::totalPaginas(5);
             print_r($totalPaginas);
-            break;
-        case 'productos':
-            $ventas = Ventas::consultaFiltradaRelacionada("productos", "Modelo");
-            print_r($ventas);
             break;
         case 'subtotal':
             $subtotal = DetallesVentas::obtenerSubtotal([3, 1], [1, 1]);
