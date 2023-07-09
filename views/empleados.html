@@ -13,7 +13,7 @@
   <header>
     <nav class="navbar navbar-expand-lg bg-lightblue">
       <div class="container-fluid">
-        <h1 class="text-light">Agencia Motocicletas</h1>
+        <h1 class="text-light fs-4 fw-bold">Agencia Motocicletas</h1>
         <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
           data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
           aria-label="Toggle navigation">
@@ -21,29 +21,67 @@
         </button>
         <div class="collapse navbar-collapse w-20 justify-content-end" id="collapsibleNavId">
           <ul class="navbar-nav mt-2 mt-sm-1 justify-content-end align-items-end align-items-lg-center">
-            <li class="nav-item mx-sm-1 mt-sm-0 mt-1 fs-4">
-              <a class="nav-link active text-decoration-underline text-light" aria-current="page"
-                href="./empleados.html" aria-current="page">
+            <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
+              <a class="nav-link dropdown-toggle text-light fs-5 fw-bold" href="#" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
                 Empleados
               </a>
+              <ul class="dropdown-menu bg-lightblue-secondary">
+                <li>
+                  <a class="dropdown-item text-white" href="#">Consultar</a>
+                </li>
+                <li>
+                  <a class="dropdown-item text-white" href="#"> Agregar </a>
+                </li>
+              </ul>
             </li>
-            <li class="nav-item mx-sm-1 mt-sm-0 mt-1 fs-4">
-              <a class="nav-link text-light" aria-current="page" href="./clientes.html" aria-current="page">
+            <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
+              <a class="nav-link dropdown-toggle text-light fs-5" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
                 Clientes
               </a>
+              <ul class="dropdown-menu bg-lightblue-secondary">
+                <li>
+                  <a class="dropdown-item text-white" href="./vista_clientes.php"> Consultar </a>
+                </li>
+                <li>
+                  <a class="dropdown-item text-white" href="./agregar_clientes.php"> Agregar </a>
+                </li>
+              </ul>
             </li>
-            <li class="nav-item mx-sm-1 mt-sm-0 mt-1 fs-4">
-              <a class="nav-link text-light" aria-current="page" href="./productos.html" aria-current="page">
+            <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
+              <a class="nav-link dropdown-toggle text-light fs-5" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
                 Productos
               </a>
+              <ul class="dropdown-menu bg-lightblue-secondary">
+                <li>
+                  <a class="dropdown-item text-white" href="./consulta_productos.php">Consultar</a>
+                </li>
+                <li>
+                  <a class="dropdown-item text-white" href="./agregar_productos.php"> Agregar </a>
+                </li>
+              </ul>
             </li>
-            <li class="nav-item mx-sm-1 mt-sm-0 mt-1 fs-4">
-              <a class="nav-link  text-light" aria-current="page" href="./ventas.html" aria-current="page">
+            <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
+              <a class="nav-link dropdown-toggle text-light fs-5 " href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
                 Ventas
               </a>
+              <ul class="dropdown-menu bg-lightblue-secondary">
+                <li>
+                  <a class="dropdown-item text-white" href="./consultar_ventas.php">Consultar</a>
+                </li>
+                <li>
+                  <a class="dropdown-item text-white" href="./agregar_venta.php">
+                    Agregar
+                  </a>
+                </li>
+              </ul>
             </li>
-            <li class="nav-item mx-sm-1 mt-sm-0 mt-1 btn-small">
-              <a class="btn btn-danger" href="../login.html" aria-current="page">
+
+            <li class="nav-item mx-sm-1 mt-sm-0 mt-1">
+              <a class="btn btn-sm btn-danger" href="#" aria-current="page">
                 Cerrar Sesión
               </a>
             </li>
@@ -60,38 +98,39 @@
       </ol>
     </div>
     <div>
+      
       <a href="./agregar_empleados.php" class="btn btn-primary"> Agregar </a>
     </div>
   </aside>
-  <aside class="container">
+  <aside >
 
-    <form action="vista_empleados.php" method="get">
-      <div class="row">
-        <h4 class="col-4">Buscar empleado por</h4>
-        <div class="col-4">
-          <select class="form-select" name="opcion" id="floatingSelect" aria-label="Floating label select example">
+    <form action="vista_empleados.php" method="get"
+      class="d-flex flex-column flex-md-row justify-content-md-between m-1 p-1">
+      <div class="d-flex w-100 flex-column flex-md-row align-items-md-center">
+        <label for="opcion" class="input-group-text rounded-0">
+          Buscar ventas por
+        </label>
+        <div class="col-7 col-md-4 col-lg-2">
+          <select class="form-select rounded-0" name="opcion" id="floatingSelect"
+            aria-label="Floating label select example">
             <option [id_s] value="id">ID</option>
             <option [rfc_s] value="rfc">RFC</option>
             <option [nombre_s] value="nombre">NOMBRE</option>
             <option [salarios_s] value="salario">SALARIOS</option>
             <option [estudios_s] value="estudios">ESTUDIOS</option>
           </select>
-
         </div>
-        <div class="col-2">
-          <input class="form-control" type="text" name="value" id="value" value="[value]">
-        </div>
-        <div class="col-2">
-          <button class="btn btn-primary" type="submit">Buscar</button>
-        </div>
+        <input class="form-control rounded-0" type="text" name="value" id="value" value="[value]">
+        [limpiar_filtro]
+        <button class="btn btn-primary rounded-0" type="submit">Buscar</button>
       </div>
     </form>
   </aside>
+
   <main>
     <div class="d-flex px-3 justify-content-between align-items-center">
       <span class="text-secondary fs-3">[title]</span>
-      <a href="./report/[link_report]" class="btn btn-sm btn-warning"
-      >[reporte]</a>
+      <a href="./report/[link_report]" class="btn btn-sm btn-secondary">[reporte]</a>
     </div>
     <div class="table-responsive mt-4 p-3">
 
@@ -100,7 +139,7 @@
 
       <table class="table ">
 
-        <thead class="table-info">
+        <thead class="bg-dark text-light">
 
           <tr>
             <th>ID EMPLEADOS</th>
@@ -146,14 +185,10 @@
                 </div>
               </div>
               <div class="btn-group" role="group" aria-label="basic mixed styles example">
+                <a href="modificar_empleado.php?id_empleado=[id_empleado]" class="btn btn-warning">Modificar</a>
                 <button data-bs-toggle="modal" data-bs-target="#elimina-modal[id_empleado]"
                   class="btn btn-danger">Eliminar</button>
-                  <a class="btn btn-secondary" href="./report/reportEmpleados.php?id_empleado=[id_empleado]">Reporte</a>
-              </div>
-              
-
-              <div class="btn-group" role="group" aria-label="basic mixed styles example">
-                <a href="modificar_empleado.php?id_empleado=[id_empleado]" class="btn btn-warning">Modificar</a>
+                <a class="btn btn-secondary" href="./report/reportEmpleados.php?id_empleado=[id_empleado]">Reporte</a>
               </div>
             </td>
           </tr>
@@ -165,15 +200,19 @@
   <script src="./bootstrap-5.3.0/js/bootstrap.min.js"></script>
 </body>
 
-</html><!DOCTYPE html>
+</html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
+
 <body>
-    
+
 
 </body>
+
 </html>
