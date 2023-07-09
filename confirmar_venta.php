@@ -1,6 +1,10 @@
 <?php
-
-#print_r($_POST);
+// Comprobar si hay una sesión iniciada
+session_start();
+require_once 'models/Login.php';
+if (!isset($_SESSION['user'])) {
+    header('Location: ./index.html');
+}
 require_once 'SpynTPL.php';
 require_once 'models/config.php';
 require_once 'models/Ventas.php';
