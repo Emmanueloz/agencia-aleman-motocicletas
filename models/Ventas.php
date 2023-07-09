@@ -123,7 +123,7 @@ class Ventas
     public static function totalPaginas($contenido)
     {
         $totalFilas = 0;
-        $consulta = self::$bd->prepare("SELECT COUNT(id_venta) FROM ventas");
+        $consulta = self::$bd->prepare("SELECT COUNT(id_venta) FROM registro_ventas");
         $consulta->execute();
         $consulta->bind_result($totalFilas);
         $consulta->fetch();
@@ -136,7 +136,7 @@ class Ventas
 
     public static function consultarRegistroVentas($pagina = null, $contenido = null)
     {
-        $pagina -= 1;
+        $pagina = ($pagina - 1) * $contenido;
         $ventas = [];
         $idVenta = 0;
         $empleado = '';
