@@ -137,43 +137,63 @@
 
   <aside>
     <form
-      method="get"
-      class="d-flex flex-column flex-md-row justify-content-md-between m-1 p-1"
-    >
-      <div
-        class="d-flex w-100 flex-column flex-md-row align-items-md-center"
-      >
-        <div class="mx-sm-1 mb-1 col-12 col-md-2">
-          <label for="param" class="fs-5"> Buscar productos por </label>
+    method="get"
+    class="d-flex flex-column flex-md-row justify-content-md-between m-1 p-1"
+  >
+    <div class="d-flex w-100 flex-column flex-md-row align-items-md-center">
+      <div class="input-group">
+        <div class="col-5 col-md-3 m-0">
+          <label for="opcion" class="input-group-text rounded-0">
+            Buscar productos por
+          </label>
         </div>
-        <div class="mx-sm-1 mb-1 col-12 col-md-2">
-          <select name="opcion" id="param" class="form-select">
-            <option [id_s] value="id" >ID</option>
-            <option [modelo_s] value="modelo">Modelo</option>
-            <option [marca_s] value="marca">Marca</option>
+        <div class="col-7 col-md-4 col-lg-2">
+          <select
+            name="opcion"
+            id="opcion"
+            class="form-select rounded-0"
+            required
+          >
+            <option [id_s] value="id">ID</option>
+            <option [modelo_s] value="marca">Modelo</option>
+            <option [marca_s] value="modelo">Marca</option>
             <option [precio_s] value="precio">Precio</option>
+            
           </select>
         </div>
-        <div class="col-12 mb-1 col-md-6 flex-md-grow-1">
-          <input
-            type="text"
-            class="form-control"
-            name="value"
-            id="value"
-            value="[value]"
-            placeholder="Buscar"
-          />
-        </div>
+
+        <input
+          type="text"
+          class="form-control rounded-0"
+          name="value"
+          id="value"
+          placeholder="Buscar"
+          value="[value]"
+        />
+        [limpiar_filtro]
+        <button class="btn btn-outline-primary rounded-0" type="submit">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-search"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+            />
+          </svg>
+          Buscar
+        </button>
       </div>
-      <div class="d-flex justify-content-end mb-1 px-2">
-        <button class="btn btn-outline-primary">Buscar</button>
-      </div>
-    </form>
+    </div>
+  </form>
   </aside>
     <main>
         <div class="d-flex px-3 justify-content-between align-items-center">
           <span class="text-secondary fs-3">[title]</span>
-          <a href="./report/[link_report]" class="btn btn-sm btn-warning">[reporte]</a>
+          <a href="./report/[link_report]" class="btn btn-sm btn-secondary">[reporte]</a>
         </div>
         <div class="table-responsive p-3">
           <table class="table">
@@ -203,8 +223,8 @@
                 <td> 
                   <div class=""></div>
                   <div class="btn-group" role="group" aria-label="Basic outlined example">
-                    <a href="./modificar_producto.php?id=[id_producto]" class="btn btn-outline-primary">Editar</a>
-                    <button type="button" class="btn btn-outline-primary" 
+                    <a href="./modificar_producto.php?id=[id_producto]" class="btn btn-warning">Modificar</a>
+                    <button type="button" class="btn btn-danger" 
                     data-bs-toggle="modal" data-bs-target="#miModal[id_producto]">Eliminar</button>
                     <a href="./report/reportProductos.php?producto=[id_producto]" class="btn btn-secondary">Reporte</a>
                     <div class="modal fade" id="miModal[id_producto]" >
