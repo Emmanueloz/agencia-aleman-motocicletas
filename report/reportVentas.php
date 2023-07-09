@@ -1,5 +1,5 @@
 <?php
-require('../fpdf/fpdf.php');
+require('../models/PDF.php');
 require_once '../models/config.php';
 require_once '../models/Ventas.php';
 
@@ -17,11 +17,12 @@ $fecha = date("d-m-Y");
 
 $tipo = isset($_GET['opcion']) ? 'Consulta' : (isset($_GET['venta']) ? 'Individual' : 'General');
 
-$pdf = new FPDF();
-$pdf->AddPage('H');
+$pdf = new PDF('L');
+$pdf->AliasNbPages();
+$pdf->AddPage();
 // Titulo
-$pdf->SetFont('Arial', 'B', 16);
-$pdf->Text(120, 12, "Reporte: Ventas");
+$pdf->SetFont('Arial', 'B', 15);
+$pdf->Cell(272, 12, 'Reporte de Ventas', 0, 1, 'C');
 $pdf->Ln(5);
 
 // Datos del reporte
@@ -64,7 +65,7 @@ $row = 0;
 foreach ($ventasArray as $venta) {
     $row += 1;
     if ($row > 6) {
-        $pdf->AddPage('H');
+        $pdf->AddPage();
         $row = 0;
     }
 
