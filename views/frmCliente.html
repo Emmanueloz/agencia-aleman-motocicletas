@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./bootstrap-5.3.0/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="./style.css">
-    <title>[title]</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agencia Alemán</title>
+  <link rel="stylesheet" href="./bootstrap-5.3.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="shortcut icon" href="./public/favicon.png" type="image/x-icon" />
 </head>
 
 <body>
@@ -33,55 +34,93 @@
               <ul
                 class="navbar-nav mt-2 mt-sm-1 justify-content-end align-items-end align-items-lg-center"
               >
-                <li class="nav-item mx-sm-1 mt-sm-0 mt-1 fs-4">
-                  <a
-                    class="nav-link text-light"
-                    aria-current="page"
-                    href="./empleados.html"
-                    aria-current="page"
-                  >
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
+                <a
+                  class="nav-link dropdown-toggle text-light fs-5"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
                     Empleados
                   </a>
+                  <ul class="dropdown-menu bg-lightblue-secondary">
+                    <li>
+                      <a class="dropdown-item text-white" href="./vista_empleados.php">Consultar</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item text-white" href="./agregar_empleados.php"> Agregar </a>
+                    </li>
+                  </ul>
                 </li>
-                <li class="nav-item mx-sm-1 mt-sm-0 mt-1 fs-4">
+                <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
                   <a
-                    class="nav-link active text-decoration-underline text-light"
-                    aria-current="page"
-                    href="./clientes.html"
-                    aria-current="page"
+                    class="nav-link dropdown-toggle text-light fs-5 fw-bold"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
                   >
                     Clientes
                   </a>
+                  <ul class="dropdown-menu bg-lightblue-secondary">
+                    <li>
+                      <a class="dropdown-item text-white" href="./vista_clientes.php">Consultar</a>
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item text-white"
+                        href="#"
+                      >
+                        Agregar
+                      </a>
+                    </li>
+                  </ul>
                 </li>
-                <li class="nav-item mx-sm-1 mt-sm-0 mt-1 fs-4">
+                <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
                   <a
-                    class="nav-link text-light"
-                    aria-current="page"
-                    href="./productos.html"
-                    aria-current="page"
+                    class="nav-link dropdown-toggle text-light fs-5"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
                   >
                     Productos
                   </a>
+                  <ul class="dropdown-menu bg-lightblue-secondary">
+                    <li>
+                      <a class="dropdown-item text-white" href="./consulta_productos.php">Consultar</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item text-white" href="./agregar_productos.php"> Agregar </a>
+                    </li>
+                  </ul>
                 </li>
-                <li class="nav-item mx-sm-1 mt-sm-0 mt-1 fs-4">
+                <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
                   <a
-                    class="nav-link text-light"
-                    aria-current="page"
-                    href="./ventas.html"
-                    aria-current="page"
+                    class="nav-link dropdown-toggle text-light fs-5"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
                   >
                     Ventas
                   </a>
+                  <ul class="dropdown-menu bg-lightblue-secondary">
+                    <li>
+                      <a class="dropdown-item text-white" href="./consultar_ventas.php">Consultar</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item text-white" href="./agregar_venta.php"> Agregar </a>
+                    </li>
+                  </ul>
                 </li>
-                <li class="nav-item mx-sm-1 mt-sm-0 mt-1 btn-small">
-                  <a
-                    class="btn btn-danger"
-                    href="../login.html"
-                    aria-current="page"
-                  >
-                    Cerrar Sesión
-                  </a>
-                </li>
+
+                <li class="nav-item mx-sm-1 mt-sm-0 mt-1">
+                <a class="btn btn-sm btn-danger" href="#" aria-current="page">
+                  Cerrar Sesión
+                </a>
+              </li>
               </ul>
             </div>
           </div>
@@ -91,8 +130,8 @@
     <section class="d-flex justify-content-between m-1 mb-1 p-1">
         <div aria-label="breadcrumb">
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                <li class="breadcrumb-item"><a href="clientes.html">Clientes</a></li>
+                <li class="breadcrumb-item"><a href="./index.html">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="./vista_clientes.php">Clientes</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Agregar</li>
             </ul>
         </div>
@@ -119,7 +158,7 @@
     
                     <div class="form-group col-12">
                         <label for="telefono">Teléfono</label>
-                        <input required type="number" id="telefono" name="telefono" class="form-control" value="[telefono]">
+                        <input required type="tel" id="telefono" name="telefono" class="form-control" value="[telefono]">
                     </div>
 
                     <div class="form-group col-12">
@@ -128,9 +167,16 @@
                     </div>
 
                     <div class="form-group col-12">
-                        <label for="genero">Genero</label>
-                        <input required type="text" id="genero" name="genero" class="form-control" value="[genero]">
-                    </div>
+                      <label for="genero">Género</label>
+                      <div>
+                          <input required type="radio" id="genero-masculino" name="genero" value="Masculino">
+                          <label for="genero-masculino">Masculino</label>
+                      </div>
+                      <div>
+                          <input required type="radio" id="genero-femenino" name="genero" value="Femenino">
+                          <label for="genero-femenino">Femenino</label>
+                      </div>
+                  </div>
                     <br>
                     <div class="">
                         <a class="btn btn-danger" href="./vista_clientes.php" role="button">Cancelar</a>
