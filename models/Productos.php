@@ -192,6 +192,38 @@ class Productos
             $consult->close();
         }
     }
+
+    public static function actualizarProductos($ids, $cantidades)
+    {
+        $existencia = 0;
+        self::$bd->begin_transaction();
+
+        try {
+            for ($i = 0; $i < count($ids); $i++) {
+                $consulta = self::$bd->prepare('SELECT existencias FROM productos WHERE id_producto = ?');
+                $consulta->bind_param('i', $ids[$i]);
+                $consulta->execute();
+
+                $consulta->bind_result($existencia);
+                $consulta->fetch();
+                $consulta->free_result();
+
+                if ($cantidades[$i] > $existencia) {
+                    throw new Exception($ids[$i]);
+                }
+
+                $consulta = self::$bd->prepare('UPDATE productos SET existencias = existencias - ? WHERE id_producto = ?');
+                $consulta->bind_param('ii', $cantidades[$i], $ids[$i]);
+                $consulta->execute();
+                $consulta->close();
+            }
+
+            self::$bd->commit();
+        } catch (Exception $e) {
+            self::$bd->rollback();
+            throw $e;
+        }
+    }
 }
 /* if (isset($argc) && $argc == 2) {
     $mysqli = new mysqli("localhost", "root", "", "agenciaBD");

@@ -21,8 +21,16 @@ if (isset($_POST["accion"]) && $_POST["accion"] == "agregar") {
     $cantidades = $_POST['cantidades'];
     $costo = $_POST['costo'];
     $venta = new Ventas(0, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta, $idProductos, $cantidades, $costo);
-    $venta->agregarVenta();
-    header('Location: consultar_ventas.php');
+    try {
+        $venta->agregarVenta();
+        header('Location: consultar_ventas.php');
+    } catch (Exception $e) {
+        $id = $e->getMessage();
+        $producto = Productos::productoFiltrado('id', $id);
+        $nomProducto = $producto[0]->marca . ' ' . $producto[0]->modelo;
+        $errorMsg = "La cantidad solicitada del producto: $nomProducto excede la existencia actual";
+        header("Location: agregar_venta.php?error=$errorMsg");
+    }
 } else {
     $idEmpleado = $_POST["empleado"];
     $nombreEmpleado =  Empleados::id_emple($idEmpleado);
@@ -64,9 +72,6 @@ if (isset($_POST["accion"]) && $_POST["accion"] == "agregar") {
         $html->Asigna("costo", null);
         $html->Asigna('accion', 'procesar');
 
-        if (isset($_POST["accion"]) && $_POST["accion"] == "modificar") {
-            # code...
-        }
         $botonModificar = '<a href="./agregar_venta.php" class="btn btn-warning m-1"> Modificar</a>';
         $html->Asigna('boton_modificar', $botonModificar);
 

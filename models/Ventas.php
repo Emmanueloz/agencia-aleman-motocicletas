@@ -73,25 +73,32 @@ class Ventas
         $cantidades = $this->cantidades;
         $costo = $this->costo;
 
-        $consulta = self::$bd->prepare("INSERT INTO ventas VALUES(null,?,?,?,?,?)");
-        $consulta->bind_param(
-            'ddiis',
-            $this->subtotal,
-            $this->iva,
-            $this->idEmpleado,
-            $this->idCliente,
-            $this->fechaVenta
-        );
-        $consulta->execute();
-        /**
-         * Se obtiene la id de la nueva inserción  de la tabla ventas para el objeto de DetallesVentas
-         */
-        $idVenta = $consulta->insert_id;
-        $consulta->close();
-        $detalleVenta = new DetallesVentas($idVenta, $idProductos, $cantidades, $costo);
-        $detalleVenta->agregarDetalles();
-        $venta = self::consultarVenta($idVenta);
-        self::agregarRegistroVenta($venta);
+        try {
+            Productos::actualizarProductos($idProductos, $cantidades);
+
+            $consulta = self::$bd->prepare("INSERT INTO ventas VALUES(null,?,?,?,?,?)");
+            $consulta->bind_param(
+                'ddiis',
+                $this->subtotal,
+                $this->iva,
+                $this->idEmpleado,
+                $this->idCliente,
+                $this->fechaVenta
+            );
+            $consulta->execute();
+            /**
+             * Se obtiene la id de la nueva inserción  de la tabla ventas para el objeto de DetallesVentas
+             */
+            $idVenta = $consulta->insert_id;
+            $consulta->close();
+            $detalleVenta = new DetallesVentas($idVenta, $idProductos, $cantidades, $costo);
+            $detalleVenta->agregarDetalles();
+            $venta = self::consultarVenta($idVenta);
+            self::agregarRegistroVenta($venta);
+        } catch (Exception $e) {
+            #echo "La cantidad solicitada del producto con ID {$e->getMessage()} excede la existencia actual";
+            throw $e;
+        }
     }
 
     private static function agregarRegistroVenta($venta)
@@ -306,7 +313,7 @@ if (isset($argc) && $argc == 2) {
             print_r($detalles);
             break;
         case 'agrega':
-            $idProductos = [3, 5, 1];
+            $idProductos = [3, 5, 4];
             $cantidades = [1, 1, 2];
             $subtotal = DetallesVentas::obtenerSubtotal($idProductos, $cantidades);
             $iva = Ventas::generarIva($subtotal);
@@ -314,6 +321,7 @@ if (isset($argc) && $argc == 2) {
             date_default_timezone_set('America/Mexico_City'); # Zona horaria para Mexico
             $fecha = date("Y-m-d");
             $venta = new Ventas('0', $subtotal, $iva, 4, 1, $fecha, $idProductos, $cantidades, $costo);
+            $venta->agregarVenta();
             break;
     }
 }

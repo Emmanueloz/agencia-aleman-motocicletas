@@ -16,12 +16,20 @@ $html->Fichero('frmVentas.html');
 $html->Asigna('title', $titulo);
 $html->Asigna('mensaje', ' ');
 $html->Asigna('fecha', $fecha);
+$html->Asigna('msg', '');
+
 
 $empleados = Empleados::consul();
 
 $clientes = Clientes::consulta();
 
 $productos = Productos::findAll();
+
+if (isset($_GET['error'])) {
+    $content = $_GET['error'];
+    $msgError = "<div class='alert alert-danger' role='alert'>$content</div>";
+    $html->Asigna('msg', $msgError);
+}
 
 foreach ($empleados as $empleado) {
     $html->AsignaBloque("empleados", $empleado);
