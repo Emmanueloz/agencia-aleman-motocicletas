@@ -1,4 +1,11 @@
 <?php
+
+// Comprobar si hay una sesión iniciada
+session_start();
+require_once 'models/Login.php';
+if (!isset($_SESSION['user'])) {
+    header('Location: ./index.html');
+}
 require('../fpdf/fpdf.php');
 require_once '../models/config.php';
 require_once '../models/Empleados.php';
