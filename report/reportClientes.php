@@ -29,7 +29,7 @@ $pdf->Ln(10);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(30, 10, "Id Cliente", 1, 0, 'C');
 $pdf->Cell(45, 10, "RFC", 1, 0, 'C');
-$pdf->Cell(45, 10, "Nombre", 1, 0, 'C');
+$pdf->Cell(45, 10, utf8_decode("Nombre"), 1, 0, 'C');
 $pdf->Cell(40, 10, utf8_decode("Dirección"), 1, 0, 'C');
 $pdf->Cell(35, 10, utf8_decode("Teléfono"), 1, 0, 'C');
 $pdf->Cell(55, 10, "Correo", 1, 0, 'C');
@@ -66,7 +66,7 @@ foreach($clientesArray as $clientes)
 
     $pdf->Cell(30, 10, $clientes->id_cliente, "B", 0, 'C');
     $pdf->Cell(45, 10, utf8_decode($clientes->rfc), "B", 0, 'C');
-    $pdf->Cell(45, 10, $clientes->nombre, "B", 0, 'C');
+    $pdf->Cell(45, 10, utf8_decode($clientes->nombre), "B", 0, 'C');
     $pdf->Cell(40, 10, utf8_decode($clientes->direccion), "B", 0, 'C');
     $pdf->Cell(35, 10, $clientes->telefono, "B", 0, 'C');
     $pdf->Cell(55, 10, utf8_decode($clientes->correo), "B", 0, 'C');
