@@ -3,7 +3,7 @@
 session_start();
 require_once '../models/Login.php';
 if (!isset($_SESSION['user'])) {
-    header('Location: ./index.html');
+    header('Location: ../index.html');
 }
 
 require('../models/PDF.php');
@@ -36,30 +36,23 @@ $pdf->Cell(55, 10, "Correo", 1, 0, 'C');
 $pdf->Cell(25, 10, utf8_decode("Género"), 1, 0, 'C');
 $pdf->Ln();
 
-if(isset($_GET['opcion']) && !empty(trim($_GET['value'])))
-{
-   $opcion = $_GET['opcion'];
-   $value = $_GET['value'];
-   $clientesArray = Clientes::busquedafil($opcion, $value);
-}
-elseif(isset($_GET['id_cliente']))
-{
+if (isset($_GET['opcion']) && !empty(trim($_GET['value']))) {
+    $opcion = $_GET['opcion'];
+    $value = $_GET['value'];
+    $clientesArray = Clientes::busquedafil($opcion, $value);
+} elseif (isset($_GET['id_cliente'])) {
     $id = $_GET['id_cliente'];
     $clientesArray = Clientes::busquedafil('idcli', $id);
-}
-else
-{
+} else {
     $clientesArray = Clientes::consulta();
 }
 
 $pdf->SetFont('Arial', '', 10);
 
 $row = 0;
-foreach($clientesArray as $clientes)
-{
+foreach ($clientesArray as $clientes) {
     $row += 1;
-    if($row > 10)
-    {
+    if ($row > 10) {
         $pdf->AddPage('H');
         $row = 0;
     }

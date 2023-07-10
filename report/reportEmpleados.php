@@ -4,7 +4,7 @@
 session_start();
 require_once '../models/Login.php';
 if (!isset($_SESSION['user'])) {
-    header('Location: ./index.html');
+    header('Location: ../index.html');
 }
 require('../models/PDF.php');
 require_once '../models/config.php';
@@ -42,13 +42,11 @@ if (isset($_GET['opcion']) && !empty(trim($_GET['value']))) {
     $opcion = $_GET['opcion'];
     $value = $_GET['value'];
     $empleadosArray = Empleados::filtro($opcion, $value);
-
 } elseif (isset($_GET['id_empleado'])) {
-    $id=$_GET['id_empleado'];
-    $empleadosArray= Empleados::filtro('id',$id);
-    
+    $id = $_GET['id_empleado'];
+    $empleadosArray = Empleados::filtro('id', $id);
 } else {
-    $empleadosArray= Empleados::consul();
+    $empleadosArray = Empleados::consul();
 }
 
 $pdf->SetFont('Arial', '', 10);
@@ -58,19 +56,19 @@ foreach ($empleadosArray as $empleados) {
     $row += 1;
     if ($row > 6) {
         $pdf->AddPage('H');
-        $row = 0;    
+        $row = 0;
     }
     $y_axis = $pdf->GetY();
-   
+
 
 
     $pdf->Cell(20, 20, $empleados->id_empleado, "B", 0, 'C');
     $pdf->Cell(30, 20, $empleados->rfc, "B", 0, 'L');
-   // $pdf->Cell(40, 10, utf8_decode($empleados->nombre), "B", 0, 'L');
+    // $pdf->Cell(40, 10, utf8_decode($empleados->nombre), "B", 0, 'L');
     $pdf->MultiCell(40, 20, utf8_decode($empleados->nombre), "B");
     $pdf->SetXY(100, $y_axis);
     #$pdf->Cell(40, 10, utf8_decode($empleados->direccion), "B", 0, 'L');
-    $pdf->MultiCell(30,20, utf8_decode($empleados->direccion), "B",'L');
+    $pdf->MultiCell(30, 20, utf8_decode($empleados->direccion), "B", 'L');
     $pdf->SetXY(130, $y_axis);
     $pdf->Cell(30, 20, $empleados->telefono, "B", 0, 'C');
     $pdf->Cell(50, 20, utf8_decode($empleados->correo), "B", 0, 'L');

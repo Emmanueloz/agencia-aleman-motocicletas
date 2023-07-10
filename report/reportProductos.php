@@ -4,7 +4,7 @@
 session_start();
 require_once '../models/Login.php';
 if (!isset($_SESSION['user'])) {
-    header('Location: ./index.html');
+    header('Location: ../index.html');
 }
 
 
@@ -42,16 +42,12 @@ $pdf->Ln();
 if (isset($_GET['opcion']) && !empty(trim($_GET['value']))) {
     $opcion = $_GET['opcion'];
     $value = $_GET['value'];
-$productoArray=Productos::productoFiltrado($opcion, $value);
-
-    
+    $productoArray = Productos::productoFiltrado($opcion, $value);
 } elseif (isset($_GET['producto'])) {
-    $id=$_GET['producto'];
-    $productoArray=Productos::productoFiltrado('id',$id);
-  
+    $id = $_GET['producto'];
+    $productoArray = Productos::productoFiltrado('id', $id);
 } else {
-    $productoArray=Productos::findAll();
-
+    $productoArray = Productos::findAll();
 }
 
 
@@ -64,13 +60,13 @@ foreach ($productoArray as $productos) {
         $pdf->AddPage('H');
         $row = 0;
     }
-    $pdf->Cell(20,10, $productos->id_producto, "B", 0, 'C');
-    $pdf->Cell(45,10, utf8_decode($productos->numero_serie), "B", 0, 'L');
-    $pdf->Cell(50,10, utf8_decode($productos->marca), "B", 0, 'L');
-    $pdf->Cell(45,10, utf8_decode($productos->modelo), "B", 0, 'L');
-    $pdf->Cell(50,10, utf8_decode($productos->descripcion), "B", 0, 'L');
-    $pdf->Cell(30,10, utf8_decode($productos->existencias), "B", 0, 'C');
-    $pdf->Cell(30,10,'$'. $productos->precio, "B", 0, 'R');
+    $pdf->Cell(20, 10, $productos->id_producto, "B", 0, 'C');
+    $pdf->Cell(45, 10, utf8_decode($productos->numero_serie), "B", 0, 'L');
+    $pdf->Cell(50, 10, utf8_decode($productos->marca), "B", 0, 'L');
+    $pdf->Cell(45, 10, utf8_decode($productos->modelo), "B", 0, 'L');
+    $pdf->Cell(50, 10, utf8_decode($productos->descripcion), "B", 0, 'L');
+    $pdf->Cell(30, 10, utf8_decode($productos->existencias), "B", 0, 'C');
+    $pdf->Cell(30, 10, '$' . $productos->precio, "B", 0, 'R');
 
     $pdf->Ln();
 }
