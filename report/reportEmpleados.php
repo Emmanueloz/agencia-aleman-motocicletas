@@ -6,7 +6,7 @@ require_once '../models/Login.php';
 if (!isset($_SESSION['user'])) {
     header('Location: ./index.html');
 }
-require('../fpdf/fpdf.php');
+require('../models/PDF.php');
 require_once '../models/config.php';
 require_once '../models/Empleados.php';
 
@@ -17,11 +17,10 @@ Empleados::init($mysqli);
 date_default_timezone_set('America/Mexico_City');
 $fecha = date("Y-m-d");
 
-$pdf = new FPDF();
+$pdf = new PDF();
 $pdf->AddPage('H');
 $pdf->SetFont('Arial', 'B', 16);
-#$pdf->Cell(250, 1, "Reporte: Empleados", 0, 1, 'C');
-$pdf->Text(120, 12, "Reporte: Empleados");
+$pdf->Cell(272, 12, 'Reporte de Ventas', 0, 1, 'C');
 $pdf->Ln(5);
 $pdf->SetFont('Arial', '', 14);
 $pdf->Cell(20, 5, "Fecha del reporte: $fecha");
