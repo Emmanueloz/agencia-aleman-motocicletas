@@ -1,5 +1,11 @@
 <?php
 
+session_start();
+require_once '../models/Login.php';
+if (!isset($_SESSION['user'])) {
+    header('Location: ./index.html');
+}
+
 require('../fpdf/fpdf.php');
 require_once '../models/config.php';
 require_once '../models/Clientes.php';
