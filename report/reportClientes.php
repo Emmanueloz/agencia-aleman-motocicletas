@@ -6,7 +6,7 @@ if (!isset($_SESSION['user'])) {
     header('Location: ./index.html');
 }
 
-require('../fpdf/fpdf.php');
+require('../models/PDF.php');
 require_once '../models/config.php';
 require_once '../models/Clientes.php';
 
@@ -17,11 +17,11 @@ Clientes::init($mysqli);
 date_default_timezone_set('America/Mexico_City');
 $fecha = date("Y-m-d");
 
-$pdf = new FPDF();
+$pdf = new PDF();
 $pdf->AddPage('H');
 
-$pdf->SetFont('Arial', 'B', 16);
-$pdf->Text(120, 12, "Reporte: Clientes");
+$pdf->SetFont('Arial', 'B', 15);
+$pdf->Cell(272, 12, 'Reporte de Clientes', 0, 1, 'C');
 $pdf->Ln(5);
 $pdf->SetFont('Arial', '', 14);
 $pdf->Cell(20, 5, "Fecha del reporte: $fecha");
