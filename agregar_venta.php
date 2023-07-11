@@ -24,9 +24,10 @@ $html->Asigna('title', $titulo);
 $html->Asigna('mensaje', ' ');
 $html->Asigna('fecha', $fecha);
 $html->Asigna('msg', '');
-
+$html->Asigna('isDisabled', '');
 
 $empleados = Empleados::consul();
+
 
 $clientes = Clientes::consulta();
 
@@ -38,17 +39,40 @@ if (isset($_GET['error'])) {
     $html->Asigna('msg', $msgError);
 }
 
-foreach ($empleados as $empleado) {
-    $html->AsignaBloque("empleados", $empleado);
+if (count($empleados) > 0) {
+
+    foreach ($empleados as $empleado) {
+        $html->AsignaBloque("empleados", $empleado);
+    }
+} else {
+    $html->AsignaBloque("empleados", null);
+    $msgError = "<div class='alert alert-danger' role='alert'>Agrega empleados para realizar una venta</div>";
+    $html->Asigna('msg', $msgError);
+    $html->Asigna('isDisabled', 'disabled');
 }
 
-foreach ($clientes as $cliente) {
-    $html->AsignaBloque("clientes", $cliente);
+if (count($clientes) > 0) {
+    foreach ($clientes as $cliente) {
+        $html->AsignaBloque("clientes", $cliente);
+    }
+} else {
+    $html->AsignaBloque("clientes", null);
+    $msgError = "<div class='alert alert-danger' role='alert'>Agrega clientes para realizar una venta</div>";
+    $html->Asigna('msg', $msgError);
+    $html->Asigna('isDisabled', 'disabled');
 }
 
-foreach ($productos as $producto) {
-    $html->AsignaBloque("productos", $producto);
+if (count($productos) > 0) {
+    foreach ($productos as $producto) {
+        $html->AsignaBloque("productos", $producto);
+    }
+} else {
+    $html->AsignaBloque("productos", null);
+    $msgError = "<div class='alert alert-danger' role='alert'>Agrega productos para realizar una venta</div>";
+    $html->Asigna('msg', $msgError);
+    $html->Asigna('isDisabled', 'disabled');
 }
+
 
 #print_r($clientes);
 echo $html->Muestra();

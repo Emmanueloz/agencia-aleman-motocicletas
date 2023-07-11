@@ -13,7 +13,7 @@
     <header>
       <nav class="navbar navbar-expand-lg bg-lightblue">
         <div class="container-fluid">
-          <h1 class="text-light">Agencia Motocicletas</h1>
+          <h1 class="text-light fs-4 fw-bold">Agencia Motocicletas</h1>
           <button
             class="navbar-toggler d-lg-none"
             type="button"
@@ -32,9 +32,9 @@
             <ul
               class="navbar-nav mt-2 mt-sm-1 justify-content-end align-items-end align-items-lg-center"
             >
-              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1 fs-4">
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
                 <a
-                  class="nav-link dropdown-toggle text-light fs-4"
+                  class="nav-link dropdown-toggle text-light fs-5"
                   href="#"
                   role="button"
                   data-bs-toggle="dropdown"
@@ -60,9 +60,9 @@
                   </li>
                 </ul>
               </li>
-              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1 fs-4">
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
                 <a
-                  class="nav-link dropdown-toggle text-light fs-4"
+                  class="nav-link dropdown-toggle text-light fs-5"
                   href="#"
                   role="button"
                   data-bs-toggle="dropdown"
@@ -89,9 +89,9 @@
                   </li>
                 </ul>
               </li>
-              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1 fs-4">
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
                 <a
-                  class="nav-link dropdown-toggle text-light fs-4"
+                  class="nav-link dropdown-toggle text-light fs-5"
                   href="#"
                   role="button"
                   data-bs-toggle="dropdown"
@@ -118,9 +118,9 @@
                   </li>
                 </ul>
               </li>
-              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1 fs-4">
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
                 <a
-                  class="nav-link dropdown-toggle text-light fs-4 fw-bold"
+                  class="nav-link dropdown-toggle text-light fs-5 fw-bold"
                   href="#"
                   role="button"
                   data-bs-toggle="dropdown"
@@ -132,7 +132,7 @@
                   <li>
                     <a
                       class="dropdown-item text-white"
-                      href="./consultar_ventas.php"
+                      href="consultar_ventas.php"
                       >Consultar</a
                     >
                   </li>
@@ -141,9 +141,10 @@
                   </li>
                 </ul>
               </li>
-              <li class="nav-item mx-sm-1 mt-sm-0 mt-1 btn-small">
+
+              <li class="nav-item mx-sm-1 mt-sm-0 mt-1">
                 <a
-                  class="btn btn-danger"
+                  class="btn btn-sm btn-danger"
                   href="./logout.php"
                   aria-current="page"
                 >
@@ -207,11 +208,12 @@
                 </label>
                 <input
                   type="date"
-                  class="form-control"
+                  class="form-control-plaintext"
                   id="fecha-venta"
                   name="fecha-venta"
                   value="[fecha]"
                   required
+                  readonly
                 />
               </div>
 
@@ -241,7 +243,12 @@
                   Cancelar
                 </a>
 
-                <button type="submit" class="btn btn-primary m-1" role="button">
+                <button
+                  type="submit"
+                  class="btn btn-primary m-1"
+                  [isDisabled]
+                  role="button"
+                >
                   Agregar
                 </button>
               </div>
