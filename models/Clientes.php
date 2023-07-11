@@ -55,7 +55,7 @@ class Clientes
     {
         $id = [];
         $nombre = "%" . $nombre . "%";
-        $consulta = self::$bd->prepare("select id_cliente from clientes where nombre like ? AND eliminado = 1");
+        $consulta = self::$bd->prepare("select id_cliente from clientes where nombre like ?");
         $consulta->bind_param('s', $nombre);
         $consulta->execute();
         $consulta->bind_result($id_cliente);
@@ -69,7 +69,7 @@ class Clientes
 
     public static function buscarnom($id_cliente)
     {
-        $consulta = self::$bd->prepare("select nombre from clientes where id_cliente = ? AND eliminado = 1");
+        $consulta = self::$bd->prepare("select nombre from clientes where id_cliente = ?");
         $consulta->bind_param('i', $id_cliente);
         $consulta->execute();
         $consulta->bind_result($nombre);

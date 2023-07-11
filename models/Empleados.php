@@ -85,7 +85,7 @@ class Empleados
     {
         $id = [];
         $nombre = "%" . $nombre . "%";
-        $consult = self::$bd->prepare("select id_empleado from empleados where nombre like ? AND eliminado = 1");
+        $consult = self::$bd->prepare("select id_empleado from empleados where nombre like ?");
         $consult->bind_param('s', $nombre);
         $consult->execute();
         $consult->bind_result($id_empleado);
@@ -98,7 +98,7 @@ class Empleados
     public static function id_emple($id)
     {
         $nom = "";
-        $consult = self::$bd->prepare("select nombre from empleados where id_empleado = ? AND eliminado = 1");
+        $consult = self::$bd->prepare("select nombre from empleados where id_empleado = ?");
         $consult->bind_param('i', $id);
         $consult->execute();
         $consult->bind_result($nom);

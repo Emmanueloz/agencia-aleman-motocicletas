@@ -60,7 +60,7 @@ if (isset($_GET['opcion']) && isset($_GET['search'])) {
     $id = $_GET['venta'];
     $ventasArray = Ventas::consultaFiltrada('id', $id);
 } else {
-    $ventasArray = Ventas::consultarRegistroVentas();
+    $ventasArray = Ventas::consultarVentas();
 }
 
 $pdf->SetFont('Arial', '', 10);

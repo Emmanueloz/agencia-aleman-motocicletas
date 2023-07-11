@@ -74,7 +74,11 @@ if (isset($_GET['search'])  && !empty(trim($_GET['search']))) {
             break;
     }
 
-    $ventas = Ventas::consultaFiltrada($opcion, $search);
+    if ($opcion == 'id' || $opcion == 'fecha') {
+        $ventas = Ventas::consultaFiltrada($opcion, $search);
+    } else {
+        $ventas = Ventas::consultaFiltradaRelacionada($opcion, $search);
+    }
 
     if (count($ventas) == 0) {
         $html->AsignaBloque('ventas', null);
@@ -96,7 +100,7 @@ if (isset($_GET['search'])  && !empty(trim($_GET['search']))) {
     $html->Asigna('link_report', 'reportVentas.php');
     $html->Asigna('reporte', 'Reporte general');
 
-    $ventas = Ventas::consultarRegistroVentas($paginaActual, $contenido);
+    $ventas = Ventas::consultarVentas($paginaActual, $contenido);
 
     if (count($ventas) == 0) {
         $html->AsignaBloque('ventas', null);

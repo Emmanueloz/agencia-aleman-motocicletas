@@ -72,7 +72,7 @@ class Productos
         $id = [];
         $id_producto = 0;
         $valor = "%" . $valor . "%";
-        $consult = self::$bd->prepare("select id_producto from productos where (marca like ? or modelo like ?) AND eliminado = 1");
+        $consult = self::$bd->prepare("select id_producto from productos where (marca like ? or modelo like ?)");
         $consult->bind_param('ss', $valor, $valor);
         $consult->execute();
         $consult->bind_result($id_producto);
