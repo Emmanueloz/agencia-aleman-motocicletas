@@ -30,7 +30,7 @@ class Productos
 
     public function save()
     {
-        if ($consult = self::$bd->prepare("insert into productos values (0,?,?,?,?,?,?)")) {
+        if ($consult = self::$bd->prepare("insert into productos values (0,?,?,?,?,?,?,1)")) {
             $consult->bind_param(
                 "ssssdi",
                 $this->numero_serie,
@@ -55,10 +55,11 @@ class Productos
         $modelo = [];
         $precio = [];
         $existencias = [];
+        $eliminado = 1;
 
-        $consult = self::$bd->prepare("select * from productos");
+        $consult = self::$bd->prepare("select * from productos WHERE eliminado = 1");
         $consult->execute();
-        $consult->bind_result($id_producto, $numero_serie, $marca, $descripcion, $modelo, $precio, $existencias);
+        $consult->bind_result($id_producto, $numero_serie, $marca, $descripcion, $modelo, $precio, $existencias, $eliminado);
 
         while ($consult->fetch()) {
             array_push($products, new Productos($id_producto, $numero_serie, $marca, $descripcion, $modelo, $precio, $existencias));
@@ -71,7 +72,7 @@ class Productos
         $id = [];
         $id_producto = 0;
         $valor = "%" . $valor . "%";
-        $consult = self::$bd->prepare("select id_producto from productos where (marca like ? or modelo like ?)");
+        $consult = self::$bd->prepare("select id_producto from productos where (marca like ? or modelo like ?) AND eliminado = 1");
         $consult->bind_param('ss', $valor, $valor);
         $consult->execute();
         $consult->bind_result($id_producto);
@@ -89,7 +90,7 @@ class Productos
         $modelo = '';
 
         $producto = [];
-        $consult = self::$bd->prepare("select id_producto, marca, modelo, precio from productos where id_producto = ?");
+        $consult = self::$bd->prepare("select id_producto, marca, modelo, precio from productos where id_producto = ? AND eliminado = 1");
         $consult->bind_param('i', $id_producto);
         $consult->execute();
         $consult->bind_result($id, $precio, $marca, $modelo);
@@ -103,21 +104,21 @@ class Productos
     {
         switch ($filtro) {
             case 'id':
-                $consult = self::$bd->prepare("select * from productos where id_producto = ?");
+                $consult = self::$bd->prepare("select * from productos where id_producto = ? AND eliminado = 1");
                 $consult->bind_param("i", $value);
                 break;
             case 'modelo':
-                $consult = self::$bd->prepare("select * from productos where modelo like ?");
+                $consult = self::$bd->prepare("select * from productos where modelo like ? AND eliminado = 1");
                 $value = $value . '%';
                 $consult->bind_param("s", $value);
                 break;
             case 'marca':
-                $consult = self::$bd->prepare("select * from productos where marca like ?");
+                $consult = self::$bd->prepare("select * from productos where marca like ? AND eliminado = 1");
                 $value = $value . '%';
                 $consult->bind_param("s", $value);
                 break;
             case 'precio';
-                $consult = self::$bd->prepare("select * from productos where precio = ?");
+                $consult = self::$bd->prepare("select * from productos where precio = ? AND eliminado = 1");
                 $consult->bind_param("d", $value);
                 break;
         }
@@ -130,9 +131,10 @@ class Productos
         $modelo = [];
         $precio = [];
         $existencias = [];
+        $eliminado = 0;
 
         $consult->execute();
-        $consult->bind_result($id_producto, $numero_serie, $marca, $descripcion, $modelo, $precio, $existencias);
+        $consult->bind_result($id_producto, $numero_serie, $marca, $descripcion, $modelo, $precio, $existencias, $eliminado);
         while ($consult->fetch()) {
             array_push($producto,  new Productos($id_producto, $numero_serie, $marca, $descripcion, $modelo, $precio, $existencias));
         }
@@ -166,10 +168,12 @@ class Productos
         $modelo = [];
         $precio = [];
         $existencias = [];
-        $consult = self::$bd->prepare("select * from productos where id_producto = ?");
+        $eliminado = 1;
+
+        $consult = self::$bd->prepare("select * from productos where id_producto = ? AND eliminado = 1");
         $consult->bind_param("i", $id);
         $consult->execute();
-        $consult->bind_result($id_producto, $numero_serie, $marca, $descripcion, $modelo, $precio, $existencias);
+        $consult->bind_result($id_producto, $numero_serie, $marca, $descripcion, $modelo, $precio, $existencias, $eliminado);
         if ($consult->fetch()) {
             $producto = new Productos(
                 $id_producto,
@@ -185,8 +189,8 @@ class Productos
     }
 
     public function eliminarProducto()
-    {
-        if ($consult = self::$bd->prepare("delete from productos where id_producto = ?")) {
+    { #update clientes set eliminado = 0 where id_cliente = ?
+        if ($consult = self::$bd->prepare("UPDATE productos set eliminado = 0 where id_producto = ?")) {
             $consult->bind_param("i", $this->id_producto);
             $consult->execute();
             $consult->close();

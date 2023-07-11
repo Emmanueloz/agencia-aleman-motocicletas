@@ -21,7 +21,9 @@ class Empleados
         $correo,
         $puesto,
         $salario,
-        $estudios
+        $estudios,
+        $eliminado = 1
+
     ) {
         $this->id_empleado = $id_empleado;
         $this->rfc = $rfc;
@@ -32,10 +34,11 @@ class Empleados
         $this->puesto = $puesto;
         $this->salario = $salario;
         $this->estudios = $estudios;
+        $this->eliminado = $eliminado;
     }
     public function nuev()
     {
-        if ($consult = self::$bd->prepare("insert into empleados values(null, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+        if ($consult = self::$bd->prepare("insert into empleados values(null, ?, ?, ?, ?, ?, ?, ?, ?,1)")) {
             $consult->bind_param(
                 "ssssssds",
                 $this->rfc,
@@ -62,17 +65,15 @@ class Empleados
         $pagina = ($pagina - 1) * $contenido;
         $emplea = [];
         if (!is_null($pagina) && !is_null($contenido)) {
-            $consult = self::$bd->prepare('SELECT * FROM empleados LIMIT ?,?');
+            $consult = self::$bd->prepare('SELECT * FROM empleados WHERE eliminado = 1 LIMIT ?,? ');
             $consult->bind_param('ii', $pagina, $contenido);
         } else {
-            $consult = self::$bd->prepare("select * from empleados");
+            $consult = self::$bd->prepare("select * from empleados WHERE eliminado = 1");
         }
 
         $consult->execute();
-        $consult->bind_result($id_empleado, $rfc, $nombre, $direccion, $telefono, $correo, $puesto, $salario, $estudios);
+        $consult->bind_result($id_empleado, $rfc, $nombre, $direccion, $telefono, $correo, $puesto, $salario, $estudios, $eliminado);
 
-
-        $consult->bind_result($id_empleado, $rfc, $nombre, $direccion, $telefono, $correo, $puesto, $salario, $estudios);
         while ($consult->fetch()) {
             array_push($emplea, new Empleados($id_empleado, $rfc, $nombre, $direccion, $telefono, $correo, $puesto, $salario, $estudios));
         }
@@ -84,7 +85,7 @@ class Empleados
     {
         $id = [];
         $nombre = "%" . $nombre . "%";
-        $consult = self::$bd->prepare("select id_empleado from empleados where nombre like ?");
+        $consult = self::$bd->prepare("select id_empleado from empleados where nombre like ? AND eliminado = 1");
         $consult->bind_param('s', $nombre);
         $consult->execute();
         $consult->bind_result($id_empleado);
@@ -97,7 +98,7 @@ class Empleados
     public static function id_emple($id)
     {
         $nom = "";
-        $consult = self::$bd->prepare("select nombre from empleados where id_empleado = ?");
+        $consult = self::$bd->prepare("select nombre from empleados where id_empleado = ? AND eliminado = 1");
         $consult->bind_param('i', $id);
         $consult->execute();
         $consult->bind_result($nom);
@@ -109,33 +110,33 @@ class Empleados
     {
         switch ($opcion) {
             case 'id':
-                $consult = self::$bd->prepare("select * from empleados where id_empleado = ?");
+                $consult = self::$bd->prepare("select * from empleados where id_empleado = ? AND eliminado = 1");
                 $consult->bind_param('i', $value);
                 break;
             case 'rfc':
-                $consult = self::$bd->prepare("select * from empleados where rfc like ?");
+                $consult = self::$bd->prepare("select * from empleados where rfc like ? AND eliminado = 1");
                 $value = $value . '%';
                 $consult->bind_param("s", $value);
                 break;
             case 'nombre':
-                $consult = self::$bd->prepare("select * from empleados where nombre like ?");
+                $consult = self::$bd->prepare("select * from empleados where nombre like ? AND eliminado = 1");
                 $value = $value . '%';
                 $consult->bind_param("s", $value);
                 break;
             case 'salario':
-                $consult = self::$bd->prepare("select * from empleados where salario = ?");
+                $consult = self::$bd->prepare("select * from empleados where salario = ? AND eliminado = 1");
                 $value = $value . '%';
                 $consult->bind_param("i", $value);
                 break;
             case 'estudios':
-                $consult = self::$bd->prepare("select * from empleados where estudios like ?");
+                $consult = self::$bd->prepare("select * from empleados where estudios like ? AND eliminado = 1");
                 $value = $value . '%';
                 $consult->bind_param("s", $value);
                 break;
         }
         $opc = [];
         $consult->execute();
-        $consult->bind_result($id_empleado, $rfc, $nombre, $direccion, $telefono, $correo, $puesto, $salario, $estudios);
+        $consult->bind_result($id_empleado, $rfc, $nombre, $direccion, $telefono, $correo, $puesto, $salario, $estudios, $eliminado);
         while ($consult->fetch()) {
             array_push($opc, new Empleados($id_empleado, $rfc, $nombre, $direccion, $telefono, $correo, $puesto, $salario, $estudios));
         }
@@ -167,7 +168,7 @@ class Empleados
     {
 
         $emple = null;
-        $consult = self::$bd->prepare("select * from empleados where id_empleado = ?");
+        $consult = self::$bd->prepare("select * from empleados where id_empleado = ? AND eliminado = 1");
         $consult->bind_param("i", $id);
         $consult->execute();
         $consult->bind_result(
@@ -179,7 +180,8 @@ class Empleados
             $correo,
             $puesto,
             $salario,
-            $estudios
+            $estudios,
+            $eliminado
         );
         if ($consult->fetch()) {
             $emple = new Empleados(
@@ -199,7 +201,7 @@ class Empleados
 
     public function Eliminar($bd)
     {
-        if ($consult = $bd->prepare("delete from empleados where id_empleado=?")) {
+        if ($consult = $bd->prepare("update empleados set eliminado = 0 where id_empleado=?")) {
             $consult->bind_param("i", $this->id_empleado);
             $consult->execute();
             $consult->close();
@@ -209,7 +211,7 @@ class Empleados
     public static function totalPaginas($contenido)
     {
         $totalFilas = 0;
-        $consult = self::$bd->prepare("SELECT COUNT(id_empleado) FROM empleados");
+        $consult = self::$bd->prepare("SELECT COUNT(id_empleado) FROM empleados WHERE eliminado = 1");
         $consult->execute();
         $consult->bind_result($totalFilas);
         $consult->fetch();

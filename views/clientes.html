@@ -1,39 +1,38 @@
 <!DOCTYPE html>
 <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agencia Alemán</title>
+    <link rel="stylesheet" href="./bootstrap-5.3.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="shortcut icon" href="./public/favicon.png" type="image/x-icon" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Agencia Alemán</title>
-  <link rel="stylesheet" href="./bootstrap-5.3.0/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="./style.css" />
-  <link rel="shortcut icon" href="./public/favicon.png" type="image/x-icon" />
-</head>
-
-<body>
+  <body>
     <header>
-        <nav class="navbar navbar-expand-lg bg-lightblue">
-          <div class="container-fluid">
-            <h1 class="text-light">Agencia Motocicletas</h1>
-            <button
-              class="navbar-toggler d-lg-none"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapsibleNavId"
-              aria-controls="collapsibleNavId"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
+      <nav class="navbar navbar-expand-lg bg-lightblue">
+        <div class="container-fluid">
+          <h1 class="text-light">Agencia Motocicletas</h1>
+          <button
+            class="navbar-toggler d-lg-none"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapsibleNavId"
+            aria-controls="collapsibleNavId"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            class="collapse navbar-collapse w-20 justify-content-end"
+            id="collapsibleNavId"
+          >
+            <ul
+              class="navbar-nav mt-2 mt-sm-1 justify-content-end align-items-end align-items-lg-center"
             >
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div
-              class="collapse navbar-collapse w-20 justify-content-end"
-              id="collapsibleNavId"
-            >
-              <ul
-                class="navbar-nav mt-2 mt-sm-1 justify-content-end align-items-end align-items-lg-center"
-              >
               <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
                 <a
                   class="nav-link dropdown-toggle text-light fs-5"
@@ -42,169 +41,200 @@
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                    Empleados
-                  </a>
-                  <ul class="dropdown-menu bg-lightblue-secondary">
-                    <li>
-                      <a class="dropdown-item text-white" href="./vista_empleados.php">Consultar</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item text-white" href="./agregar_empleados.php"> Agregar </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
-                  <a
-                    class="nav-link dropdown-toggle text-light fs-5 fw-bold"
-                    href="#"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Clientes
-                  </a>
-                  <ul class="dropdown-menu bg-lightblue-secondary">
-                    <li>
-                      <a class="dropdown-item text-white" href="#">Consultar</a>
-                    </li>
-                    <li>
-                      <a
-                        class="dropdown-item text-white"
-                        href="./agregar_clientes.php"
-                      >
-                        Agregar
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
-                  <a
-                    class="nav-link dropdown-toggle text-light fs-5"
-                    href="#"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Productos
-                  </a>
-                  <ul class="dropdown-menu bg-lightblue-secondary">
-                    <li>
-                      <a class="dropdown-item text-white" href="./consulta_productos.php">Consultar</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item text-white" href="./agregar_productos.php"> Agregar </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
-                  <a
-                    class="nav-link dropdown-toggle text-light fs-5"
-                    href="#"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Ventas
-                  </a>
-                  <ul class="dropdown-menu bg-lightblue-secondary">
-                    <li>
-                      <a class="dropdown-item text-white" href="./consultar_ventas.php">Consultar</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item text-white" href="./agregar_venta.php"> Agregar </a>
-                    </li>
-                  </ul>
-                </li>
+                  Empleados
+                </a>
+                <ul class="dropdown-menu bg-lightblue-secondary">
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./vista_empleados.php"
+                      >Consultar</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./agregar_empleados.php"
+                    >
+                      Agregar
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
+                <a
+                  class="nav-link dropdown-toggle text-light fs-5 fw-bold"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Clientes
+                </a>
+                <ul class="dropdown-menu bg-lightblue-secondary">
+                  <li>
+                    <a class="dropdown-item text-white" href="#">Consultar</a>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./agregar_clientes.php"
+                    >
+                      Agregar
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
+                <a
+                  class="nav-link dropdown-toggle text-light fs-5"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Productos
+                </a>
+                <ul class="dropdown-menu bg-lightblue-secondary">
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./consulta_productos.php"
+                      >Consultar</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./agregar_productos.php"
+                    >
+                      Agregar
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
+                <a
+                  class="nav-link dropdown-toggle text-light fs-5"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Ventas
+                </a>
+                <ul class="dropdown-menu bg-lightblue-secondary">
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./consultar_ventas.php"
+                      >Consultar</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./agregar_venta.php"
+                    >
+                      Agregar
+                    </a>
+                  </li>
+                </ul>
+              </li>
 
-                <li class="nav-item mx-sm-1 mt-sm-0 mt-1">
-                <a class="btn btn-sm btn-danger" href="./logout.php" aria-current="page">
+              <li class="nav-item mx-sm-1 mt-sm-0 mt-1">
+                <a
+                  class="btn btn-sm btn-danger"
+                  href="./logout.php"
+                  aria-current="page"
+                >
                   Cerrar Sesión
                 </a>
               </li>
-              </ul>
-            </div>
+            </ul>
           </div>
-        </nav>
-      </header> 
-
-      <aside class="d-flex justify-content-between m-1 p-1 bg-body-tertiary">
-        <div aria-label="breadcrumb">
-          <ol class="breadcrumb d-flex align-items-center">
-            <li class="breadcrumb-item"><a href="./index.html">Inicio</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Clientes</li>
-          </ol>
         </div>
-        <div>
-          <a href="./agregar_clientes.php" class="btn btn-primary"> Agregar </a>
-        </div>
-      </aside>
+      </nav>
+    </header>
 
+    <aside class="d-flex justify-content-between m-1 p-1 bg-body-tertiary">
+      <div aria-label="breadcrumb">
+        <ol class="breadcrumb d-flex align-items-center">
+          <li class="breadcrumb-item"><a href="./index.html">Inicio</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Clientes</li>
+        </ol>
+      </div>
+      <div>
+        <a href="./agregar_clientes.php" class="btn btn-primary"> Agregar </a>
+      </div>
+    </aside>
 
-      <aside>
-        <form
-          method="get"
-          class="d-flex flex-column flex-md-row justify-content-md-between m-1 p-1"
-        >
-          <div class="d-flex w-100 flex-column flex-md-row align-items-md-center">
-            <div class="input-group">
-              <div class="col-5 col-md-3 m-0">
-                <label for="opcion" class="input-group-text rounded-0">
-                  Buscar clientes por:
-                </label>
-              </div>
-              <div class="col-7 col-md-4 col-lg-2">
-                <select
-                  name="opcion"
-                  id="opcion"
-                  class="form-select rounded-0"
-                  required
-                >
-                  <option [idcli_s] value="idcli">Id Cliente</option>
-                  <option [rfccli_s] value="rfccli">RFC</option>
-                  <option [nomcli_s] value="nomcli">Nombre</option>
-                </select>
-              </div>
-  
-              <input
-                type="text"
-                class="form-control rounded-0"
-                name="value"
-                id="value"
-                placeholder="Buscar"
-                value="[value]"
-              />
-              [limpiar_filtro]
-              <button class="btn btn-outline-primary rounded-0">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-search"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
-                  />
-                </svg>
-                Buscar
-              </button>
+    <aside>
+      <form
+        method="get"
+        class="d-flex flex-column flex-md-row justify-content-md-between m-1 p-1"
+      >
+        <div class="d-flex w-100 flex-column flex-md-row align-items-md-center">
+          <div class="input-group">
+            <div class="col-5 col-md-3 m-0">
+              <label for="opcion" class="input-group-text rounded-0">
+                Buscar clientes por:
+              </label>
             </div>
-          </div>
-        </form>
-      </aside>
-    <br>
+            <div class="col-7 col-md-4 col-lg-2">
+              <select
+                name="opcion"
+                id="opcion"
+                class="form-select rounded-0"
+                required
+              >
+                <option [idcli_s] value="idcli">Id Cliente</option>
+                <option [rfccli_s] value="rfccli">RFC</option>
+                <option [nomcli_s] value="nomcli">Nombre</option>
+              </select>
+            </div>
 
-    <section>
-      [msg]
+            <input
+              type="text"
+              class="form-control rounded-0"
+              name="value"
+              id="value"
+              placeholder="Buscar"
+              value="[value]"
+            />
+            [limpiar_filtro]
+            <button class="btn btn-outline-primary rounded-0">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-search"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+                />
+              </svg>
+              Buscar
+            </button>
+          </div>
+        </div>
+      </form>
+    </aside>
+
+    [msg]
     <div class="d-flex px-3 justify-content-between align-items-center">
       <span class="text-secondary fs-3">[titulo]</span>
-      <a href="./report/[link_report]" class="btn btn-sm btn-secondary">[reporte]</a>
+      <a href="./report/[link_report]" class="btn btn-sm btn-secondary">
+        [reporte]
+      </a>
     </div>
+
     <section class="table-responsive p-3" id="no-more-tables">
-    <table class="table">
-      <thead class="bg-dark text-light">
-        <tr>
+      <table class="table">
+        <thead class="bg-dark text-light">
+          <tr>
             <th>Id Cliente</th>
             <th>RFC</th>
             <th>Nombre</th>
@@ -213,11 +243,11 @@
             <th>Correo</th>
             <th>Genero</th>
             <th>Acción</th>
-        </tr>
-      </thead>
-
-        [block: clientes]
-        <tr>
+          </tr>
+        </thead>
+        <tbody>
+          [block: clientes]
+          <tr>
             <td>[id_cliente]</td>
             <td>[rfc]</td>
             <td>[nombre]</td>
@@ -226,44 +256,78 @@
             <td>[correo]</td>
             <td>[genero]</td>
             <td>
-                <div class="btn-group">
-                <a class="btn btn-warning" href="modificar_clientes.php?id_cliente=[id_cliente]" role="button">Modificar</a>
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#detalle[id_cliente]">Eliminar</button>
-                <a class="btn btn-secondary" href="./report/reportClientes.php?id_cliente=[id_cliente]">Reporte</a>
+              <div class="btn-group">
+                <a
+                  class="btn btn-warning"
+                  href="modificar_clientes.php?id_cliente=[id_cliente]"
+                  role="button"
+                  >Modificar</a
+                >
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#detalle[id_cliente]"
+                >
+                  Eliminar
+                </button>
+                <a
+                  class="btn btn-secondary"
+                  href="./report/reportClientes.php?id_cliente=[id_cliente]"
+                  >Reporte</a
+                >
                 <div class="modal fade" id="detalle[id_cliente]">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
                         <h4 class="modal-title fs-5">Eliminar Cliente</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        ¿Quieres eliminar al cliente [nombre]?
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Cancelar
+                        </button>
+                        <a
+                          href="./eliminar_clientes.php?id_cliente=[id_cliente]"
+                          class="btn btn-danger"
+                          >Aceptar</a
+                        >
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="modal-body">¿Quieres eliminar al cliente [nombre]?</div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                  <a href="./eliminar_clientes.php?id_cliente=[id_cliente]" class="btn btn-danger">Aceptar</a>
-                </div>
-              </div>          
+              </div>
             </td>
-        </tr>
-        [/block: clientes]
+          </tr>
+          [/block: clientes]
+        </tbody>
       </table>
     </section>
-</section>
-<div><p>[mensaje]</p></div>
-<section>
-  <nav aria-label="Page navigation" class="d-flex justify-content-center">
-    <ul class="pagination">
-      [block: paginas]
-      <li class="page-item [active]" aria-current="page">
-        <a class="page-link" href="?pagina=[pagina]">[pagina]</a>
-      </li>
-      [/block: paginas]
-    </ul>
-  </nav>
-</section>
-
+    <div><p>[mensaje]</p></div>
+    <section>
+      <nav aria-label="Page navigation" class="d-flex justify-content-center">
+        <ul class="pagination">
+          [block: paginas]
+          <li class="page-item [active]" aria-current="page">
+            <a class="page-link" href="?pagina=[pagina]">[pagina]</a>
+          </li>
+          [/block: paginas]
+        </ul>
+      </nav>
+    </section>
     <script src="bootstrap-5.3.0/js/popper.min.js"></script>
     <script src="bootstrap-5.3.0/js/bootstrap.min.js"></script>
-</body>
-
+  </body>
 </html>

@@ -292,7 +292,7 @@ if (isset($argc) && $argc == 2) {
     switch ($argv[1]) {
         case "id":
             #$ventas = Ventas::consultaFiltrada("id", 3);
-            $ventas = Ventas::consultarVenta(1);
+            $ventas = Ventas::consultarVenta(7);
             print_r($ventas);
             break;
         case 'ventas':
