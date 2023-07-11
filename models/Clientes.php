@@ -32,16 +32,13 @@ class Clientes
         $pagina = ($pagina - 1) * $contenido;
         $clientes = [];
 
-        if(!is_null($pagina) && !is_null($contenido))
-        {
+        if (!is_null($pagina) && !is_null($contenido)) {
             $consulta = self::$bd->prepare('SELECT * FROM clientes LIMIT ?,?');
-            $consulta->bind_param('ii', $pagina, $contenido); 
-        }
-        else
-        {
+            $consulta->bind_param('ii', $pagina, $contenido);
+        } else {
             $consulta = self::$bd->prepare("select * from clientes");
         }
-        
+
         $consulta->execute();
         $consulta->bind_result($id_cliente, $rfc, $nombre, $direccion, $telefono, $correo, $genero);
 

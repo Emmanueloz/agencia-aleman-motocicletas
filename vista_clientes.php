@@ -11,8 +11,7 @@ require_once 'models/config.php';
 require_once 'models/Clientes.php';
 
 $msg = '';
-if(isset($_GET['msg']))
-{
+if (isset($_GET['msg'])) {
     $contenido = $_GET['msg'];
     $msg = "<div class='alert alert-success alert-dismissible fade show'
     role='alert'><button type='button' class='btn-close'
@@ -33,8 +32,7 @@ $html->Asigna('mensaje', '');
 $mysqli = new mysqli($servidor, $usuario, $password, $bd);
 Clientes::init($mysqli);
 
-if(isset($_GET['value']) && !empty(trim($_GET['value'])))
-{
+if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
     $opcion = $_GET['opcion'];
     $value = $_GET['value'];
 
@@ -61,8 +59,7 @@ if(isset($_GET['value']) && !empty(trim($_GET['value'])))
     $html->Asigna('reporte', 'Reporte de consulta');
     $html->Asigna('limpiar_filtro', $buttonFiltro);
 
-    switch($opcion)
-    {
+    switch ($opcion) {
         case 'idcli':
             $html->Asigna('idcli_s', 'selected');
             break;
@@ -74,14 +71,11 @@ if(isset($_GET['value']) && !empty(trim($_GET['value'])))
             break;
     }
     $clientes = Clientes::busquedafil($opcion, $value);
-    if(count($clientes) == 0)
-    {
+    if (count($clientes) == 0) {
         $html->AsignaBloque('general', null);
     }
     $html->Asigna('value', $value);
-}
-else
-{
+} else {
     $paginaActual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 
     $html->Asigna('link_report', "reportClientes.php");
@@ -89,8 +83,7 @@ else
 
     $clientes = Clientes::consulta($paginaActual, 5);
 
-    if(count($clientes) == 0)
-    {
+    if (count($clientes) == 0) {
         $html->AsignaBloque('clientes', null);
         $html->AsignaBloque('paginas', null);
         $mensaje = "<h4 class='text-secondary text-center' >No se encontró ningún cliente. Agrega a un cliente</h4>";
@@ -99,21 +92,18 @@ else
 
     $totalPaginas = Clientes::totalPaginas(5);
 
-    for($pa = 1; $pa <= $totalPaginas; $pa++)
-    {
+    for ($pa = 1; $pa <= $totalPaginas; $pa++) {
         $pagina['active'] = '';
         $pagina['pagina'] = $pa;
 
-        if($pa == $paginaActual)
-        {
+        if ($pa == $paginaActual) {
             $pagina['active'] = 'active';
         }
         $html->AsignaBloque('paginas', $pagina);
     }
 }
 
-foreach($clientes as $cliente)
-{
+foreach ($clientes as $cliente) {
     $html->AsignaBloque('clientes', $cliente);
 }
 echo $html->Muestra();

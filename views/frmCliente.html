@@ -148,7 +148,7 @@
 
                     <div class="form-group col-12">
                         <label for="nombre">Nombre</label>
-                        <input required type="text" id="nombre" name="nombre" class="form-control" value="[nombre]">
+                        <input required type="text" id="nombre" name="nombre" class="form-control" value="[nombre]" pattern="[A-Za-z-ñÑ-áéíóúÁÉÍÓÚ ]{1,50}">
                     </div>
 
                     <div class="form-group col-12">
@@ -158,7 +158,7 @@
     
                     <div class="form-group col-12">
                         <label for="telefono">Teléfono</label>
-                        <input required type="tel" id="telefono" name="telefono" class="form-control" value="[telefono]">
+                        <input required type="tel" id="telefono" name="telefono" class="form-control" value="[telefono]" pattern="[0-9]{10}">
                     </div>
 
                     <div class="form-group col-12">
@@ -169,11 +169,11 @@
                     <div class="form-group col-12">
                       <label for="genero">Género</label>
                       <div>
-                          <input required type="radio" id="genero-masculino" name="genero" value="Masculino">
+                          <input required type="radio" id="genero-masculino" name="genero" value="M">
                           <label for="genero-masculino">Masculino</label>
                       </div>
                       <div>
-                          <input required type="radio" id="genero-femenino" name="genero" value="Femenino">
+                          <input required type="radio" id="genero-femenino" name="genero" value="F">
                           <label for="genero-femenino">Femenino</label>
                       </div>
                   </div>
