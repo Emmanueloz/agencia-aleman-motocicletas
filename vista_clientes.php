@@ -11,7 +11,8 @@ require_once 'models/config.php';
 require_once 'models/Clientes.php';
 
 $msg = '';
-if (isset($_GET['msg'])) {
+if(isset($_GET['msg']))
+{
     $contenido = $_GET['msg'];
     $msg = "<div class='alert alert-success alert-dismissible fade show'
     role='alert'><button type='button' class='btn-close'
