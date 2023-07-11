@@ -28,6 +28,7 @@ $html->Asigna('nomcli_s', '');
 $html->Asigna('rfccli_s', '');
 $html->Asigna('value', '');
 $html->Asigna('limpiar_filtro', '');
+$html->Asigna('mensaje', '');
 
 $mysqli = new mysqli($servidor, $usuario, $password, $bd);
 Clientes::init($mysqli);
@@ -55,6 +56,7 @@ if(isset($_GET['value']) && !empty(trim($_GET['value'])))
     </svg>
     </a>';
 
+    $html->AsignaBloque('paginas', null);
     $html->Asigna('link_report', "reportClientes.php?opcion=$opcion&value=$value");
     $html->Asigna('reporte', 'Reporte de consulta');
     $html->Asigna('limpiar_filtro', $buttonFiltro);
@@ -80,13 +82,38 @@ if(isset($_GET['value']) && !empty(trim($_GET['value'])))
 }
 else
 {
-    $clientes = Clientes::consulta();
+    $paginaActual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+
     $html->Asigna('link_report', "reportClientes.php");
     $html->Asigna('reporte', 'Reporte general');
+
+    $clientes = Clientes::consulta($paginaActual, 5);
+
+    if(count($clientes) == 0)
+    {
+        $html->AsignaBloque('clientes', null);
+        $html->AsignaBloque('paginas', null);
+        $mensaje = "<h4 class='text-secondary text-center' >No se encontró ningún cliente. Agrega a un cliente</h4>";
+        $html->Asigna('mensaje', $mensaje);
+    }
+
+    $totalPaginas = Clientes::totalPaginas(5);
+
+    for($pa = 1; $pa <= $totalPaginas; $pa++)
+    {
+        $pagina['active'] = '';
+        $pagina['pagina'] = $pa;
+
+        if($pa == $paginaActual)
+        {
+            $pagina['active'] = 'active';
+        }
+        $html->AsignaBloque('paginas', $pagina);
+    }
 }
 
 foreach($clientes as $cliente)
 {
-    $html->AsignaBloque('general', $cliente);
+    $html->AsignaBloque('clientes', $cliente);
 }
 echo $html->Muestra();

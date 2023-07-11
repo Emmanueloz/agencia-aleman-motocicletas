@@ -27,10 +27,21 @@ class Clientes
         self::$bd = $bd;
     }
 
-    public static function consulta()
+    public static function consulta($pagina = null, $contenido = null)
     {
+        $pagina = ($pagina - 1) * $contenido;
         $clientes = [];
-        $consulta = self::$bd->prepare("select * from clientes");
+
+        if(!is_null($pagina) && !is_null($contenido))
+        {
+            $consulta = self::$bd->prepare('SELECT * FROM clientes LIMIT ?,?');
+            $consulta->bind_param('ii', $pagina, $contenido); 
+        }
+        else
+        {
+            $consulta = self::$bd->prepare("select * from clientes");
+        }
+        
         $consulta->execute();
         $consulta->bind_result($id_cliente, $rfc, $nombre, $direccion, $telefono, $correo, $genero);
 
@@ -112,6 +123,20 @@ class Clientes
             $consulta->execute();
             $consulta->close();
         }
+    }
+
+    public static function totalPaginas($contenido)
+    {
+        $totalFilas = 0;
+        $consulta = self::$bd->prepare("SELECT COUNT(id_cliente) FROM clientes");
+        $consulta->execute();
+        $consulta->bind_result($totalFilas);
+        $consulta->fetch();
+        $consulta->close();
+
+        $totalPaginas = ceil($totalFilas / $contenido);
+
+        return $totalPaginas;
     }
 
     public function modificar()
