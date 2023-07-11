@@ -19,6 +19,7 @@ $fecha = date("Y-m-d");
 
 $pdf = new PDF();
 $pdf->AddPage('H');
+$pdf->AliasNbPages();
 
 $pdf->SetFont('Arial', 'B', 15);
 $pdf->Cell(272, 12, 'Reporte de Clientes', 0, 1, 'C');
