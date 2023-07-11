@@ -9,10 +9,10 @@ class Clientes
     public $telefono;
     public $correo;
     public $genero;
-    public $eliminado;
+    public $estado;
     private static $bd;
 
-    public function __construct($id_cliente, $rfc, $nombre, $direccion, $telefono, $correo, $genero, $eliminado = 1)
+    public function __construct($id_cliente, $rfc, $nombre, $direccion, $telefono, $correo, $genero, $estado = 1)
     {
         $this->id_cliente = $id_cliente;
         $this->rfc = $rfc;
@@ -21,7 +21,7 @@ class Clientes
         $this->telefono = $telefono;
         $this->correo = $correo;
         $this->genero = $genero;
-        $this->eliminado = $eliminado;
+        $this->estado = $estado;
     }
 
     public static function init($bd)
@@ -35,14 +35,14 @@ class Clientes
         $clientes = [];
 
         if (!is_null($pagina) && !is_null($contenido)) {
-            $consulta = self::$bd->prepare('SELECT * FROM clientes WHERE eliminado = 1 LIMIT ?,?');
+            $consulta = self::$bd->prepare('SELECT * FROM clientes WHERE estado = 1 LIMIT ?,?');
             $consulta->bind_param('ii', $pagina, $contenido);
         } else {
-            $consulta = self::$bd->prepare("SELECT * FROM clientes WHERE eliminado = 1");
+            $consulta = self::$bd->prepare("SELECT * FROM clientes WHERE estado = 1");
         }
 
         $consulta->execute();
-        $consulta->bind_result($id_cliente, $rfc, $nombre, $direccion, $telefono, $correo, $genero, $eliminado);
+        $consulta->bind_result($id_cliente, $rfc, $nombre, $direccion, $telefono, $correo, $genero, $estado);
 
         while ($consulta->fetch()) {
             array_push($clientes, new Clientes($id_cliente, $rfc, $nombre, $direccion, $telefono, $correo, $genero));
@@ -82,23 +82,23 @@ class Clientes
     {
         switch ($opciones) {
             case 'idcli':
-                $consulta = self::$bd->prepare("select * from clientes where id_cliente = ? AND eliminado = 1");
+                $consulta = self::$bd->prepare("select * from clientes where id_cliente = ? AND estado = 1");
                 $consulta->bind_param('i', $value);
                 break;
             case 'nomcli':
-                $consulta = self::$bd->prepare("select * from clientes where nombre like ? AND eliminado = 1");
+                $consulta = self::$bd->prepare("select * from clientes where nombre like ? AND estado = 1");
                 $value = $value . '%';
                 $consulta->bind_param("s", $value);
                 break;
             case 'rfccli':
-                $consulta = self::$bd->prepare("select * from clientes where rfc like ? AND eliminado = 1");
+                $consulta = self::$bd->prepare("select * from clientes where rfc like ? AND estado = 1");
                 $value = $value . '%';
                 $consulta->bind_param("s", $value);
                 break;
         }
         $consclientes = [];
         $consulta->execute();
-        $consulta->bind_result($id_cliente, $rfc, $nombre, $direccion, $telefono, $correo, $genero, $eliminado);
+        $consulta->bind_result($id_cliente, $rfc, $nombre, $direccion, $telefono, $correo, $genero, $estado);
         while ($consulta->fetch()) {
             array_push($consclientes, new Clientes($id_cliente, $rfc, $nombre, $direccion, $telefono, $correo, $genero));
         }
@@ -127,7 +127,7 @@ class Clientes
     public static function totalPaginas($contenido)
     {
         $totalFilas = 0;
-        $consulta = self::$bd->prepare("SELECT COUNT(id_cliente) FROM clientes WHERE eliminado = 1");
+        $consulta = self::$bd->prepare("SELECT COUNT(id_cliente) FROM clientes WHERE estado = 1");
         $consulta->execute();
         $consulta->bind_result($totalFilas);
         $consulta->fetch();
@@ -160,10 +160,10 @@ class Clientes
     public static function buscarid($id)
     {
         $cliente = null;
-        $consulta = self::$bd->prepare("select * from clientes where id_cliente = ? AND eliminado = 1");
+        $consulta = self::$bd->prepare("select * from clientes where id_cliente = ? AND estado = 1");
         $consulta->bind_param('i', $id);
         $consulta->execute();
-        $consulta->bind_result($id_cliente, $rfc, $nombre, $direccion, $telefono, $correo, $genero, $eliminado);
+        $consulta->bind_result($id_cliente, $rfc, $nombre, $direccion, $telefono, $correo, $genero, $estado);
         if ($consulta->fetch()) {
             $cliente = new Clientes($id_cliente, $rfc, $nombre, $direccion, $telefono, $correo, $genero);
         }
@@ -172,7 +172,7 @@ class Clientes
 
     public function eliminar($bd)
     {
-        if ($consulta = $bd->prepare("update clientes set eliminado = 0 where id_cliente = ?")) {
+        if ($consulta = $bd->prepare("update clientes set estado = 0 where id_cliente = ?")) {
             $consulta->bind_param('i', $this->id_cliente);
             $consulta->execute();
             $consulta->close();
@@ -218,7 +218,7 @@ class Clientes
             $client = Clientes::buscarid(1);
             print_r($client);
             $client->eliminar($mysqli);
-            print("Registro eliminado");
+            print("Registro estado");
             break;
     }
 } */
