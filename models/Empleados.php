@@ -57,11 +57,21 @@ class Empleados
     {
         self::$bd = $bd;
     }
-    public static function consul()
+    public static function consul($pagina = null, $contenido = null)
     {
+        $pagina = ($pagina - 1) * $contenido;
         $emplea = [];
-        $consult = self::$bd->prepare("select * from empleados");
+        if (!is_null($pagina) && !is_null($contenido)) {
+            $consult = self::$bd->prepare('SELECT * FROM empleados LIMIT ?,?');
+            $consult->bind_param('ii', $pagina, $contenido);
+        } else {
+            $consult = self::$bd->prepare("select * from empleados");
+        }
+
         $consult->execute();
+        $consult->bind_result($id_empleado, $rfc, $nombre, $direccion, $telefono, $correo, $puesto, $salario, $estudios);
+
+
         $consult->bind_result($id_empleado, $rfc, $nombre, $direccion, $telefono, $correo, $puesto, $salario, $estudios);
         while ($consult->fetch()) {
             array_push($emplea, new Empleados($id_empleado, $rfc, $nombre, $direccion, $telefono, $correo, $puesto, $salario, $estudios));
@@ -194,6 +204,20 @@ class Empleados
             $consult->execute();
             $consult->close();
         }
+    }
+
+    public static function totalPaginas($contenido)
+    {
+        $totalFilas = 0;
+        $consult = self::$bd->prepare("SELECT COUNT(id_empleado) FROM empleados");
+        $consult->execute();
+        $consult->bind_result($totalFilas);
+        $consult->fetch();
+        $consult->close();
+
+        $totalPagina = ceil($totalFilas / $contenido);
+
+        return $totalPagina;
     }
 }
 

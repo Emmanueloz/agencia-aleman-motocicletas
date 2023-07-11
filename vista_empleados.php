@@ -34,6 +34,8 @@ $html->Asigna('limpiar_filtro', '');
 $mysqli = new mysqli($servidor, $usuario, $password, $bd);
 Empleados::init($mysqli);
 
+$totalPaginas = Empleados::totalPaginas(5);
+
 if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
     $opcion = $_GET['opcion'];
     $value = $_GET['value'];
@@ -76,15 +78,33 @@ if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
     $emples = Empleados::filtro($opcion, $value);
     if (count($emples) == 0) {
         $html->AsignaBloque('emplea2', null);
+        $html->AsignaBloque('empleado', null);
+        $html->AsignaBloque('paginas', null);
+        $mensaje = "<h4 class='text-secondary text-center' >No se encontró ninguna empleado. Agrega una empleado</h4>";
+        $html->Asigna('mensaje', $mensaje);
     }
     $html->Asigna('value', $value);
     $html->Asigna('limpiar_filtro', $buttonFiltro);
-
+    $html->AsignaBloque('paginas', null);
 } else {
-    $emples = Empleados::consul();
+    $paginaActual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+    $emples = Empleados::consul($paginaActual, 5);
     $html->Asigna('link_report', "reportEmpleados.php");
     $html->Asigna('reporte', 'Reporte General');
+
+    for ($pa = 1; $pa <= $totalPaginas; $pa++) {
+        $pagina['active'] = '';
+        $pagina['pagina'] = $pa;
+
+        if ($pa == $paginaActual) {
+            $pagina['active'] = 'active';
+        }
+
+        $html->AsignaBloque('paginas', $pagina);
+    }
 }
+
+
 
 
 foreach ($emples as $empleado) {
