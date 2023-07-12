@@ -21,6 +21,9 @@ $html->Asigna('value', '');
 $html->Asigna('title', 'Lista de productos');
 $html->Asigna('limpiar_filtro', '');
 
+$html->Asigna('mensaje', ' ');
+
+
 $mysqli = new mysqli($servidor, $usuario, $password, $bd);
 Productos::init($mysqli);
 if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
@@ -62,6 +65,8 @@ if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
     $productos = Productos::productoFiltrado($opcion, $value);
     if (count($productos) == 0) {
         $html->AsignaBloque('productos', null);
+        $mensaje = "<h4 class='text-secondary text-center' >No se encontró ningún producto</h4>";
+        $html->Asigna('mensaje', $mensaje);
     }
     $html->Asigna('link_report', "reportProductos.php?opcion=$opcion&value=$value");
     $html->Asigna('reporte', "Reporte de consulta");
@@ -71,6 +76,11 @@ if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
     $html->Asigna('link_report', "reportProductos.php");
     $html->Asigna('reporte', "Reporte general");
     $productos = Productos::findAll();
+    if (count($productos) == 0) {
+        $html->AsignaBloque('productos', null);
+        $mensaje = "<h4 class='text-secondary text-center' >No se encontró ningún producto. Agregue un producto</h4>";
+        $html->Asigna('mensaje', $mensaje);
+    }
 }
 
 foreach ($productos as $producto) {
