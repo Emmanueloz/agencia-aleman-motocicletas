@@ -30,6 +30,8 @@ $html->Asigna('salario_s', '');
 $html->Asigna('estudios_s', '');
 $html->Asigna('value', '');
 $html->Asigna('limpiar_filtro', '');
+$html->Asigna('mensaje', '');
+
 
 
 $mysqli = new mysqli($servidor, $usuario, $password, $bd);
@@ -86,7 +88,7 @@ if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
         $html->Asigna('mensaje', $mensaje);
     }
     $html->Asigna('value', $value);
-    $html->Asigna('limpiar_filtro',$buttonFiltro);
+    $html->Asigna('limpiar_filtro', $buttonFiltro);
 } else {
 
     $paginaActual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
@@ -94,7 +96,7 @@ if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
 
     if (count($emples) == 0) {
 
-$html->AsignaBloque('paginas', null);
+        $html->AsignaBloque('paginas', null);
         $html->AsignaBloque('emplea2', null);
         $mensaje = "<h4 class='text-secondary text-center' >No se encontró ningún empleado. Agrega una empleado</h4>";
         $html->Asigna('mensaje', $mensaje);
