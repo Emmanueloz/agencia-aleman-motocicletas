@@ -82,11 +82,11 @@ if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
     $emples = Empleados::filtro($opcion, $value);
     if (count($emples) == 0) {
         $html->AsignaBloque('emplea2', null);
-        #$html->AsignaBloque('empleado', null);
-        $html->AsignaBloque('paginas', null);
         $mensaje = "<h4 class='text-secondary text-center' >No se encontró ningún empleado.</h4>";
         $html->Asigna('mensaje', $mensaje);
     }
+    $html->AsignaBloque('paginas', null);
+
     $html->Asigna('value', $value);
     $html->Asigna('limpiar_filtro', $buttonFiltro);
 } else {
