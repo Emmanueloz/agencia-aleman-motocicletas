@@ -72,6 +72,8 @@ if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
     $clientes = Clientes::busquedafil($opcion, $value);
     if (count($clientes) == 0) {
         $html->AsignaBloque('clientes', null);
+        $mensaje = "<h4 class='text-secondary text-center' >No se encontró ningún cliente.";
+        $html->Asigna('mensaje', $mensaje);
     }
     $html->Asigna('value', $value);
 } else {
