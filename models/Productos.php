@@ -28,6 +28,20 @@ class Productos
         self::$bd = $bd;
     }
 
+    public static function totalPaginas($contenido)
+    {
+        $totalFilas = 0;
+        $consulta = self::$bd->prepare("SELECT COUNT(id_producto) FROM productos");
+        $consulta->execute();
+        $consulta->bind_result($totalFilas);
+        $consulta->fetch();
+        $consulta->close();
+
+        $totalPaginas = ceil($totalFilas / $contenido);
+
+        return $totalPaginas;
+    }
+
     public function save()
     {
         if ($consult = self::$bd->prepare("insert into productos values (0,?,?,?,?,?,?,1)")) {
@@ -45,8 +59,9 @@ class Productos
         }
     }
 
-    public static function consultaProductos()
+    public static function consultaProductos($pagina = null, $contenido = null)
     {
+        $pagina = ($pagina - 1) * $contenido;
         $products = [];
         $id_producto = [];
         $numero_serie = [];
@@ -57,7 +72,14 @@ class Productos
         $existencias = [];
         $estado = 1;
 
-        $consult = self::$bd->prepare("select * from productos WHERE estado = 1");
+        if (!is_null($pagina) && !is_null($contenido)){
+            $consult = self::$bd->prepare("SELECT * FROM productos WHERE estado = 1 LIMIT ?,?");
+            $consult->bind_param('ii', $pagina, $contenido);
+
+        }
+        else{
+            $consult = self::$bd->prepare("select * from productos WHERE estado = 1");
+        }
         $consult->execute();
         $consult->bind_result($id_producto, $numero_serie, $marca, $descripcion, $modelo, $precio, $existencias, $estado);
 

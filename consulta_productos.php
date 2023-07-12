@@ -26,6 +26,10 @@ $html->Asigna('mensaje', ' ');
 
 $mysqli = new mysqli($servidor, $usuario, $password, $bd);
 Productos::init($mysqli);
+
+$contenido = 5;
+$totalPaginas = Productos::totalPaginas($contenido);
+
 if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
     $opcion = $_GET['opcion'];
     $value = $_GET['value'];
@@ -72,14 +76,28 @@ if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
     $html->Asigna('reporte', "Reporte de consulta");
     $html->Asigna('value', $value);
     $html->Asigna('limpiar_filtro', $buttonFiltro);
+    $html->AsignaBloque('paginas', null);
 } else {
+    $paginaActual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+
     $html->Asigna('link_report', "reportProductos.php");
     $html->Asigna('reporte', "Reporte general");
-    $productos = Productos::consultaProductos();
+    $productos = Productos::consultaProductos($paginaActual,$contenido);
     if (count($productos) == 0) {
         $html->AsignaBloque('productos', null);
         $mensaje = "<h4 class='text-secondary text-center' >No se encontró ningún producto. Agregue un producto</h4>";
         $html->Asigna('mensaje', $mensaje);
+    }
+
+    for ($pa = 1; $pa <= $totalPaginas; $pa++) {
+        $pagina['active'] = '';
+        $pagina['pagina'] = $pa;
+
+        if ($pa == $paginaActual) {
+            $pagina['active'] = 'active';
+        }
+
+        $html->AsignaBloque('paginas', $pagina);
     }
 }
 
