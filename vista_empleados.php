@@ -22,7 +22,7 @@ if (isset($_GET['msg'])) {
 $html = new SpynTPL('views/');
 $html->Fichero('empleados.html');
 $html->Asigna('msg', $msg);
-$html->Asigna('title', 'lista de empleados');
+$html->Asigna('title', 'Lista de empleados');
 $html->Asigna('id_empleado_s', '');
 $html->Asigna('rfc_s', '');
 $html->Asigna('nombre_s', '');
