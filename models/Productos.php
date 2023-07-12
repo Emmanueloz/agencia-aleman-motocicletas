@@ -90,7 +90,7 @@ class Productos
         $modelo = '';
 
         $producto = [];
-        $consult = self::$bd->prepare("select id_producto, marca, modelo, precio from productos where id_producto = ? AND estado = 1");
+        $consult = self::$bd->prepare("select id_producto, marca, modelo, precio from productos where id_producto = ?");
         $consult->bind_param('i', $id_producto);
         $consult->execute();
         $consult->bind_result($id, $precio, $marca, $modelo);
