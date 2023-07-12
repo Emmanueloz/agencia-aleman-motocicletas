@@ -45,7 +45,7 @@ class Productos
         }
     }
 
-    public static function findAll()
+    public static function consultaProductos()
     {
         $products = [];
         $id_producto = [];
@@ -234,7 +234,7 @@ class Productos
     Productos::init($mysqli);
     switch ($argv[1]) {
         case 'todos':
-            $products = Productos::findAll();
+            $products = Productos::consultaProductos();
             print_r($products);
             break;
         case 'id':

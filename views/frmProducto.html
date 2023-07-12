@@ -42,10 +42,19 @@
                 </a>
                 <ul class="dropdown-menu bg-lightblue-secondary">
                   <li>
-                    <a class="dropdown-item text-white" href="./vista_empleados.php">Consultar</a>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./vista_empleados.php"
+                      >Consultar</a
+                    >
                   </li>
                   <li>
-                    <a class="dropdown-item text-white" href="./agregar_empleados.php"> Agregar </a>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./agregar_empleados.php"
+                    >
+                      Agregar
+                    </a>
                   </li>
                 </ul>
               </li>
@@ -61,10 +70,20 @@
                 </a>
                 <ul class="dropdown-menu bg-lightblue-secondary">
                   <li>
-                    <a class="dropdown-item text-white" href="./vista_clientes.php"> Consultar </a>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./vista_clientes.php"
+                    >
+                      Consultar
+                    </a>
                   </li>
                   <li>
-                    <a class="dropdown-item text-white" href="./agregar_clientes.php"> Agregar </a>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./agregar_clientes.php"
+                    >
+                      Agregar
+                    </a>
                   </li>
                 </ul>
               </li>
@@ -80,10 +99,19 @@
                 </a>
                 <ul class="dropdown-menu bg-lightblue-secondary">
                   <li>
-                    <a class="dropdown-item text-white" href="./consulta_productos.php">Consultar</a>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./consulta_productos.php"
+                      >Consultar</a
+                    >
                   </li>
                   <li>
-                    <a class="dropdown-item text-white" href="./agregar_productos.php"> Agregar </a>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./agregar_productos.php"
+                    >
+                      Agregar
+                    </a>
                   </li>
                 </ul>
               </li>
@@ -99,7 +127,11 @@
                 </a>
                 <ul class="dropdown-menu bg-lightblue-secondary">
                   <li>
-                    <a class="dropdown-item text-white" href="./consultar_ventas.php">Consultar</a>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./consultar_ventas.php"
+                      >Consultar</a
+                    >
                   </li>
                   <li>
                     <a
@@ -111,9 +143,13 @@
                   </li>
                 </ul>
               </li>
-  
+
               <li class="nav-item mx-sm-1 mt-sm-0 mt-1">
-                <a class="btn btn-sm btn-danger" href="./logout.php" aria-current="page">
+                <a
+                  class="btn btn-sm btn-danger"
+                  href="./logout.php"
+                  aria-current="page"
+                >
                   Cerrar Sesión
                 </a>
               </li>
@@ -126,40 +162,90 @@
       <div aria-label="breadcrumb">
         <ol class="breadcrumb d-flex align-items-center">
           <li class="breadcrumb-item"><a href="./index.html">Inicio</a></li>
-          <li class="breadcrumb-item"><a href="./consulta_productos.php">Productos</a></li>
+          <li class="breadcrumb-item">
+            <a href="./consulta_productos.php">Productos</a>
+          </li>
           <li class="breadcrumb-item active" aria-current="page">Agregar</li>
         </ol>
       </div>
     </aside>
-  
 
     <main class="container">
       <section class="row col-lg-8 m-auto">
         <form method="post" action="[target]">
-          <input type="hidden" name="id_producto" value="[id_producto]">
+          <input type="hidden" name="id_producto" value="[id_producto]" />
           <div class="form-group col-12">
-            <label for="inputPassword4" class="form-label">Numero de serie</label>
-            <input type="text" class="form-control" id="no_serie" name="numero_serie" value="[numero_serie]" required />
+            <label for="inputPassword4" class="form-label"
+              >Numero de serie</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="no_serie"
+              name="numero_serie"
+              value="[numero_serie]"
+              required
+            />
           </div>
           <div class="form-group col-12">
             <label for="inputAddress" class="form-label">Marca</label>
-            <input type="text" class="form-control" id="marca" name="marca" value="[marca]" required/>
+            <input
+              type="text"
+              class="form-control"
+              id="marca"
+              name="marca"
+              value="[marca]"
+              required
+            />
           </div>
           <div class="form-group col-12">
             <label for="inputAddress2" class="form-label">Modelo</label>
-            <input type="text" class="form-control" id="modelo" name="modelo" value="[modelo]" required />
+            <input
+              type="text"
+              class="form-control"
+              id="modelo"
+              name="modelo"
+              value="[modelo]"
+              required
+            />
           </div>
           <div class="form-group col-12">
             <label for="inputCity" class="form-label">Descripcion</label>
-            <textarea class="form-control" name="descripcion" id="descripcion" rows="5" required>[descripcion]</textarea>
+            <textarea
+              class="form-control"
+              name="descripcion"
+              id="descripcion"
+              rows="5"
+              required
+            >
+[descripcion]</textarea
+            >
           </div>
           <div class="form-group col-12">
             <label for="inputPassword4" class="form-label">Precio</label>
-            <input type="number" pattern="[0-9]{10}" class="form-control" id="precio" name="precio" value="[precio]" maxlength="10" required/>
+            <input
+              type="number"
+              pattern="[0-9]{10}"
+              class="form-control"
+              id="precio"
+              name="precio"
+              value="[precio]"
+              maxlength="10"
+              required
+            />
           </div>
           <div class="form-group col-12">
             <label for="inputPassword4" class="form-label">Existencias</label>
-            <input type="number" pattern="[0-9]{10}" class="form-control" id="existencias" name="existencias" value="[existencias]" maxlength="10" required />
+            <input
+              type="number"
+              pattern="[0-9]{10}"
+              class="form-control"
+              id="existencias"
+              name="existencias"
+              value="[existencias]"
+              maxlength="10"
+              required
+            />
           </div>
           <br />
           <div class="form-group col-12">

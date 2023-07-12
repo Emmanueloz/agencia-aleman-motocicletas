@@ -75,7 +75,7 @@ if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
 } else {
     $html->Asigna('link_report', "reportProductos.php");
     $html->Asigna('reporte', "Reporte general");
-    $productos = Productos::findAll();
+    $productos = Productos::consultaProductos();
     if (count($productos) == 0) {
         $html->AsignaBloque('productos', null);
         $mensaje = "<h4 class='text-secondary text-center' >No se encontró ningún producto. Agregue un producto</h4>";

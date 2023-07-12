@@ -31,7 +31,7 @@ $empleados = Empleados::consul();
 
 $clientes = Clientes::consulta();
 
-$productos = Productos::findAll();
+$productos = Productos::consultaProductos();
 
 if (isset($_GET['error'])) {
     $content = $_GET['error'];

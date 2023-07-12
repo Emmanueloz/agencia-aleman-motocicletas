@@ -16,7 +16,7 @@ Productos::init($mysqli);
 
 $title = 'Editar película';
 $target = 'modificar_producto.php';
-$productos = Productos::findAll();
+$productos = Productos::consultaProductos();
 $html = new SpynTPL('views/');
 $html->Fichero('frmProducto.html');
 $html->Asigna('title', $title);

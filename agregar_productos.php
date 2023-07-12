@@ -34,7 +34,7 @@ if (isset($_POST['numero_serie'])) {
 }
 $title = 'Agregar nuevo producto';
 $target = 'agregar_productos.php';
-#$products = Productos::findAll();
+#$products = Productos::consultaProductos();
 $html = new SpynTPL('views/');
 $html->Fichero('frmProducto.html');
 $html->Asigna('title', $title);

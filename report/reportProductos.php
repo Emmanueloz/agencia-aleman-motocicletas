@@ -43,13 +43,9 @@ if (isset($_GET['opcion']) && !empty(trim($_GET['value']))) {
     $opcion = $_GET['opcion'];
     $value = $_GET['value'];
     $productoArray = Productos::productoFiltrado($opcion, $value);
-} elseif (isset($_GET['producto'])) {
-    $id = $_GET['producto'];
-    $productoArray = Productos::productoFiltrado('id', $id);
 } else {
-    $productoArray = Productos::findAll();
+    $productoArray = Productos::consultaProductos();
 }
-
 
 $pdf->SetFont('Arial', '', 10);
 

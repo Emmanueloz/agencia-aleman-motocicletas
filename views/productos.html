@@ -1,260 +1,328 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Productos</title>
-    <link rel="stylesheet" href="./bootstrap-5.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./bootstrap-5.3.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./style.css" />
     <link rel="shortcut icon" href="./public/favicon.png" type="image/x-icon" />
-</head>
-<body>
-  <header>
-    <nav class="navbar navbar-expand-lg bg-lightblue">
-      <div class="container-fluid">
-        <h1 class="text-light fs-4 fw-bold">Agencia Motocicletas</h1>
-        <button
-          class="navbar-toggler d-lg-none"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#collapsibleNavId"
-          aria-controls="collapsibleNavId"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div
-          class="collapse navbar-collapse w-20 justify-content-end"
-          id="collapsibleNavId"
-        >
-          <ul
-            class="navbar-nav mt-2 mt-sm-1 justify-content-end align-items-end align-items-lg-center"
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg bg-lightblue">
+        <div class="container-fluid">
+          <h1 class="text-light fs-4 fw-bold">Agencia Motocicletas</h1>
+          <button
+            class="navbar-toggler d-lg-none"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapsibleNavId"
+            aria-controls="collapsibleNavId"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
           >
-            <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
-              <a
-                class="nav-link dropdown-toggle text-light fs-5"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Empleados
-              </a>
-              <ul class="dropdown-menu bg-lightblue-secondary">
-                <li>
-                  <a class="dropdown-item text-white" href="./vista_empleados.php">Consultar</a>
-                </li>
-                <li>
-                  <a class="dropdown-item text-white" href="./agregar_empleados.php"> Agregar </a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
-              <a
-                class="nav-link dropdown-toggle text-light fs-5"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Clientes
-              </a>
-              <ul class="dropdown-menu bg-lightblue-secondary">
-                <li>
-                  <a class="dropdown-item text-white" href="./vista_clientes.php"> Consultar </a>
-                </li>
-                <li>
-                  <a class="dropdown-item text-white" href="./agregar_clientes.php"> Agregar </a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
-              <a
-                class="nav-link dropdown-toggle text-light fs-5 fw-bold"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Productos
-              </a>
-              <ul class="dropdown-menu bg-lightblue-secondary">
-                <li>
-                  <a class="dropdown-item text-white" href="./consulta_productos.php">Consultar</a>
-                </li>
-                <li>
-                  <a class="dropdown-item text-white" href="./agregar_productos.php"> Agregar </a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
-              <a
-                class="nav-link dropdown-toggle text-light fs-5"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Ventas
-              </a>
-              <ul class="dropdown-menu bg-lightblue-secondary">
-                <li>
-                  <a class="dropdown-item text-white" href="./consultar_ventas.php">Consultar</a>
-                </li>
-                <li>
-                  <a
-                    class="dropdown-item text-white"
-                    href="./agregar_venta.php"
-                  >
-                    Agregar
-                  </a>
-                </li>
-              </ul>
-            </li>
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            class="collapse navbar-collapse w-20 justify-content-end"
+            id="collapsibleNavId"
+          >
+            <ul
+              class="navbar-nav mt-2 mt-sm-1 justify-content-end align-items-end align-items-lg-center"
+            >
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
+                <a
+                  class="nav-link dropdown-toggle text-light fs-5"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Empleados
+                </a>
+                <ul class="dropdown-menu bg-lightblue-secondary">
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./vista_empleados.php"
+                      >Consultar</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./agregar_empleados.php"
+                    >
+                      Agregar
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
+                <a
+                  class="nav-link dropdown-toggle text-light fs-5"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Clientes
+                </a>
+                <ul class="dropdown-menu bg-lightblue-secondary">
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./vista_clientes.php"
+                    >
+                      Consultar
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./agregar_clientes.php"
+                    >
+                      Agregar
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
+                <a
+                  class="nav-link dropdown-toggle text-light fs-5 fw-bold"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Productos
+                </a>
+                <ul class="dropdown-menu bg-lightblue-secondary">
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./consulta_productos.php"
+                      >Consultar</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./agregar_productos.php"
+                    >
+                      Agregar
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
+                <a
+                  class="nav-link dropdown-toggle text-light fs-5"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Ventas
+                </a>
+                <ul class="dropdown-menu bg-lightblue-secondary">
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./consultar_ventas.php"
+                      >Consultar</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./agregar_venta.php"
+                    >
+                      Agregar
+                    </a>
+                  </li>
+                </ul>
+              </li>
 
-            <li class="nav-item mx-sm-1 mt-sm-0 mt-1">
-              <a class="btn btn-sm btn-danger" href="./logout.php" aria-current="page">
-                Cerrar Sesión
-              </a>
-            </li>
-          </ul>
+              <li class="nav-item mx-sm-1 mt-sm-0 mt-1">
+                <a
+                  class="btn btn-sm btn-danger"
+                  href="./logout.php"
+                  aria-current="page"
+                >
+                  Cerrar Sesión
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
+      </nav>
+    </header>
+    <aside class="d-flex justify-content-between m-1 p-1 bg-body-tertiary">
+      <div aria-label="breadcrumb">
+        <ol class="breadcrumb d-flex align-items-center">
+          <li class="breadcrumb-item"><a href="./index.html">Inicio</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Productos</li>
+        </ol>
       </div>
-    </nav>
-  </header>
-  <aside class="d-flex justify-content-between m-1 p-1 bg-body-tertiary">
-    <div aria-label="breadcrumb">
-      <ol class="breadcrumb d-flex align-items-center">
-        <li class="breadcrumb-item"><a href="./index.html">Inicio</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Productos</li>
-      </ol>
-    </div>
-    <div>
-      <a href="./agregar_productos.php" class="btn btn-primary"> Agregar </a>
-    </div>
-  </aside>
+      <div>
+        <a href="./agregar_productos.php" class="btn btn-primary"> Agregar </a>
+      </div>
+    </aside>
 
-  <aside>
-    <form
-    method="get"
-    class="d-flex flex-column flex-md-row justify-content-md-between m-1 p-1"
-  >
-    <div class="d-flex w-100 flex-column flex-md-row align-items-md-center">
-      <div class="input-group">
-        <div class="col-5 col-md-3 m-0">
-          <label for="opcion" class="input-group-text rounded-0">
-            Buscar productos por
-          </label>
-        </div>
-        <div class="col-7 col-md-4 col-lg-2">
-          <select
-            name="opcion"
-            id="opcion"
-            class="form-select rounded-0"
-            required
-          >
-            <option [id_s] value="id">ID</option>
-            <option [modelo_s] value="modelo">Modelo</option>
-            <option [marca_s] value="marca">Marca</option>
-            <option [precio_s] value="precio">Precio</option>
-            
-          </select>
-        </div>
+    <aside>
+      <form
+        method="get"
+        class="d-flex flex-column flex-md-row justify-content-md-between m-1 p-1"
+      >
+        <div class="d-flex w-100 flex-column flex-md-row align-items-md-center">
+          <div class="input-group">
+            <div class="col-5 col-md-3 m-0">
+              <label for="opcion" class="input-group-text rounded-0">
+                Buscar productos por
+              </label>
+            </div>
+            <div class="col-7 col-md-4 col-lg-2">
+              <select
+                name="opcion"
+                id="opcion"
+                class="form-select rounded-0"
+                required
+              >
+                <option [id_s] value="id">ID</option>
+                <option [modelo_s] value="modelo">Modelo</option>
+                <option [marca_s] value="marca">Marca</option>
+                <option [precio_s] value="precio">Precio</option>
+              </select>
+            </div>
 
-        <input
-          type="text"
-          class="form-control rounded-0"
-          name="value"
-          id="value"
-          placeholder="Buscar"
-          value="[value]"
-        />
-        [limpiar_filtro]
-        <button class="btn btn-outline-primary rounded-0" type="submit">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-search"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+            <input
+              type="text"
+              class="form-control rounded-0"
+              name="value"
+              id="value"
+              placeholder="Buscar"
+              value="[value]"
             />
-          </svg>
-          Buscar
-        </button>
-      </div>
-    </div>
-  </form>
-  </aside>
+            [limpiar_filtro]
+            <button class="btn btn-outline-primary rounded-0" type="submit">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-search"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+                />
+              </svg>
+              Buscar
+            </button>
+          </div>
+        </div>
+      </form>
+    </aside>
     <main>
-        <div class="d-flex px-3 justify-content-between align-items-center">
-          <span class="text-secondary fs-3">[title]</span>
-          <a href="./report/[link_report]" class="btn btn-sm btn-secondary" target="_blank">[reporte]</a>
-        </div>
-        <div class="table-responsive p-3">
-          <table class="table">
-            
-            <thead class="bg-dark text-light">
+      <div class="d-flex px-3 justify-content-between align-items-center">
+        <span class="text-secondary fs-3">[title]</span>
+        <a
+          href="./report/[link_report]"
+          class="btn btn-sm btn-secondary"
+          target="_blank"
+          >[reporte]</a
+        >
+      </div>
+      <div class="table-responsive p-3">
+        <table class="table">
+          <thead class="bg-dark text-light">
             <tr>
-                <th>Id producto</th>
-                <th>Num Serie</th>
-                <th>Marca</th>
-                <th>Modelo</th>
-                <th>Descripcion</th>
-                <th>Existencias</th>
-                <th>Precio</th>
-                <th>ACCION</th>
+              <th>Id producto</th>
+              <th>Num Serie</th>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Descripcion</th>
+              <th>Existencias</th>
+              <th>Precio</th>
+              <th>ACCION</th>
             </tr>
-            </thead>
-            <tbody>
-              [block: productos]
-              <tr>
-                <td>[id_producto]</td>
-                <td>[numero_serie]</td>
-                <td>[marca]</td>
-                <td>[modelo]</td>
-                <td>[descripcion]</td>
-                <td>[existencias]</td>
-                <td>$[precio]</td>
-                <td> 
-                  <div class=""></div>
-                  <div class="btn-group" role="group" aria-label="Basic outlined example">
-                    <a href="./modificar_producto.php?id=[id_producto]" class="btn btn-warning">Modificar</a>
-                    <button type="button" class="btn btn-danger" 
-                    data-bs-toggle="modal" data-bs-target="#miModal[id_producto]">Eliminar</button>
-                    <a href="./report/reportProductos.php?producto=[id_producto]" class="btn btn-secondary" target="_blank">Reporte</a>
-                    <div class="modal fade" id="miModal[id_producto]" >
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h4 class="modal-title fs-5">Eliminar producto</h4>
-                            <button type="button" class="btn-close"
-                             data-bs-dismiss="modal" arialabel="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                            ¿Estas seguro de eliminar el producto [marca] [modelo]?
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary"
-                            data-bs-dismiss="modal">Cerrar</button>
-                            <a href="./eliminar_producto.php?id=[id_producto]" class="btn btn-danger" >Aceptar</a>
-                          </div>
-                  </div>
-                </td>
-            </tr>
-            [/block: productos]
-            </tbody>
-            
-          </table>  
-        </div>
-        <div><p>[mensaje]</p></div>
+          </thead>
+          <tbody>
+            [block: productos]
+            <tr>
+              <td>[id_producto]</td>
+              <td>[numero_serie]</td>
+              <td>[marca]</td>
+              <td>[modelo]</td>
+              <td>[descripcion]</td>
+              <td>[existencias]</td>
+              <td>$[precio]</td>
+              <td>
+                <div class=""></div>
+                <div
+                  class="btn-group"
+                  role="group"
+                  aria-label="Basic outlined example"
+                >
+                  <a
+                    href="./modificar_producto.php?id=[id_producto]"
+                    class="btn btn-warning"
+                    >Modificar</a
+                  >
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#miModal[id_producto]"
+                  >
+                    Eliminar
+                  </button>
+                  <div class="modal fade" id="miModal[id_producto]">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title fs-5">Eliminar producto</h4>
+                          <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            arialabel="Close"
+                          ></button>
+                        </div>
+                        <div class="modal-body">
+                          ¿Estas seguro de eliminar el producto [marca]
+                          [modelo]?
+                        </div>
+                        <div class="modal-footer">
+                          <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                          >
+                            Cerrar
+                          </button>
+                          <a
+                            href="./eliminar_producto.php?id=[id_producto]"
+                            class="btn btn-danger"
+                            >Aceptar</a
+                          >
+                        </div>
+                      </div>
 
-        </main>
-<script src="./bootstrap-5.3.0/js/popper.min.js"></script>
-<script src="./bootstrap-5.3.0/js/bootstrap.min.js"></script> 
-</body>
+                      [/block: productos]
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+    <div><p>[mensaje]</p></div>
+    <script src="./bootstrap-5.3.0/js/popper.min.js"></script>
+    <script src="./bootstrap-5.3.0/js/bootstrap.min.js"></script>
+  </body>
 </html>
