@@ -24,7 +24,7 @@ if (isset($_POST['usuario'])) {
     header('Location: vista_empleados.php');
   } else {
     unset($_SESSION['user']); # Liberar memoria que tenga guardada en la variable que se coloca.
-    header('Location: login.php?msg=Datos incorrectos');
+    header('Location: login.php?msg=Usuario o Contraseña');
   }
 }
 
