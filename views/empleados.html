@@ -45,12 +45,7 @@
                     <a class="dropdown-item text-white" href="#">Consultar</a>
                   </li>
                   <li>
-                    <a
-                      class="dropdown-item text-white"
-                      href="./agregar_empleados.php"
-                    >
-                      Agregar
-                    </a>
+                    <a class="dropdown-item text-white" href="#"> Agregar </a>
                   </li>
                 </ul>
               </li>
@@ -154,6 +149,7 @@
         </div>
       </nav>
     </header>
+
     <aside class="d-flex justify-content-between m-1 p-1 bg-body-tertiary">
       <div aria-label="breadcrumb">
         <ol class="breadcrumb d-flex align-items-center">
@@ -166,51 +162,38 @@
       </div>
     </aside>
 
-    <aside>
-      <form
-        action="vista_empleados.php"
-        method="get"
-        class="d-flex flex-column flex-md-row justify-content-md-between m-1 p-1"
-      >
-        <div class="d-flex w-100 flex-column flex-md-row align-items-md-center">
-          <label for="opcion" class="input-group-text rounded-0">
-            Buscar Empleado por
-          </label>
-          <div class="col-7 col-md-4 col-lg-2">
-            <select
-              class="form-select rounded-0"
-              name="opcion"
-              id="floatingSelect"
-              aria-label="Floating label select example"
-            >
-              <option [id_s] value="id">ID</option>
-              <option [rfc_s] value="rfc">RFC</option>
-              <option [nombre_s] value="nombre">NOMBRE</option>
-              <option [salarios_s] value="salario">SALARIOS</option>
-              <option [estudios_s] value="estudios">ESTUDIOS</option>
-            </select>
-          </div>
-          <input
-            class="form-control rounded-0"
-            type="text"
-            name="value"
-            id="value"
-            value="[value]"
-          />
-          [limpiar_filtro]
-          <button class="btn btn-primary rounded-0" type="submit">
-            Buscar
-          </button>
+  <aside>
+    <form action="vista_empleados.php" method="get"
+      class="d-flex flex-column flex-md-row justify-content-md-between m-1 p-1">
+      <div class="d-flex w-100 flex-column flex-md-row align-items-md-center">
+        <label for="opcion" class="input-group-text rounded-0">
+          Buscar Empleado por
+        </label>
+        <div class="col-7 col-md-4 col-lg-2">
+          <select class="form-select rounded-0" name="opcion" id="floatingSelect"
+            aria-label="Floating label select example">
+            <option [id_s] value="id">ID</option>
+            <option [rfc_s] value="rfc">RFC</option>
+            <option [nombre_s] value="nombre">NOMBRE</option>
+            <option [salarios_s] value="salario">SALARIOS</option>
+            <option [estudios_s] value="estudios">ESTUDIOS</option>
+          </select>
         </div>
-      </form>
-    </aside>
+        <input class="form-control rounded-0" type="text" name="value" id="value" value="[value]" />
+        [limpiar_filtro]
+        <button class="btn btn-primary rounded-0" type="submit">
+          Buscar
+        </button>
+      </div>
+    </form>
+  </aside>
 
     <main>
       <div class="d-flex px-3 justify-content-between align-items-center">
         <span class="text-secondary fs-3">[title]</span>
-        <a href="./report/[link_report]" class="btn btn-sm btn-secondary">
-          [reporte]
-        </a>
+        <a href="./report/[link_report]" class="btn btn-sm btn-secondary"
+          >[reporte]</a
+        >
       </div>
       <div class="table-responsive mt-4 p-3">
         [msg]
@@ -299,9 +282,8 @@
                   <a
                     class="btn btn-secondary"
                     href="./report/reportEmpleados.php?id_empleado=[id_empleado]"
+                    >Reporte</a
                   >
-                    Reporte
-                  </a>
                 </div>
               </td>
             </tr>
@@ -309,16 +291,16 @@
           </tbody>
         </table>
       </div>
+      <nav aria-label="Page navigation" class="d-flex justify-content-center">
+        <ul class="pagination">
+          [block: paginas]
+          <li class="page-item [active]" aria-current="page">
+            <a class="page-link" href="?pagina=[pagina]">[pagina]</a>
+          </li>
+          [/block: paginas]
+        </ul>
+      </nav>
     </main>
-    <nav aria-label="Page navigation" class="d-flex justify-content-center">
-      <ul class="pagination">
-        [block: paginas]
-        <li class="page-item [active]" aria-current="page">
-          <a class="page-link" href="?pagina=[pagina]">[pagina]</a>
-        </li>
-        [/block: paginas]
-      </ul>
-    </nav>
     <script src="./bootstrap-5.3.0/js/popper.min.js"></script>
     <script src="./bootstrap-5.3.0/js/bootstrap.min.js"></script>
   </body>

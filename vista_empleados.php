@@ -10,6 +10,7 @@ require_once 'SpynTPL.php';
 require_once 'models/config.php';
 require_once 'models/Empleados.php';
 
+
 $msg = '';
 if (isset($_GET['msg'])) {
     $content = $_GET['msg'];
@@ -59,6 +60,7 @@ if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
 </svg>
 </a>';
 
+
     switch ($opcion) {
         case 'id':
             $html->Asigna('id_s', 'selected');
@@ -84,11 +86,19 @@ if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
         $html->Asigna('mensaje', $mensaje);
     }
     $html->Asigna('value', $value);
-    $html->Asigna('limpiar_filtro', $buttonFiltro);
-    $html->AsignaBloque('paginas', null);
 } else {
+
     $paginaActual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
     $emples = Empleados::consul($paginaActual, 5);
+
+    if (count($emples) == 0) {
+
+$html->AsignaBloque('paginas', null);
+        $html->AsignaBloque('emplea2', null);
+        $mensaje = "<h4 class='text-secondary text-center' >No se encontró ninguna empleados</h4>";
+        $html->Asigna('mensaje', $mensaje);
+    }
+
     $html->Asigna('link_report', "reportEmpleados.php");
     $html->Asigna('reporte', 'Reporte General');
 
