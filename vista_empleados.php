@@ -82,10 +82,11 @@ if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
         $html->AsignaBloque('emplea2', null);
         #$html->AsignaBloque('empleado', null);
         $html->AsignaBloque('paginas', null);
-        $mensaje = "<h4 class='text-secondary text-center' >No se encontró ninguna empleado. Agrega una empleado</h4>";
+        $mensaje = "<h4 class='text-secondary text-center' >No se encontró ningún empleado.</h4>";
         $html->Asigna('mensaje', $mensaje);
     }
     $html->Asigna('value', $value);
+    $html->Asigna('limpiar_filtro',$buttonFiltro);
 } else {
 
     $paginaActual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
@@ -95,7 +96,7 @@ if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
 
 $html->AsignaBloque('paginas', null);
         $html->AsignaBloque('emplea2', null);
-        $mensaje = "<h4 class='text-secondary text-center' >No se encontró ninguna empleados</h4>";
+        $mensaje = "<h4 class='text-secondary text-center' >No se encontró ningún empleado. Agrega una empleado</h4>";
         $html->Asigna('mensaje', $mensaje);
     }
 
