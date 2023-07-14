@@ -31,7 +31,7 @@ class Productos
     public static function totalPaginas($contenido)
     {
         $totalFilas = 0;
-        $consulta = self::$bd->prepare("SELECT COUNT(id_producto) FROM productos");
+        $consulta = self::$bd->prepare("SELECT COUNT(id_producto) FROM productos WHERE estado = 1");
         $consulta->execute();
         $consulta->bind_result($totalFilas);
         $consulta->fetch();

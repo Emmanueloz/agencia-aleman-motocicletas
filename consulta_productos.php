@@ -87,6 +87,7 @@ if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
         $html->AsignaBloque('productos', null);
         $mensaje = "<h4 class='text-secondary text-center' >No se encontró ningún producto. Agregue un producto</h4>";
         $html->Asigna('mensaje', $mensaje);
+        $html->AsignaBloque('paginas', null);
     }
 
     for ($pa = 1; $pa <= $totalPaginas; $pa++) {
