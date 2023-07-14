@@ -184,10 +184,18 @@
             />
           </div>
 
-                    <div class="form-group col-12">
-                        <label for="nombre">Nombre</label>
-                        <input required type="text" id="nombre" name="nombre" class="form-control" value="[nombre]" pattern="[A-Za-z-ñÑ-áéíóúÁÉÍÓÚ ]{1,50}">
-                    </div>
+          <div class="form-group col-12">
+            <label for="nombre">Nombre</label>
+            <input
+              required
+              type="text"
+              id="nombre"
+              name="nombre"
+              class="form-control"
+              value="[nombre]"
+              pattern="[A-Za-z-ñÑ-áéíóúÁÉÍÓÚ ]{1,50}"
+            />
+          </div>
 
           <div class="form-group col-12">
             <label for="direc">Dirección</label>
@@ -209,7 +217,8 @@
               id="telefono"
               name="telefono"
               class="form-control"
-              value="[telefono]" pattern="[0-9]{10}"
+              value="[telefono]"
+              pattern="[0-9]{10}"
               maxlength="10"
             />
           </div>
@@ -226,26 +235,39 @@
             />
           </div>
 
-                    <div class="form-group col-12">
-                      <label for="genero">Género</label>
-                      <div>
-                          <input required type="radio" id="genero-masculino" name="genero" value="M">
-                          <label for="genero-masculino">Masculino</label>
-                      </div>
-                      <div>
-                          <input required type="radio" id="genero-femenino" name="genero" value="F">
-                          <label for="genero-femenino">Femenino</label>
-                      </div>
-                  </div>
-                    <br>
-                    <div class="">
-                        <a class="btn btn-danger" href="./vista_clientes.php" role="button">Cancelar</a>
-                        <button type="submit" class="btn btn-primary">Agregar</button>
-                    </div>
-
-                </form>
-            </section>
-        </main>
+          <div class="form-group col-12">
+            <label for="genero">Género</label>
+            <div>
+              <input
+                required
+                type="radio"
+                id="genero-masculino"
+                name="genero"
+                value="M"
+              />
+              <label for="genero-masculino">Masculino</label>
+            </div>
+            <div>
+              <input
+                required
+                type="radio"
+                id="genero-femenino"
+                name="genero"
+                value="F"
+              />
+              <label for="genero-femenino">Femenino</label>
+            </div>
+          </div>
+          <br />
+          <div class="">
+            <a class="btn btn-danger" href="./vista_clientes.php" role="button"
+              >Cancelar</a
+            >
+            <button type="submit" class="btn btn-primary">Agregar</button>
+          </div>
+        </form>
+      </section>
+    </main>
 
     <br />
 
