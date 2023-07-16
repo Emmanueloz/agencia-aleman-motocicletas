@@ -4,7 +4,7 @@
 session_start();
 require_once 'models/Login.php';
 if (!isset($_SESSION['user'])) {
-    header('Location: ./index.html');
+    header('Location: ./index.php');
 }
 require_once 'SpynTPL.php';
 require_once 'models/config.php';
