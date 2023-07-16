@@ -1,7 +1,14 @@
 <?php
+session_start(); # Si existe la inicia y si ya existe la abre
+
+if (isset($_SESSION['user'])) {
+  header('Location: ./vista_empleados.php');
+}
+
 require_once 'SpynTPL.php';
 require_once 'models/config.php';
 require_once 'models/Login.php';
+
 
 $msg = '';
 if (isset($_GET['msg'])) {
@@ -18,7 +25,6 @@ if (isset($_POST['usuario'])) {
 
   $usuario = $_POST['usuario'];
   $pass = $_POST['pass'];
-  session_start(); # Si existe la inicia y si ya existe la abre
   if ($user = Login::login($usuario, $pass)) {
     $_SESSION['user'] = serialize($user); # Permite convertir un objeto a una cadena de caracteres
     header('Location: vista_empleados.php');
