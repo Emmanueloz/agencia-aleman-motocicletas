@@ -3,7 +3,7 @@ require_once 'DetallesVentas.php';
 require_once 'Empleados.php';
 require_once 'Clientes.php';
 require_once 'Productos.php';
-//require_once 'models/config.php';
+
 /**
  *  Permite crear los objetos, llamar métodos relacionados al modulo de ventas
  */
@@ -94,7 +94,6 @@ class Ventas
             $detalleVenta = new DetallesVentas($idVenta, $idProductos, $cantidades, $costo);
             $detalleVenta->agregarDetalles();
         } catch (Exception $e) {
-            #echo "La cantidad solicitada del producto con ID {$e->getMessage()} excede la existencia actual";
             throw $e;
         }
     }
@@ -135,8 +134,6 @@ class Ventas
         $consulta->execute();
         $consulta->bind_result($idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta);
 
-
-
         while ($consulta->fetch()) {
 
             array_push($ventasArray, [$idVenta, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta]);
@@ -166,11 +163,8 @@ class Ventas
                     $cantidades = $cantidades . "$cantidad <br/>";
                 }
 
-
                 array_push($ventas, new Ventas($venta[0], $venta[1], $venta[2], $nombreEmpleado, $nombreCliente, $venta[5], $productos, $cantidades, $detalle->costo));
             }
-        } else {
-            $ventas = null;
         }
 
         return $ventas;
@@ -188,7 +182,6 @@ class Ventas
         $idEmpleado = 0;
         $idCliente = 0;
         $fechaVenta = '';
-
 
         switch ($filtro) {
             case 'id':
@@ -244,8 +237,6 @@ class Ventas
 
                 array_push($ventas, new Ventas($venta[0], $venta[1], $venta[2], $nombreEmpleado, $nombreCliente, $venta[5], $productos, $cantidades, $detalle->costo));
             }
-        } else {
-            $ventas = [];
         }
 
         return $ventas;
@@ -321,15 +312,13 @@ class Ventas
             return ($a->idVenta > $b->idVenta) ? 1 : -1;
         }
 
-        if (isset($idVentas) || count($idVentas) != 0) {
+        if (count($idVentas) != 0) {
             $idVentas = array_unique($idVentas);
             foreach ($idVentas as $idVenta) {
                 $venta = self::consultaFiltrada("id", $idVenta);
                 array_push($ventas, $venta[0]);
             }
             usort($ventas, 'compararPorIdVenta');
-        } else {
-            $ventas = [];
         }
 
         return $ventas;
@@ -361,7 +350,7 @@ if (isset($argc) && $argc == 2) {
             print_r($subtotal . "\n");
             break;
         case 'detalles':
-            $detalles = DetallesVentas::consultarDetallesVentas(5);
+            $detalles = DetallesVentas::consultarDetallesVentas(2);
             print_r($detalles);
             break;
         case 'agrega':
@@ -376,7 +365,7 @@ if (isset($argc) && $argc == 2) {
             $venta->agregarVenta();
             break;
         case 'filtro':
-            $ventas = Ventas::consultaFiltrada('empleados', 'as');
+            $ventas = Ventas::consultaFiltrada('id', '1');
             print_r($ventas);
             break;
     }
