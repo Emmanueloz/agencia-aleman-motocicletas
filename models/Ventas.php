@@ -67,6 +67,11 @@ class Ventas
         $this->costo = $costo;
     }
 
+    /**
+     * Agrega una venta a la base de datos.
+     *
+     * @throws Exception Si se produce un error cuando la cantidad a vender excede la cantidad de existencias
+     */
     public function agregarVenta()
     {
         $idProductos = $this->idProductos;
@@ -98,6 +103,12 @@ class Ventas
         }
     }
 
+    /**
+     * Calcula el total de páginas necesarias para mostrar todas las ventas, dada la cantidad de contenido por página.
+     *
+     * @param int $contenido La cantidad de contenido por página.
+     * @return int El total de páginas necesarias.
+     */
     public static function totalPaginas($contenido)
     {
         $totalFilas = 0;
@@ -112,6 +123,13 @@ class Ventas
         return $totalPaginas;
     }
 
+    /**
+     * Consulta las ventas en la base de datos.
+     *
+     * @param int $pagina La página actual.
+     * @param int $contenido La cantidad de contenido por página.
+     * @return array Un array con las ventas consultadas.
+     */
     public static function consultarVentas($pagina = null, $contenido = null)
     {
         $pagina = ($pagina - 1) * $contenido;
@@ -170,7 +188,13 @@ class Ventas
         return $ventas;
     }
 
-
+    /**
+     * Realiza una consulta filtrada de las ventas.
+     *
+     * @param string $filtro El filtro a utilizar en la consulta.
+     * @param string $value El valor del filtro.
+     * @return array Un array con las ventas que cumplen el filtro.
+     */
     public static function consultaFiltrada($filtro, $value)
     {
         $ventasArray = [];
@@ -242,6 +266,13 @@ class Ventas
         return $ventas;
     }
 
+    /**
+     * Realiza una consulta filtrada de las ventas basada en relaciones.
+     *
+     * @param string $filtro El filtro a utilizar en la consulta.
+     * @param string $value El valor del filtro.
+     * @return array Un array con las ventas que cumplen el filtro.
+     */
     public static function consultaFiltradaRelacionada($filtro, $value)
     {
         $idVentas = [];
