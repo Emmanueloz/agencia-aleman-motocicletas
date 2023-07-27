@@ -10,7 +10,9 @@ class DetallesVentas
     public $idProductos;
     public $cantidades;
     public $costo;
-
+    /**
+     * @var object Referencia a la base de datos.
+     */
     private static $bd;
 
     public function __construct($idVenta, $idProductos, $cantidades, $costo)
@@ -20,17 +22,25 @@ class DetallesVentas
         $this->cantidades = $cantidades;
         $this->costo = $costo;
     }
-
+    /**
+     * Inicializa la conexión a la base de datos.
+     *
+     * @param object $bd Base de datos.
+     */
     public static function init($bd)
     {
         self::$bd = $bd;
     }
-
+    /**
+     * Obtiene el subtotal de la venta basado en la lista de productos y sus cantidades.
+     *
+     * @param array $idProductos Arreglo con los identificadores de los productos.
+     * @param array $cantidades Arreglo con las cantidades de los productos.
+     * @return float Subtotal de la venta.
+     */
     public static function obtenerSubtotal($idProductos, $cantidades)
     {
         $subtotal = 0.0;
-
-
 
         $precio = 0.0;
         for ($i = 0; $i < count($idProductos); $i++) {
@@ -71,8 +81,13 @@ class DetallesVentas
             $consulta->close();
         }
     }
-
-    public static function productosVendidos($idVenta)
+    /**
+     * Obtiene la lista de productos vendidos en una venta.
+     *
+     * @param int $idVenta Identificador de la venta.
+     * @return array Arreglo con los identificadores de los productos vendidos.
+     */
+    private static function productosVendidos($idVenta)
     {
         $detallesIdVenta = [];
         $idProducto = 0;
@@ -90,13 +105,13 @@ class DetallesVentas
         $consulta->close();
         return  $detallesIdVenta;
     }
-    /**
-     * Consulta los detalles de las ventas
-     * @param mixed $id Con valor por defecto es null, si se le pasa como parámetro la consulta es por el id
-     * @return  $detallesVentaArray Es un array que cuenta con objetos de cada elemento de la consulta completa de todos los detalles
-     * @return DetallesVentas Es el objeto de una consulta por el `$id`;
-     */
 
+    /**
+     * Obtiene las cantidades vendidas por producto en una venta.
+     *
+     * @param int $id Identificador de la venta.
+     * @return array Arreglo con las cantidades vendidas por producto.
+     */
     private static function consultarCantidadesPorProducto($id)
     {
         $cantidad = 0;
@@ -113,6 +128,13 @@ class DetallesVentas
         return $cantidades;
     }
 
+    /**
+     * Consulta los detalles de una venta.
+     *
+     * @param int $id Identificador de la venta.
+     * @return array|DetallesVentas Arreglo con objetos de los detalles de la venta, 
+     * o un objeto DetallesVentas si se especifica un id.
+     */
     public static function consultarDetallesVentas($id)
     {
         $detallesVentaArray = [];
