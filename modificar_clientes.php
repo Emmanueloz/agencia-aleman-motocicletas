@@ -32,7 +32,15 @@ if(isset($_GET['id_cliente']))
     $html->Asigna('direccion', $cliente->direccion);
     $html->Asigna('telefono', $cliente->telefono);
     $html->Asigna('correo', $cliente->correo);
-    $html->Asigna('genero', $cliente->genero);
+    //$html->Asigna('genero', $cliente->genero);
+    switch($cliente->genero){
+        case 'M':
+            $html->Asigna('masculino_c', 'checked');
+            break;
+        case 'F':
+            $html->Asigna('femenino_c', 'checked');
+            break;
+    }
 }
 else if(isset($_POST['id_cliente']))
 {
