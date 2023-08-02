@@ -33,8 +33,23 @@ if (isset($_GET['id_empleado']))
     $html->Asigna('correo', $empledos->correo);
     $html->Asigna('puesto', $empledos->puesto);
     $html->Asigna('salario', $empledos->salario);
-    $html->Asigna('estudio', $empledos->estudios);
+    //$html->Asigna('estudio', $empledos->estudios);
+    switch ($empledos->estudios) {
+        case 'bachillerato':
+            $html->Asigna('bachillerato_s', 'selected');
+            break;
+        case 'técnico':
+            $html->Asigna('tecnico_s', 'selected');
+            break;
+        case 'licenciatura':
+            $html->Asigna('licenciatura_s', 'selected');
+            break;
+        case 'maestria':
+            $html->Asigna('maestria_s', 'selected');
+            break;
+    }
 }
+
 else if (isset($_POST['id_empleado']))
 {
     $id_empleado = $_POST['id_empleado'];
@@ -52,7 +67,5 @@ else if (isset($_POST['id_empleado']))
     unset($_POST);
 header('Location: vista_empleados.php');
 }
-
-
 
 echo $html->Muestra();
