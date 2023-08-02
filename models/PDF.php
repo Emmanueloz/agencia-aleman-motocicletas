@@ -22,10 +22,10 @@ class PDF extends FPDF
     $this->Image('../public/favicon.png', 20, 3, 20);
 
     // Línea de separación
-    $this->Line(10, 20, 280, 20);
+    $this->Line(10, 24, 280, 24);
 
     // Salto de línea
-    $this->Ln(10);
+    $this->Ln(15);
   }
 
   // Sobrescrita del método Footer
