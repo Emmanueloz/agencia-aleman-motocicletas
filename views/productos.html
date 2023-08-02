@@ -12,9 +12,17 @@
     <header>
       <nav class="navbar navbar-expand-lg bg-lightblue">
         <div class="container-fluid">
-          <a class="navbar-brand d-flex align-items-center" href="./index.html">
-            <img src="./public/favicon.png" alt="logo" class="d-inline-block icon-navbar">
-          <h1 class="text-light fs-4 fw-bold" >Agencia Motocicletas</h1>
+          <div
+            class="navbar-brand d-flex align-items-center"
+            href="./index.html"
+          >
+            <img
+              src="./public/favicon.png"
+              alt="logo"
+              class="d-inline-block icon-navbar"
+            />
+            <h1 class="text-light fs-4 fw-bold">Agencia Motocicletas</h1>
+          </div>
           <button
             class="navbar-toggler d-lg-none"
             type="button"
@@ -164,7 +172,9 @@
     <aside class="d-flex justify-content-between m-1 p-1 bg-body-tertiary">
       <div aria-label="breadcrumb">
         <ol class="breadcrumb d-flex align-items-center">
-          <li class="breadcrumb-item"><a href="./index.html">Inicio</a></li>
+          <li class="breadcrumb-item">
+            <a href="./index.html">Inicio</a>
+          </li>
           <li class="breadcrumb-item active" aria-current="page">Productos</li>
         </ol>
       </div>
@@ -262,7 +272,6 @@
               <td>[existencias]</td>
               <td>$[precio]</td>
               <td>
-                <div class=""></div>
                 <div
                   class="btn-group"
                   role="group"
@@ -281,40 +290,39 @@
                   >
                     Eliminar
                   </button>
-                  <div class="modal fade" id="miModal[id_producto]">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h4 class="modal-title fs-5">Eliminar producto</h4>
-                          <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            arialabel="Close"
-                          ></button>
-                        </div>
-                        <div class="modal-body">
-                          ¿Estas seguro de eliminar el producto [marca]
-                          [modelo]?
-                        </div>
-                        <div class="modal-footer">
-                          <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-bs-dismiss="modal"
-                          >
-                            Cerrar
-                          </button>
-                          <a
-                            href="./eliminar_producto.php?id=[id_producto]"
-                            class="btn btn-danger"
-                            >Aceptar</a
-                          >
-                        </div>
+                </div>
+                <div class="modal fade" id="miModal[id_producto]">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title fs-5">Eliminar producto</h4>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          arialabel="Close"
+                        ></button>
                       </div>
-
-                      [/block: productos]
+                      <div class="modal-body">
+                        ¿Estas seguro de eliminar el producto [marca] [modelo]?
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Cerrar
+                        </button>
+                        <a
+                          href="./eliminar_producto.php?id=[id_producto]"
+                          class="btn btn-danger"
+                          >Aceptar</a
+                        >
+                      </div>
                     </div>
+
+                    [/block: productos]
                   </div>
                 </div>
               </td>
