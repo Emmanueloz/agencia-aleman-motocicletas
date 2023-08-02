@@ -226,7 +226,11 @@
     [msg]
     <div class="d-flex px-3 justify-content-between align-items-center">
       <span class="text-secondary fs-3">[titulo]</span>
-      <a href="./report/[link_report]" class="btn btn-sm btn-secondary" target="_blank">
+      <a
+        href="./report/[link_report]"
+        class="btn btn-sm btn-secondary"
+        target="_blank"
+      >
         [reporte]
       </a>
     </div>
@@ -256,56 +260,52 @@
             <td>[correo]</td>
             <td>[genero]</td>
             <td>
-              <div class="btn-group">
+              <div
+                class="btn-group"
+                role="group"
+                aria-label="basic mixed styles example"
+              >
                 <a
                   class="btn btn-warning"
                   href="modificar_clientes.php?id_cliente=[id_cliente]"
-                  role="button"
                   >Modificar</a
                 >
                 <button
-                  type="button"
                   class="btn btn-danger"
                   data-bs-toggle="modal"
                   data-bs-target="#detalle[id_cliente]"
                 >
                   Eliminar
                 </button>
-                <a
-                  class="btn btn-secondary"
-                  target="_blank"
-                  href="./report/reportClientes.php?id_cliente=[id_cliente]"
-                  >Reporte</a
-                >
-                <div class="modal fade" id="detalle[id_cliente]">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h4 class="modal-title fs-5">Eliminar Cliente</h4>
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div>
-                      <div class="modal-body">
-                        ¿Quieres eliminar al cliente [nombre]?
-                      </div>
-                      <div class="modal-footer">
-                        <button
-                          type="button"
-                          class="btn btn-secondary"
-                          data-bs-dismiss="modal"
-                        >
-                          Cancelar
-                        </button>
-                        <a
-                          href="./eliminar_clientes.php?id_cliente=[id_cliente]"
-                          class="btn btn-danger"
-                          >Aceptar</a
-                        >
-                      </div>
+              </div>
+              <div class="modal fade" id="detalle[id_cliente]">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title fs-5">Eliminar Cliente</h4>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body">
+                      ¿Quieres eliminar al cliente [nombre]?
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                      >
+                        Cancelar
+                      </button>
+                      <a
+                        href="./eliminar_clientes.php?id_cliente=[id_cliente]"
+                        class="btn btn-danger"
+                        >Aceptar</a
+                      >
                     </div>
                   </div>
                 </div>

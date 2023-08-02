@@ -169,11 +169,12 @@
     </section>
 
     <main class="container">
-      <section class="row col-lg-8 m-auto">
-        <form method="POST" action="[target]" class="col">
+      <section class="col-md-10 col-lg-8 m-auto">
+        <h2>[title]</h2>
+        <form method="POST" action="[target]" class="row">
           <input type="hidden" value="[id_cliente]" name="id_cliente" />
-          <div class="form-group col-12">
-            <label for="rfc">RFC</label>
+          <div class="form-group col-md-6 col-12">
+            <label for="rfc" class="form-label">RFC</label>
             <input
               required
               type="text"
@@ -184,8 +185,8 @@
             />
           </div>
 
-          <div class="form-group col-12">
-            <label for="nombre">Nombre</label>
+          <div class="form-group col-md-6 col-12">
+            <label for="nombre" class="form-label">Nombre</label>
             <input
               required
               type="text"
@@ -194,6 +195,32 @@
               class="form-control"
               value="[nombre]"
               pattern="[A-Za-z-ñÑ-áéíóúÁÉÍÓÚ ]{1,50}"
+            />
+          </div>
+
+          <div class="form-group col-md-6 col-12">
+            <label for="email">Correo</label>
+            <input
+              required
+              type="email"
+              id="email"
+              name="correo"
+              class="form-control"
+              value="[correo]"
+            />
+          </div>
+
+          <div class="form-group col-md-6 col-12">
+            <label for="telefono">Teléfono</label>
+            <input
+              required
+              type="tel"
+              id="telefono"
+              name="telefono"
+              class="form-control"
+              value="[telefono]"
+              pattern="[0-9]{10}"
+              maxlength="10"
             />
           </div>
 
@@ -210,32 +237,6 @@
           </div>
 
           <div class="form-group col-12">
-            <label for="telefono">Teléfono</label>
-            <input
-              required
-              type="tel"
-              id="telefono"
-              name="telefono"
-              class="form-control"
-              value="[telefono]"
-              pattern="[0-9]{10}"
-              maxlength="10"
-            />
-          </div>
-
-          <div class="form-group col-12">
-            <label for="email">Correo</label>
-            <input
-              required
-              type="email"
-              id="email"
-              name="correo"
-              class="form-control"
-              value="[correo]"
-            />
-          </div>
-
-          <div class="form-group col-12">
             <label for="genero">Género</label>
             <div>
               <input
@@ -244,6 +245,7 @@
                 id="genero-masculino"
                 name="genero"
                 value="M"
+                [masculino_c]
               />
               <label for="genero-masculino">Masculino</label>
             </div>
@@ -254,16 +256,18 @@
                 id="genero-femenino"
                 name="genero"
                 value="F"
+                [femenino_c]
               />
               <label for="genero-femenino">Femenino</label>
             </div>
           </div>
           <br />
-          <div class="">
-            <a class="btn btn-danger" href="./vista_clientes.php" role="button"
-              >Cancelar</a
+          <div class="d-flex justify-content-end col-12 mt-2">
+            <a class="btn btn-secondary m-1" href="./vista_clientes.php"
+              >Regresar</a
             >
-            <button type="submit" class="btn btn-primary">Agregar</button>
+            <button type="reset" class="btn btn-info m-1">Limpiar</button>
+            <button type="submit" class="btn btn-primary m-1">Agregar</button>
           </div>
         </form>
       </section>
