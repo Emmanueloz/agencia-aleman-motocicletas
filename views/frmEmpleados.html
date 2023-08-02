@@ -103,45 +103,54 @@
 
   </aside>
   <main class="container">
-    <section class="row col-lg-8 m-auto">
-      <form method="POST" action="[target]" class="col">
+    <section class="col-md-10 col-lg-8 m-auto">
+      <h2>[title]</h2>
+      <form method="POST" action="[target]" class="row">
         <input type="hidden" value="[id_empleado]" name="id_empleado">
-        <div class="form-group col-12">
+        <div class="form-group col-md-6 col-12">
           <label for="rfc">RFC</label>
           <input required type="text" id="rfc" name="rfc" class="form-control" value="[rfc]">
         </div>
-        <div class="form-group col-12">
+        <div class="form-group col-md-6 col-12">
           <label for="nombre">Nombre</label>
           <input type="text" id="nombre" name="nombre" class="form-control" value="[nombre]" pattern="[A-Za-z ]{1,50}">
         </div>
-        <div class="form-group col-12">
+        <div class="form-group col-md-6 col-12">
           <label for="direccion">Direccion</label>
           <input required type="text" id="direccion" name="direccion" class="form-control" value="[direccion]">
         </div>
-        <div class="form-group col-12">
+        <div class="form-group col-md-6 col-12">
           <label for="Telefono">Telefono</label>
           <input required type="tel" id="telefono" name="telefono" class="form-control" value="[telefono]"
             pattern="[0-9]{10}">
         </div>
-        <div class="form-group col-12">
-          <label for="correo">correo</label>
+        <div class="form-group col-md-6 col-12">
+          <label for="correo">Correo</label>
           <input required type="email" id="correo" name="correo" class="form-control" value="[correo]">
         </div>
-        <div class="form-group col-12">
-          <label for="puesto">puesto</label>
+        <div class="form-group col-md-6 col-12">
+          <label for="puesto">Puesto</label>
           <input required type="text" id="puesto" name="puesto" class="form-control" value="[puesto]" >
         </div>
-        <div class="form-group col-12">
-          <label for="salario">salario</label>
-          <input required type="number" id="salario" name="salario" class="form-control" value="[salario]">
+        <div class="form-group col-md-6 col-12">
+          <label for="salario">Salario</label>
+          <input required type="number" id="salario" name="salario" class="form-control" min="1" value="[salario]">
         </div>
-        <div class="form-group col-12">
-          <label for="estudios">estudios</label>
-          <input required type="text" id="estudios" name="estudios" class="form-control" value="[estudio]">
+        <div class="form-group col-md-6 col-12">
+          <label for="estudios">Estudios</label>
+          <select name="estudios" id="estudios" required class="form-select">
+            <option [bachillerato_s] value="bachillerato">Bachillerato</option>
+            <option [tecnico_s] value="técnico">Técnico</option>
+            <option [licenciatura_s] value="licenciatura">Licenciatura</option>
+            <option [maestria_s] value="maestria">Maestria</option>
+
+          </select>
+          <!--<input required type="text" id="estudios" name="estudios" class="form-control" value="[estudio]">-->
         </div>
-        <div class="mt-2">
-          <a class="btn btn-secondary" href="./vista_empleados.php">Cancelar</a>
-          <button type="submit" class="btn btn-primary">Agregar</button>
+        <div class="d-flex justify-content-end col-12 mt-2">
+          <a class="btn btn-secondary m-1" href="./vista_empleados.php">Regresar</a>
+          <button type="reset" class="btn btn-info m-1">Limpiar</button>
+          <button type="submit" class="btn btn-primary m-1">Agregar</button>
         </div>
       </form>
     </section>
