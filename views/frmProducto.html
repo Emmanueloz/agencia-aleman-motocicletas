@@ -3,9 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Productos</title>
+    <title>Formulario Productos</title>
     <link rel="stylesheet" href="./bootstrap-5.3.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="./style.css" />
+    <link rel="shortcut icon" href="./public/favicon.png" type="image/x-icon" />
   </head>
   <body>
     <header>
@@ -180,7 +181,7 @@
     <main class="container">
       <section class="col-md-10 col-lg-8 m-auto">
         <h2>[title]</h2>
-        <form method="post" action="[target]" class="row">
+        <form method="post" action="[target]" onsubmit="return validarNumero()" class="row" >
           <input type="hidden" name="id_producto" value="[id_producto]" />
           <div class="form-group col-md-6 col-12">
             <label for="no_serie" class="form-label">Numero de serie</label>
@@ -227,9 +228,11 @@
                   id="precio"
                   name="precio"
                   value="[precio]"
-                  maxlength="10"
+                  min="1"
+                  maxlength="13"
                   required
                 />
+
               </div>
             </div>
             <div class="form-group">
@@ -270,5 +273,6 @@
 
     <script src="./bootstrap-5.3.0/js/popper.min.js"></script>
     <script src="./bootstrap-5.3.0/js/bootstrap.min.js"></script>
+    <script src="./js/validacion.js"></script>
   </body>
 </html>
