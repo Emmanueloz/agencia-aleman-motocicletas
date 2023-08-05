@@ -26,10 +26,10 @@ $pdf->AddPage('H');
 $pdf->SetFont('Arial', 'B', 16);
 
 $pdf->Cell(272, 12, 'Reporte de Productos', 0, 1, 'C');
-$pdf->Cell(136, 10, "Tipo de reporte: $tipo", 1, 1);
 $pdf->Ln(5);
 $pdf->SetFont('Arial', '', 14);
-$pdf->Cell(20, 5, "Fecha del reporte: $fecha");
+$pdf->Cell(136, 10, "Fecha del reporte: $fecha",1,0);
+$pdf->Cell(136, 10, "Tipo de reporte: $tipo", 1, 1);
 $pdf->Ln(10);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(45, 5, "Numero de Serie", 1, 0, 'C');
