@@ -67,4 +67,4 @@ foreach ($productoArray as $productos) {
 
     $pdf->Ln();
 }
-$pdf->Output();
+$pdf->Output('', "Reporte-Productos-$fecha-$tipo"); 
