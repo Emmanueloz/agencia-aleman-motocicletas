@@ -223,7 +223,7 @@
                 <span class="input-group-text">$</span>
                 <input
                   type="number"
-                  pattern="[0-9]{10}"
+                  pattern="[0-9-0.0-.9]{10}"
                   class="form-control"
                   id="precio"
                   name="precio"
@@ -256,6 +256,7 @@
               id="descripcion"
               rows="7"
               required
+              maxlength="100"
             >
 [descripcion]</textarea
             >
