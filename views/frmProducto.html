@@ -181,7 +181,12 @@
     <main class="container">
       <section class="col-md-10 col-lg-8 m-auto">
         <h2>[title]</h2>
-        <form method="post" action="[target]" onsubmit="return validarNumero()" class="row" >
+        <form
+          method="post"
+          action="[target]"
+          onsubmit="return validarNumero()"
+          class="row"
+        >
           <input type="hidden" name="id_producto" value="[id_producto]" />
           <div class="form-group col-md-6 col-12">
             <label for="no_serie" class="form-label">Numero de serie</label>
@@ -232,7 +237,6 @@
                   maxlength="13"
                   required
                 />
-
               </div>
             </div>
             <div class="form-group">

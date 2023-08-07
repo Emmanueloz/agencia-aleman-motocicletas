@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulario Empleado</title>
+    <link rel="stylesheet" href="./bootstrap-5.3.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>[title]</title>
+    <link
+      rel="shortcut icon"
+      href="./public/favicon.png"
+      type="imagen/x-icon"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Formulario Empleado</title>
-  <link rel="stylesheet" href="./bootstrap-5.3.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="./style.css">
-  <title>[title]</title>
-  <link rel="shortcut icon" href="./public/favicon.png" type="imagen/x-icon"/>
-
-</head>
-
-<body>
-  <header>
-    <nav class="navbar navbar-expand-lg bg-lightblue">
-      <div class="container-fluid">
-        <a
-            href="./index.php"
-            class="navbar-brand d-flex align-items-center"
-          >
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg bg-lightblue">
+        <div class="container-fluid">
+          <a href="./index.php" class="navbar-brand d-flex align-items-center">
             <img
               src="./public/favicon.png"
               class="d-inline-block icon-navbar"
@@ -27,148 +26,274 @@
             />
             <h1 class="text-light fs-4 fw-bold">Agencia Motocicletas</h1>
           </a>
-          
-        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
-          data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
-          aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse w-20 justify-content-end" id="collapsibleNavId">
-          <ul class="navbar-nav mt-2 mt-sm-1 justify-content-end align-items-end align-items-lg-center">
-            <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
-              <a class="nav-link dropdown-toggle text-light fs-5 fw-bold" href="#" role="button"
-                data-bs-toggle="dropdown" aria-expanded="false">
-                Empleados
-              </a>
-              <ul class="dropdown-menu bg-lightblue-secondary">
-                <li>
-                  <a class="dropdown-item text-white" href="./vista_empleados.php">Consultar</a>
-                </li>
-                <li>
-                  <a class="dropdown-item text-white" href="#"> Agregar </a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
-              <a class="nav-link dropdown-toggle text-light fs-5" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Clientes
-              </a>
-              <ul class="dropdown-menu bg-lightblue-secondary">
-                <li>
-                  <a class="dropdown-item text-white" href="./vista_clientes.php"> Consultar </a>
-                </li>
-                <li>
-                  <a class="dropdown-item text-white" href="./agregar_clientes.php"> Agregar </a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
-              <a class="nav-link dropdown-toggle text-light fs-5" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Productos
-              </a>
-              <ul class="dropdown-menu bg-lightblue-secondary">
-                <li>
-                  <a class="dropdown-item text-white" href="./consulta_productos.php">Consultar</a>
-                </li>
-                <li>
-                  <a class="dropdown-item text-white" href="./agregar_productos.php"> Agregar </a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
-              <a class="nav-link dropdown-toggle text-light fs-5" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Ventas
-              </a>
-              <ul class="dropdown-menu bg-lightblue-secondary">
-                <li>
-                  <a class="dropdown-item text-white" href="./consultar_ventas.php">Consultar</a>
-                </li>
-                <li>
-                  <a class="dropdown-item text-white" href="./agregar_venta.php">
-                    Agregar
-                  </a>
-                </li>
-              </ul>
-            </li>
 
-            <li class="nav-item mx-sm-1 mt-sm-0 mt-1">
-              <a class="btn btn-sm btn-danger" href="./logout.php" aria-current="page">
-                Cerrar Sesión
-              </a>
-            </li>
-          </ul>
+          <button
+            class="navbar-toggler d-lg-none"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapsibleNavId"
+            aria-controls="collapsibleNavId"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            class="collapse navbar-collapse w-20 justify-content-end"
+            id="collapsibleNavId"
+          >
+            <ul
+              class="navbar-nav mt-2 mt-sm-1 justify-content-end align-items-end align-items-lg-center"
+            >
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
+                <a
+                  class="nav-link dropdown-toggle text-light fs-5 fw-bold"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Empleados
+                </a>
+                <ul class="dropdown-menu bg-lightblue-secondary">
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./vista_empleados.php"
+                      >Consultar</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item text-white" href="#"> Agregar </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
+                <a
+                  class="nav-link dropdown-toggle text-light fs-5"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Clientes
+                </a>
+                <ul class="dropdown-menu bg-lightblue-secondary">
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./vista_clientes.php"
+                    >
+                      Consultar
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./agregar_clientes.php"
+                    >
+                      Agregar
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
+                <a
+                  class="nav-link dropdown-toggle text-light fs-5"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Productos
+                </a>
+                <ul class="dropdown-menu bg-lightblue-secondary">
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./consulta_productos.php"
+                      >Consultar</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./agregar_productos.php"
+                    >
+                      Agregar
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown mx-sm-1 mt-sm-0 mt-1">
+                <a
+                  class="nav-link dropdown-toggle text-light fs-5"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Ventas
+                </a>
+                <ul class="dropdown-menu bg-lightblue-secondary">
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./consultar_ventas.php"
+                      >Consultar</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item text-white"
+                      href="./agregar_venta.php"
+                    >
+                      Agregar
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="nav-item mx-sm-1 mt-sm-0 mt-1">
+                <a
+                  class="btn btn-sm btn-danger"
+                  href="./logout.php"
+                  aria-current="page"
+                >
+                  Cerrar Sesión
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
+      </nav>
+    </header>
+    <aside class="d-flex justify-content-between m-1 p-1 bg-body-tertiary">
+      <div aria-label="breadcrumb">
+        <ol class="breadcrumb d-flex align-items-center">
+          <li class="breadcrumb-item"><a href="./index.php">Inicio</a></li>
+          <li class="breadcrumb-item">
+            <a href="./vista_empleados.php">Empleados</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Agregar</li>
+        </ol>
       </div>
-    </nav>
-  </header>
-  <aside class="d-flex justify-content-between m-1 p-1 bg-body-tertiary">
-    <div aria-label="breadcrumb">
-      <ol class="breadcrumb d-flex align-items-center">
-        <li class="breadcrumb-item"><a href="./index.php">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="./vista_empleados.php">Empleados</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Agregar</li>
-      </ol>
-    </div>
-
-  </aside>
-  <main class="container">
-    <section class="col-md-10 col-lg-8 m-auto">
-      <h2>[title]</h2>
-      <form method="POST" action="[target]" class="row">
-        <input type="hidden" value="[id_empleado]" name="id_empleado">
-        <div class="form-group col-md-6 col-12">
-          <label for="rfc">RFC</label>
-          <input required type="text" id="rfc" name="rfc" class="form-control" value="[rfc]">
-        </div>
-        <div class="form-group col-md-6 col-12">
-          <label for="nombre">Nombre</label>
-          <input type="text" id="nombre" name="nombre" class="form-control" value="[nombre]" pattern="[A-Za-z-ñÑ-áéíóúÁÉÍÓÚ ]{1,50}">
-        </div>
-        <div class="form-group col-md-6 col-12">
-          <label for="direccion">Dirección</label>
-          <input required type="text" id="direccion" name="direccion" class="form-control" value="[direccion]">
-        </div>
-        <div class="form-group col-md-6 col-12">
-          <label for="Telefono">Teléfono</label>
-          <input required type="tel" id="telefono" name="telefono" class="form-control" value="[telefono]"
-            pattern="[0-9]{10}" maxlength="10">
-        </div>
-        <div class="form-group col-md-6 col-12">
-          <label for="correo">Correo</label>
-          <input required type="email" id="correo" name="correo" class="form-control" value="[correo]">
-        </div>
-        <div class="form-group col-md-6 col-12">
-          <label for="puesto">Puesto</label>
-          <input required type="text" id="puesto" name="puesto" class="form-control" value="[puesto]" >
-        </div>
-        <div class="form-group col-md-6 col-12">
-          <label for="salario">Salario</label>
-          <input required type="number" id="salario" name="salario" class="form-control" min="1" value="[salario]">
-        </div>
-        <div class="form-group col-md-6 col-12">
-          <label for="estudios">Estudios</label>
-          <select name="estudios" id="estudios" required class="form-select">
-            <option [bachillerato_s] value="bachillerato">Bachillerato</option>
-            <option [tecnico_s] value="técnico">Técnico</option>
-            <option [licenciatura_s] value="licenciatura">Licenciatura</option>
-            <option [maestria_s] value="maestria">Maestria</option>
-
-          </select>
-          <!--<input required type="text" id="estudios" name="estudios" class="form-control" value="[estudio]">-->
-        </div>
-        <div class="d-flex justify-content-end col-12 mt-2">
-          <a class="btn btn-secondary m-1" href="./vista_empleados.php">Regresar</a>
-          <button type="reset" class="btn btn-info m-1">Limpiar</button>
-          <button type="submit" class="btn btn-primary m-1">Agregar</button>
-        </div>
-      </form>
-    </section>
-  </main>
-  <script src="./bootstrap-5.3.0/js/popper.min.js"></script>
-  <script src="./bootstrap-5.3.0/js/bootstrap.min.js"></script>
-</body>
-
+    </aside>
+    <main class="container">
+      <section class="col-md-10 col-lg-8 m-auto">
+        <h2>[title]</h2>
+        <form method="POST" action="[target]" class="row">
+          <input type="hidden" value="[id_empleado]" name="id_empleado" />
+          <div class="form-group col-md-6 col-12">
+            <label for="rfc">RFC</label>
+            <input
+              required
+              type="text"
+              id="rfc"
+              name="rfc"
+              minlength="12"
+              maxlength="13"
+              class="form-control"
+              value="[rfc]"
+            />
+          </div>
+          <div class="form-group col-md-6 col-12">
+            <label for="nombre">Nombre</label>
+            <input
+              type="text"
+              id="nombre"
+              name="nombre"
+              class="form-control"
+              value="[nombre]"
+              pattern="[A-Za-z-ñÑ-áéíóúÁÉÍÓÚ ]{1,50}"
+            />
+          </div>
+          <div class="form-group col-md-6 col-12">
+            <label for="direccion">Dirección</label>
+            <input
+              required
+              type="text"
+              id="direccion"
+              name="direccion"
+              class="form-control"
+              value="[direccion]"
+            />
+          </div>
+          <div class="form-group col-md-6 col-12">
+            <label for="Telefono">Teléfono</label>
+            <input
+              required
+              type="tel"
+              id="telefono"
+              name="telefono"
+              class="form-control"
+              value="[telefono]"
+              pattern="[0-9]{10}"
+              maxlength="10"
+            />
+          </div>
+          <div class="form-group col-md-6 col-12">
+            <label for="correo">Correo</label>
+            <input
+              required
+              type="email"
+              id="correo"
+              name="correo"
+              class="form-control"
+              value="[correo]"
+            />
+          </div>
+          <div class="form-group col-md-6 col-12">
+            <label for="puesto">Puesto</label>
+            <input
+              required
+              type="text"
+              id="puesto"
+              name="puesto"
+              class="form-control"
+              value="[puesto]"
+            />
+          </div>
+          <div class="form-group col-md-6 col-12">
+            <label for="salario">Salario</label>
+            <div class="input-group">
+              <span class="input-group-text">$</span>
+              <input
+                required
+                type="number"
+                id="salario"
+                name="salario"
+                class="form-control"
+                min="1"
+                value="[salario]"
+              />
+            </div>
+          </div>
+          <div class="form-group col-md-6 col-12">
+            <label for="estudios">Estudios</label>
+            <select name="estudios" id="estudios" required class="form-select">
+              <option [bachillerato_s] value="bachillerato">
+                Bachillerato
+              </option>
+              <option [tecnico_s] value="técnico">Técnico</option>
+              <option [licenciatura_s] value="licenciatura">
+                Licenciatura
+              </option>
+              <option [maestria_s] value="maestria">Maestria</option>
+            </select>
+            <!--<input required type="text" id="estudios" name="estudios" class="form-control" value="[estudio]">-->
+          </div>
+          <div class="d-flex justify-content-end col-12 mt-2">
+            <a class="btn btn-secondary m-1" href="./vista_empleados.php"
+              >Regresar</a
+            >
+            <button type="reset" class="btn btn-info m-1">Limpiar</button>
+            <button type="submit" class="btn btn-primary m-1">Agregar</button>
+          </div>
+        </form>
+      </section>
+    </main>
+    <script src="./bootstrap-5.3.0/js/popper.min.js"></script>
+    <script src="./bootstrap-5.3.0/js/bootstrap.min.js"></script>
+  </body>
 </html>

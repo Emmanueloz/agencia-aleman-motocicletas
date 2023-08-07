@@ -12,10 +12,7 @@
     <header>
       <nav class="navbar navbar-expand-lg bg-lightblue">
         <div class="container-fluid">
-          <a
-            class="navbar-brand d-flex align-items-center"
-            href="./index.php"
-          >
+          <a class="navbar-brand d-flex align-items-center" href="./index.php">
             <img
               src="./public/favicon.png"
               alt="logo"
@@ -256,17 +253,17 @@
               <th>Descripcion</th>
               <th>Existencias</th>
               <th>Precio</th>
-              <th>ACCION</th>
-            </tr>
+              <th>Acción</th>
+            </tr>            
           </thead>
           <tbody>
             [block: productos]
-            <tr>
+            <tr style="overflow: hidden">
               <td>[id_producto]</td>
               <td>[numero_serie]</td>
               <td>[marca]</td>
               <td>[modelo]</td>
-              <td>[descripcion]</td>
+              <td style="min-width: 60px; max-width: 80px;" >[descripcion]</td>
               <td>[existencias]</td>
               <td>$[precio]</td>
               <td>
