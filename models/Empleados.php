@@ -108,6 +108,8 @@ class Empleados
     }
     public static function filtro($opcion, $value)
     {
+        $opc = [];
+
         switch ($opcion) {
             case 'id':
                 $consult = self::$bd->prepare("select * from empleados where id_empleado = ? AND estado = 1");
@@ -133,8 +135,10 @@ class Empleados
                 $value = $value . '%';
                 $consult->bind_param("s", $value);
                 break;
+            default:
+                return $opc;
+                break;
         }
-        $opc = [];
         $consult->execute();
         $consult->bind_result($id_empleado, $rfc, $nombre, $direccion, $telefono, $correo, $puesto, $salario, $estudios, $estado);
         while ($consult->fetch()) {
