@@ -23,7 +23,7 @@ $html = new SpynTPL('views/');
 $html->Fichero('empleados.html');
 $html->Asigna('msg', $msg);
 $html->Asigna('title', 'Lista de empleados');
-$html->Asigna('id_empleado_s', '');
+$html->Asigna('id_s', '');
 $html->Asigna('rfc_s', '');
 $html->Asigna('nombre_s', '');
 $html->Asigna('salario_s', '');
@@ -74,7 +74,7 @@ if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
             $html->Asigna('nombre_s', 'selected');
             break;
         case 'salario':
-            $html->Asigna('salario_s', 'selected');
+            $html->Asigna('salarios_s', 'selected');
             break;
         case 'estudios':
             $html->Asigna('estudios_s', 'selected');
