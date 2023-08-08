@@ -23,12 +23,11 @@ $tipo = isset($_GET['opcion']) ? 'Consulta' : (isset($_GET['Producos']) ? 'Indiv
 
 $pdf = new PDF();
 $pdf->AddPage('H');
-$pdf->SetFont('Arial', 'B', 16);
-
+$pdf->SetFont('Arial', 'B', 15);
 $pdf->Cell(272, 12, 'Reporte de Productos', 0, 1, 'C');
 $pdf->Ln(5);
 $pdf->SetFont('Arial', '', 14);
-$pdf->Cell(136, 10, "Fecha del reporte: $fecha",1,0);
+$pdf->Cell(136, 10, "Fecha del reporte: $fecha", 1, 0);
 $pdf->Cell(136, 10, "Tipo de reporte: $tipo", 1, 1);
 $pdf->Ln(10);
 $pdf->SetFont('Arial', 'B', 12);
@@ -67,4 +66,4 @@ foreach ($productoArray as $productos) {
 
     $pdf->Ln();
 }
-$pdf->Output('', "Reporte-Productos-$fecha-$tipo"); 
+$pdf->Output('', "Reporte-Productos-$fecha-$tipo");

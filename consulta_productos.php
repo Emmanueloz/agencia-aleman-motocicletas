@@ -65,6 +65,9 @@ if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
         case 'precio';
             $html->Asigna('precio_s', 'selected');
             break;
+        case 'descripcion';
+            $html->Asigna('descripcion_s', 'selected');
+            break;
     }
     $productos = Productos::productoFiltrado($opcion, $value);
     if (count($productos) == 0) {
@@ -82,7 +85,7 @@ if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
 
     $html->Asigna('link_report', "reportProductos.php");
     $html->Asigna('reporte', "Reporte general");
-    $productos = Productos::consultaProductos($paginaActual,$contenido);
+    $productos = Productos::consultaProductos($paginaActual, $contenido);
     if (count($productos) == 0) {
         $html->AsignaBloque('productos', null);
         $mensaje = "<h4 class='text-secondary text-center' >No se encontró ningún producto. Agregue un producto</h4>";
