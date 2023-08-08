@@ -6,7 +6,7 @@ function validarNumero() {
     return true;
   } else {
     alert(
-      `El campo precio o existencias supera el valor maximo, solo coloca menos 10 digitos`
+      `El campo precio o existencias supera el valor maximo, solo coloca menos de 10 dígitos`
     );
     return false;
   }
