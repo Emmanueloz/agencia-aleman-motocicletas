@@ -51,6 +51,45 @@ class Servicios
       $detalle->agregarDetalleServicio();
     }
   }
+
+  public static function consultarServicios($pagina = null, $contenido = null)
+  {
+    $pagina = ($pagina - 1) * $contenido;
+    $serviciosArray = [];
+    $servicios = [];
+
+    if (!is_null($pagina) && !is_null($contenido)) {
+      $consulta = self::$bd->prepare("SELECT * FROM cliente_servicio LIMIT ?,?");
+      $consulta->bind_param('ii', $pagina, $contenido);
+    } else {
+      $consulta = self::$bd->prepare("SELECT * FROM cliente_servicio");
+    }
+
+    $consulta->execute();
+    $consulta->bind_result($idServicio, $idCliente, $fechaServicio);
+
+    while ($consulta->fetch()) {
+      array_push($serviciosArray, [$idServicio, $idCliente, $fechaServicio]);
+    }
+    $consulta->close();
+
+    if (count($serviciosArray) == 0) {
+      return $serviciosArray;
+    }
+
+    foreach ($serviciosArray as $key => $servicio) {
+      $id = $servicio[0];
+      $idCliente = $servicio[1];
+      $fecha = $servicio[2];
+
+      $nombreCliente = Clientes::buscarnom($idCliente);
+      $detalleServicio = DetalleServicios::consultarDetalleServicio($id);
+
+      array_push($servicios, new Servicios($id, $nombreCliente, $fecha, $detalleServicio->producto, $detalleServicio->tipoServicio));
+    }
+
+    return $servicios;
+  }
 }
 
 if (isset($argc) && $argc == 2) {
@@ -61,8 +100,12 @@ if (isset($argc) && $argc == 2) {
     case "agregar":
       date_default_timezone_set('America/Mexico_City'); # Zona horaria para Mexico
       $fecha = date("Y-m-d");
-      $servicio = new Servicios(null, 4, $fecha, [1, 4], ["garantía", "refacción"]);
+      $servicio = new Servicios(null, 2, $fecha, [3, 2], ["mantenimiento", "mantenimiento"]);
       $servicio->agregarServicio();
+      break;
+    case 'consultar':
+      $servicios = Servicios::consultarServicios(2, 1);
+      print_r($servicios);
       break;
   }
 }
