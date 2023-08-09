@@ -26,6 +26,9 @@ $html->Asigna('op_clientes', '');
 $html->Asigna('value', '');
 $html->Asigna('limpiar_filtro', '');
 
+# Usando una función para obtener la barra de navegación
+$nav = navBar('ventas');
+$html->Asigna('nav-bar', $nav);
 // Objeto de la base de datos
 $mysqli = new mysqli($servidor, $usuario, $password, $bd);
 
