@@ -38,11 +38,14 @@ class DetalleServicios
     $consulta->execute();
   }
 
-  public static function consultarDetalleServicio($id)
+  public static function consultarDetalleServicio($id, $conIDs = false)
   {
     $detallesArray = [];
     $nombreProductos = '';
     $servicios = '';
+
+    $idProductos = [];
+    $serviciosArray = [];
 
     $consulta = self::$bd->prepare('SELECT * FROM detalles_servicios WHERE id_servicio=?');
     $consulta->bind_param('i', $id);
@@ -59,18 +62,39 @@ class DetalleServicios
       return $detalleServicio = [];
     }
 
-    foreach ($detallesArray as $key => $detalle) {
-      $idProducto = $detalle[1];
-      $servicios = $servicios . $detalle[2];
-      $producto = Productos::consultPrecioMarcaModelo($idProducto);
-      $nombreProductos = $nombreProductos . $producto[1] . ' ' . $producto[2];
+    if ($conIDs == true) {
+      foreach ($detallesArray as $key => $detalle) {
+        $idProducto = $detalle[1];
+        $servicio = $servicios . $detalle[2];
 
-      if ($key + 1 < count($detallesArray)) {
-        $nombreProductos = $nombreProductos . '<br/>';
-        $servicios = $servicios . '<br/>';
+        array_push($idProductos, $idProducto);
+        array_push($serviciosArray, $servicio);
       }
-    }
+      return new DetalleServicios($id, $idProductos, $serviciosArray);
+    } else {
+      foreach ($detallesArray as $key => $detalle) {
+        $idProducto = $detalle[1];
+        $servicios = $servicios . $detalle[2];
+        $producto = Productos::consultPrecioMarcaModelo($idProducto);
+        $nombreProductos = $nombreProductos . $producto[1] . ' ' . $producto[2];
 
-    return new DetalleServicios($id, $nombreProductos, $servicios);
+        if ($key + 1 < count($detallesArray)) {
+          $nombreProductos = $nombreProductos . '<br/>';
+          $servicios = $servicios . '<br/>';
+        }
+      }
+
+      return new DetalleServicios($id, $nombreProductos, $servicios);
+    }
+  }
+
+  public function actualizaDetalleServicios()
+  {
+    foreach ($this->producto as $key => $idProducto) {
+      $consulta = self::$bd->prepare('UPDATE detalles_servicios SET tipo_servicio  = ? WHERE id_servicio = ? AND id_producto = ?');
+      $consulta->bind_param('sii', $this->tipoServicio[$key], $this->idServicio, $idProducto);
+      $consulta->execute();
+      $consulta->close();
+    }
   }
 }
