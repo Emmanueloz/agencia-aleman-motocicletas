@@ -114,6 +114,52 @@ class Servicios
       $detalleServicio->actualizaDetalleServicios();
     }
   }
+
+  public static function consultaFiltrada($filtro, $value)
+  {
+    $serviciosArray = [];
+    $servicios = [];
+
+    switch ($filtro) {
+      case 'id':
+        $consulta = self::$bd->prepare('SELECT * FROM cliente_servicio WHERE id_servicio = ?');
+        $consulta->bind_param('i', $value);
+        break;
+      case 'fecha':
+        $value = '%' . $value . '%';
+        $consulta = self::$bd->prepare('SELECT * FROM cliente_servicio WHERE fecha_servicio LIKE ?');
+        $consulta->bind_param('s', $value);
+        break;
+      default:
+        return $servicios;
+        break;
+    }
+
+    $consulta->execute();
+    $consulta->bind_result($idServicio, $idCliente, $fechaServicio);
+
+    while ($consulta->fetch()) {
+      array_push($serviciosArray, [$idServicio, $idCliente, $fechaServicio]);
+    }
+    $consulta->close();
+
+    if (count($serviciosArray) == 0) {
+      return $serviciosArray;
+    }
+
+    foreach ($serviciosArray as $servicio) {
+      $id = $servicio[0];
+      $idCliente = $servicio[1];
+      $fecha = $servicio[2];
+
+      $nombreCliente = Clientes::buscarnom($idCliente);
+      $detalleServicio = DetalleServicios::consultarDetalleServicio($id);
+
+      array_push($servicios, new Servicios($id, $nombreCliente, $fecha, $detalleServicio->producto, $detalleServicio->tipoServicio));
+    }
+
+    return $servicios;
+  }
 }
 
 if (isset($argc) && $argc == 2) {
@@ -142,6 +188,10 @@ if (isset($argc) && $argc == 2) {
       $servicio->tipoServicios = ["mono", "mono"];
       $servicio->actualizarServicio();
       print_r($servicio);
+      break;
+    case 'filtro':
+      $servicios = Servicios::consultaFiltrada('cliente', 'a');
+      print_r($servicios);
       break;
   }
 }
