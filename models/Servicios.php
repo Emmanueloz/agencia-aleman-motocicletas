@@ -90,6 +90,30 @@ class Servicios
 
     return $servicios;
   }
+
+  public static function consultarServicio($id)
+  {
+    $consulta = self::$bd->prepare("SELECT * FROM cliente_servicio WHERE id_servicio =?");
+    $consulta->bind_param('i', $id);
+    $consulta->execute();
+    $consulta->bind_result($idServicio, $idCliente, $fechaServicio);
+    $consulta->fetch();
+    $consulta->close();
+    $detalleServicio = DetalleServicios::consultarDetalleServicio($id, true);
+
+    return new Servicios($idServicio, $idCliente, $fechaServicio, $detalleServicio->producto, $detalleServicio->tipoServicio);
+  }
+
+  public function actualizarServicio()
+  {
+    if ($consulta = self::$bd->prepare('UPDATE cliente_servicio SET fecha_servicio = ? WHERE id_servicio = ?')) {
+      $consulta->bind_param('si', $this->fechaServicio, $idServicio);
+      $consulta->execute();
+      $consulta->close();
+      $detalleServicio = new DetalleServicios($this->idServicio, $this->productos, $this->tipoServicios);
+      $detalleServicio->actualizaDetalleServicios();
+    }
+  }
 }
 
 if (isset($argc) && $argc == 2) {
@@ -106,6 +130,18 @@ if (isset($argc) && $argc == 2) {
     case 'consultar':
       $servicios = Servicios::consultarServicios(2, 1);
       print_r($servicios);
+      break;
+    case 'id':
+      $servicio = Servicios::consultarServicio(1);
+      print_r($servicio);
+      break;
+    case 'actualizar':
+      $servicio = Servicios::consultarServicio(1);
+      print_r($servicio);
+      $servicio->fechaServicio = '2023-08-10';
+      $servicio->tipoServicios = ["mono", "mono"];
+      $servicio->actualizarServicio();
+      print_r($servicio);
       break;
   }
 }
