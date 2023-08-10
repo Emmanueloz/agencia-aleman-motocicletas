@@ -6,7 +6,7 @@ if (!isset($_SESSION['user'])) {
     header('Location: ./index.php');
 }
 
-require_once './models/elements.php';
+require_once './models/elementos.php';
 require_once 'SpynTPL.php';
 require_once 'models/config.php';
 require_once 'models/Ventas.php';

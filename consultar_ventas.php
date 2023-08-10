@@ -6,17 +6,17 @@ if (!isset($_SESSION['user'])) {
     header('Location: ./index.php');
 }
 
-require_once 'models/elements.php';
+require_once 'models/elementos.php';
 require_once 'SpynTPL.php';
 require_once 'models/config.php';
 require_once 'models/Ventas.php';
 
 $titulo = "Lista de ventas";
 $html = new SpynTPL('views/');
+$nav = navBar('ventas');
 $html->Fichero('ventas.html');
 $html->Asigna('title', $titulo);
 $html->Asigna('mensaje', ' ');
-
 ## Opciones
 $html->Asigna('op_id', '');
 $html->Asigna('op_fecha', '');
@@ -27,7 +27,6 @@ $html->Asigna('value', '');
 $html->Asigna('limpiar_filtro', '');
 
 # Usando una función para obtener la barra de navegación
-$nav = navBar('ventas');
 $html->Asigna('nav-bar', $nav);
 // Objeto de la base de datos
 $mysqli = new mysqli($servidor, $usuario, $password, $bd);
