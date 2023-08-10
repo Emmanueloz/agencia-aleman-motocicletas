@@ -3,6 +3,7 @@ require_once 'DetallesVentas.php';
 require_once 'Empleados.php';
 require_once 'Clientes.php';
 require_once 'Productos.php';
+require_once 'Servicios.php';
 
 /**
  *  Permite crear los objetos, llamar métodos relacionados al modulo de ventas
@@ -31,6 +32,7 @@ class Ventas
         Empleados::init($bd);
         Clientes::init($bd);
         Productos::init($bd);
+        Servicios::init($bd);
     }
     /**
      * Para agregar una venta se necesita calcular el iva.
@@ -98,6 +100,8 @@ class Ventas
             $consulta->close();
             $detalleVenta = new DetallesVentas($idVenta, $idProductos, $cantidades, $costo);
             $detalleVenta->agregarDetalles();
+            $servicio = new Servicios(null, $this->idCliente, $this->fechaVenta, $idProductos);
+            $servicio->agregarServicio();
         } catch (Exception $e) {
             throw $e;
         }
@@ -385,15 +389,15 @@ if (isset($argc) && $argc == 2) {
             print_r($detalles);
             break;
         case 'agrega':
-            $idProductos = [3, 5, 4];
-            $cantidades = [1, 1, 2];
+            $idProductos = [3, 2, 4];
+            $cantidades = [4, 1, 2];
             $subtotal = DetallesVentas::obtenerSubtotal($idProductos, $cantidades);
             $iva = Ventas::generarIva($subtotal);
             $costo = DetallesVentas::calcularCosto($subtotal, $iva);
             date_default_timezone_set('America/Mexico_City'); # Zona horaria para Mexico
             $fecha = date("Y-m-d");
-            $venta = new Ventas('0', $subtotal, $iva, 4, 1, $fecha, $idProductos, $cantidades, $costo);
-            $venta->agregarVenta();
+            $venta = new Ventas('0', $subtotal, $iva, 3, 3, $fecha, $idProductos, $cantidades, $costo);
+            print_r($venta->agregarVenta());
             break;
         case 'filtro':
             $ventas = Ventas::consultaFiltrada('id', '1');

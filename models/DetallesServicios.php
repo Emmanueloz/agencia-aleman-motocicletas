@@ -36,6 +36,7 @@ class DetalleServicios
     );
 
     $consulta->execute();
+    $consulta->close();
   }
 
   public static function consultarDetalleServicio($id, $conIDs = false)
