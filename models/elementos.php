@@ -47,5 +47,3 @@ function navBar($pagina)
 
   return $nav;
 }
-
-echo navBar('ventas');
