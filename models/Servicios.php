@@ -10,7 +10,7 @@ class Servicios
   public $productos;
   public $tipoServicios;
 
-  public function __construct($idServicio, $idCliente, $fechaServicio, $productos, $tipoServicios)
+  public function __construct($idServicio, $idCliente, $fechaServicio, $productos, $tipoServicios = '')
   {
     $this->idServicio = $idServicio;
     $this->idCliente = $idCliente;
@@ -35,7 +35,7 @@ class Servicios
   public function agregarServicio()
   {
     $productos = $this->productos;
-    $tipoServicios = $this->tipoServicios;
+
     $consulta = self::$bd->prepare("INSERT INTO cliente_servicio VALUES(null,?,?)");
     $consulta->bind_param(
       'is',
@@ -44,10 +44,12 @@ class Servicios
     );
 
     $consulta->execute();
-
     $idServicio = $consulta->insert_id;
+
+    $consulta->close();
+
     foreach ($productos as $key => $producto) {
-      $detalle = new DetalleServicios($idServicio, $producto, $tipoServicios[$key]);
+      $detalle = new DetalleServicios($idServicio, $producto, 'garantía');
       $detalle->agregarDetalleServicio();
     }
   }
