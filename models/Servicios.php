@@ -52,6 +52,20 @@ class Servicios
     }
   }
 
+  public static function totalPaginas($contenido)
+  {
+    $totalFilas = 0;
+    $consulta = self::$bd->prepare("SELECT COUNT(id_servicio) FROM cliente_servicio");
+    $consulta->execute();
+    $consulta->bind_result($totalFilas);
+    $consulta->fetch();
+    $consulta->close();
+
+    $totalPaginas = ceil($totalFilas / $contenido);
+
+    return $totalPaginas;
+  }
+
   public static function consultarServicios($pagina = null, $contenido = null)
   {
     $pagina = ($pagina - 1) * $contenido;
