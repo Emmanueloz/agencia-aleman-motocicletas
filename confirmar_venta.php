@@ -5,6 +5,8 @@ require_once 'models/Login.php';
 if (!isset($_SESSION['user'])) {
     header('Location: ./index.php');
 }
+
+require_once './models/elementos.php';
 require_once 'SpynTPL.php';
 require_once 'models/config.php';
 require_once 'models/Ventas.php';
@@ -46,6 +48,8 @@ if (isset($_POST["accion"]) && $_POST["accion"] == "agregar") {
 
     $html = new SpynTPL('views/');
     $html->Fichero('confirmar_ventas.html');
+    $nav = navBar('ventas');
+    $html->Asigna('nav-bar', $nav);
 
     $fechaVenta = $_POST["fecha-venta"];
 

@@ -190,35 +190,51 @@
         <div class="d-flex w-100 flex-column flex-md-row align-items-md-center">
           <div class="input-group">
             <div class="col-5 col-md-3 m-0">
-              <label for="opcion" class="input-group-text rounded-0">
-                Buscar empleados por
-              </label>
+              <div class="input-group">
+                <div class="col-5 col-md-3 m-0">
+                  <label for="opcion" class="input-group-text rounded-0">
+                    Buscar empleados por
+                  </label>
+                </div>
+              </div>
+              <div class="col-7 col-md-4 col-lg-2">
+                <select
+                  class="form-select rounded-0"
+                  name="opcion"
+                  id="floatingSelect"
+                  aria-label="Floating label select example"
+                >
+                  <option [id_s] value="id">ID</option>
+                  <option [rfc_s] value="rfc">RFC</option>
+                  <option [nombre_s] value="nombre">NOMBRE</option>
+                  <option [salarios_s] value="salario">SALARIOS</option>
+                  <option [estudios_s] value="estudios">ESTUDIOS</option>
+                </select>
+              </div>
+              <input
+                class="form-control rounded-0"
+                type="text"
+                name="value"
+                id="value"
+                value="[value]"
+              />
+              [limpiar_filtro]
+              <button class="btn btn-outline-primary rounded-0">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-search"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+                  />
+                </svg>
+                Buscar
+              </button>
             </div>
-            <div class="col-7 col-md-4 col-lg-2">
-              <select
-                class="form-select rounded-0"
-                name="opcion"
-                id="floatingSelect"
-                aria-label="Floating label select example"
-              >
-                <option [id_s] value="id">ID</option>
-                <option [rfc_s] value="rfc">RFC</option>
-                <option [nombre_s] value="nombre">NOMBRE</option>
-                <option [salarios_s] value="salario">SALARIOS</option>
-                <option [estudios_s] value="estudios">ESTUDIOS</option>
-              </select>
-            </div>
-            <input
-              class="form-control rounded-0"
-              type="text"
-              name="value"
-              id="value"
-              value="[value]"
-            />
-            [limpiar_filtro]
-            <button class="btn btn-primary rounded-0" type="submit">
-              Buscar
-            </button>
           </div>
         </div>
       </form>
