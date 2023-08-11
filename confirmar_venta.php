@@ -28,8 +28,8 @@ if (isset($_POST["accion"]) && $_POST["accion"] == "agregar") {
     $costo = $_POST['costo'];
     $venta = new Ventas(0, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta, $idProductos, $cantidades, $costo);
     try {
-        $venta->agregarVenta();
-        header('Location: consultar_ventas.php');
+        $idVenta = $venta->agregarVenta();
+        header("Location: consultar_ventas.php?opcion=id&search=$idVenta");
     } catch (Exception $e) {
         $id = $e->getMessage();
         $producto = Productos::productoFiltrado('id', $id);
@@ -120,8 +120,6 @@ if (isset($_POST["accion"]) && $_POST["accion"] == "agregar") {
             $html->AsignaBloque('cantidades', $cantidad);
         }
     }
-
-
 
     echo $html->Muestra();
 }
