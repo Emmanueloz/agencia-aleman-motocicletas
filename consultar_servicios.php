@@ -92,7 +92,7 @@ if (isset($_GET['search'])  && !empty(trim($_GET['search']))) {
   $servicios = Servicios::consultarServicios($paginaActual, $contenido);
 
   if (count($servicios) == 0) {
-    $html->AsignaBloque('ventas', null);
+    $html->AsignaBloque('servicios', null);
     $html->AsignaBloque('paginas', null);
     $mensaje = "<h4 class='text-secondary text-center' >No se encontró ningún servicio.</h4>";
     $html->Asigna('mensaje', $mensaje);
