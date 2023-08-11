@@ -176,6 +176,79 @@ class Servicios
 
     return $servicios;
   }
+
+  public static function consultaFiltradaRelacionada($filtro, $value)
+  {
+    $idServicios = [];
+    $servicios = [];
+
+    switch ($filtro) {
+      case 'clientes':
+        $idClientes = Clientes::buscarcli($value);
+
+        if (count($idClientes) != 0) {
+          foreach ($idClientes as $idCliente) {
+            $consulta = self::$bd->prepare("SELECT id_servicio FROM cliente_servicio WHERE id_cliente = ?");
+            $consulta->bind_param("i", $idCliente);
+            $consulta->execute();
+            $consulta->bind_result($idServicio);
+
+            while ($consulta->fetch()) {
+              array_push($idServicios, $idServicio);
+            }
+          }
+          $consulta->close();
+        }
+        break;
+      case 'productos':
+        $idProductos = Productos::cosultMarcaModelo($value);
+
+        if (count($idProductos) != 0) {
+          foreach ($idProductos as $idProducto) {
+            $consulta = self::$bd->prepare("SELECT id_servicio FROM detalles_servicios WHERE id_producto = ?");
+            $consulta->bind_param("i", $idProducto);
+            $consulta->execute();
+            $consulta->bind_result($idServicio);
+            while ($consulta->fetch()) {
+              array_push($idServicios, $idServicio);
+            }
+          }
+          $consulta->close();
+        }
+        break;
+      case 'servicio':
+        $value = '%' . $value . '%';
+        $consulta = self::$bd->prepare('SELECT id_servicio FROM detalles_servicios WHERE tipo_servicio LIKE ?');
+        $consulta->bind_param("i", $value);
+        $consulta->execute();
+        $consulta->bind_result($idServicio);
+        while ($consulta->fetch()) {
+          array_push($idServicios, $idServicio);
+        }
+        $consulta->close();
+
+        break;
+    }
+
+    function compararPorIdVenta($a, $b)
+    {
+      if ($a->idServicio == $b->idServicio) {
+        return 0;
+      }
+      return ($a->idServicio > $b->idServicio) ? 1 : -1;
+    }
+
+    if (count($idServicios) != 0) {
+      $idServicios = array_unique($idServicios);
+      foreach ($idServicios as $idServicios) {
+        $servicio = self::consultaFiltrada("id", $idServicios);
+        array_push($servicios, $servicio[0]);
+      }
+      usort($servicios, 'compararPorIdVenta');
+    }
+
+    return $servicios;
+  }
 }
 
 if (isset($argc) && $argc == 2) {
