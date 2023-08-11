@@ -44,7 +44,7 @@ if (isset($_GET['search'])  && !empty(trim($_GET['search']))) {
   $opcion = $_GET['opcion'];
   $search = $_GET['search'];
 
-  $buttonFiltro = bntLimpiarFiltro();
+  $buttonFiltro = bntLimpiarFiltro('consultar_servicios.php');
 
   switch ($opcion) {
     case 'id':

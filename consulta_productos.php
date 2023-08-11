@@ -35,7 +35,7 @@ if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
     $opcion = $_GET['opcion'];
     $value = $_GET['value'];
 
-    $buttonFiltro = bntLimpiarFiltro();
+    $buttonFiltro = bntLimpiarFiltro('consulta_productos.php');
 
     switch ($opcion) {
         case 'id':
