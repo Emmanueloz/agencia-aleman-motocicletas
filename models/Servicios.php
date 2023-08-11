@@ -1,6 +1,7 @@
 <?php
 require_once 'Clientes.php';
 require_once 'DetallesServicios.php';
+require_once 'Productos.php';
 
 class Servicios
 {
@@ -10,7 +11,7 @@ class Servicios
   public $productos;
   public $tipoServicios;
 
-  public function __construct($idServicio, $idCliente, $fechaServicio, $productos, $tipoServicios = '')
+  public function __construct($idServicio, $idCliente, $fechaServicio, $productos, $tipoServicios)
   {
     $this->idServicio = $idServicio;
     $this->idCliente = $idCliente;
@@ -122,13 +123,12 @@ class Servicios
 
   public function actualizarServicio()
   {
-    if ($consulta = self::$bd->prepare('UPDATE cliente_servicio SET fecha_servicio = ? WHERE id_servicio = ?')) {
-      $consulta->bind_param('si', $this->fechaServicio, $idServicio);
-      $consulta->execute();
-      $consulta->close();
-      $detalleServicio = new DetalleServicios($this->idServicio, $this->productos, $this->tipoServicios);
-      $detalleServicio->actualizaDetalleServicios();
-    }
+    $consulta = self::$bd->prepare('UPDATE cliente_servicio SET fecha_servicio = ? WHERE id_servicio = ?');
+    $consulta->bind_param('si', $this->fechaServicio, $this->idServicio);
+    $consulta->execute();
+    $consulta->close();
+    $detalleServicio = new DetalleServicios($this->idServicio, $this->productos, $this->tipoServicios);
+    $detalleServicio->actualizaDetalleServicios();
   }
 
   public static function consultaFiltrada($filtro, $value)
