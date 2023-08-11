@@ -100,7 +100,7 @@ class Ventas
             $consulta->close();
             $detalleVenta = new DetallesVentas($idVenta, $idProductos, $cantidades, $costo);
             $detalleVenta->agregarDetalles();
-            $servicio = new Servicios(null, $this->idCliente, $this->fechaVenta, $idProductos);
+            $servicio = new Servicios(null, $this->idCliente, $this->fechaVenta, $idProductos, '');
             $servicio->agregarServicio();
         } catch (Exception $e) {
             throw $e;
