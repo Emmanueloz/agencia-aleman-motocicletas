@@ -67,7 +67,7 @@ if (isset($_GET['search'])  && !empty(trim($_GET['search']))) {
   if ($opcion == 'id' || $opcion == 'fecha') {
     $servicios = Servicios::consultaFiltrada($opcion, $search);
   } else {
-    //$ventas = Ventas::consultaFiltradaRelacionada($opcion, $search);
+    $servicios = Servicios::consultaFiltradaRelacionada($opcion, $search);
   }
 
   if (count($servicios) == 0) {
