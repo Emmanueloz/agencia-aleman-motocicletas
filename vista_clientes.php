@@ -37,7 +37,7 @@ if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
     $opcion = $_GET['opcion'];
     $value = $_GET['value'];
 
-    $buttonFiltro = bntLimpiarFiltro();
+    $buttonFiltro = bntLimpiarFiltro('vista_clientes.php');
 
     $html->AsignaBloque('paginas', null);
     $html->Asigna('link_report', "reportClientes.php?opcion=$opcion&value=$value");

@@ -47,7 +47,7 @@ if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
     $value = $_GET['value'];
     $html->Asigna('link_report', "reportEmpleados.php?opcion=$opcion&value=$value");
     $html->Asigna('reporte', 'Reporte de consulta');
-    $buttonFiltro = bntLimpiarFiltro();
+    $buttonFiltro = bntLimpiarFiltro('vista_empleados.php');
 
     switch ($opcion) {
         case 'id':

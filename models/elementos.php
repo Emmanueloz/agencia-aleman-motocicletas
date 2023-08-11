@@ -1,8 +1,8 @@
 <?php
 
-function bntLimpiarFiltro()
+function bntLimpiarFiltro($pagina)
 {
-  return "<a href='./consultar_ventas.php' type='button' class='btn btn-outline-secondary'>
+  return "<a href='./$pagina' type='button' class='btn btn-outline-secondary'>
     <svg
   xmlns='http://www.w3.org/2000/svg'
   width='16'
