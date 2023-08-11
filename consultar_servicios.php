@@ -78,7 +78,7 @@ if (isset($_GET['search'])  && !empty(trim($_GET['search']))) {
 
   $html->AsignaBloque('paginas', null);
 
-  #$html->Asigna('link_report', "reportVentas.php?opcion=$opcion&search=$search");
+  $html->Asigna('link_report', "reportServicios.php?opcion=$opcion&search=$search");
   $html->Asigna('reporte', 'Reporte de consulta');
   $html->Asigna('value', $search);
   $html->Asigna('limpiar_filtro', $buttonFiltro);
@@ -86,7 +86,7 @@ if (isset($_GET['search'])  && !empty(trim($_GET['search']))) {
   $paginaActual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 
 
-  $html->Asigna('link_report', 'reportVentas.php');
+  $html->Asigna('link_report', 'reportServicios.php');
   $html->Asigna('reporte', 'Reporte general');
 
   $servicios = Servicios::consultarServicios($paginaActual, $contenido);
