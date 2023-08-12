@@ -19,7 +19,7 @@ Servicios::init($mysqli);
 date_default_timezone_set('America/Mexico_City');
 $fecha = date("d-m-Y");
 
-$tipo = isset($_GET['opcion']) ? 'Consulta' : (isset($_GET['venta']) ? 'Individual' : 'General');
+$tipo = isset($_GET['opcion']) ? 'Consulta' : (isset($_GET['servicio']) ? 'Individual' : 'General');
 
 $pdf = new PDF('L');
 $pdf->AliasNbPages();
@@ -52,8 +52,8 @@ if (isset($_GET['opcion']) && isset($_GET['search'])) {
     $opcion = $_GET['opcion'];
     $search = $_GET['search'];
     $serviciosArray = Servicios::consultaFiltrada($opcion, $search);
-} elseif (isset($_GET['venta'])) {
-    $id = $_GET['venta'];
+} elseif (isset($_GET['servicio'])) {
+    $id = $_GET['servicio'];
     $serviciosArray = Servicios::consultaFiltrada('id', $id);
 } else {
     $serviciosArray = Servicios::consultarServicios();
@@ -95,7 +95,7 @@ foreach ($serviciosArray as $servicio) {
 
     $pdf->Cell(76, $altura, utf8_decode($servicio->idCliente), "B", 0, 'L');
 
-    $pdf->Cell(32, $altura, "$" . $servicio->fechaServicio, "B", 0, 'R');
+    $pdf->Cell(32, $altura, $servicio->fechaServicio, "B", 0, 'R');
 
     $pdf->MultiCell(80, $altura, $productos, "B", 'L');
     $pdf->SetXY(218, $y_axis);
