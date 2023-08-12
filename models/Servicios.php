@@ -10,7 +10,9 @@ class Servicios
   public $fechaServicio;
   public $productos;
   public $tipoServicios;
-
+  /**
+   * @param int $idServicio debe ser null o 0 cuando se crea el objeto para agregarlo
+   */
   public function __construct($idServicio, $idCliente, $fechaServicio, $productos, $tipoServicios)
   {
     $this->idServicio = $idServicio;
@@ -32,7 +34,9 @@ class Servicios
     Productos::init($bd);
     DetalleServicios::init($bd);
   }
-
+  /**
+   * Agrega el servicio al la tabla cliente servicio, después se agrega a la tabla detalles_servicios
+   */
   public function agregarServicio()
   {
     $productos = $this->productos;
@@ -48,13 +52,19 @@ class Servicios
     $idServicio = $consulta->insert_id;
 
     $consulta->close();
-
+    /**
+     * Se recorre el array de productos para agregar el la tabla detalles_servicios
+     */
     foreach ($productos as $key => $producto) {
       $detalle = new DetalleServicios($idServicio, $producto, 'garantía');
       $detalle->agregarDetalleServicio();
     }
   }
 
+  /**
+   * Se calcula el total de paginas para la página de consulta
+   * @param int $contenido es la cantidad que se mostrara como limite en la página de consulta
+   */
   public static function totalPaginas($contenido)
   {
     $totalFilas = 0;
@@ -68,7 +78,11 @@ class Servicios
 
     return $totalPaginas;
   }
-
+  /**
+   * Consultar todos los servicios si IDs y mostrando los datos
+   * @param int $pagina es la pagina en donde inicia la consulta
+   * @param int $contenido cuanto se mostrara por pagina
+   */
   public static function consultarServicios($pagina = null, $contenido = null)
   {
     $pagina = ($pagina - 1) * $contenido;
@@ -107,7 +121,9 @@ class Servicios
 
     return $servicios;
   }
-
+  /**
+   * Consultar solo un servicio, con id y no con los datos
+   */
   public static function consultarServicio($id)
   {
     $consulta = self::$bd->prepare("SELECT * FROM cliente_servicio WHERE id_servicio =?");
@@ -176,7 +192,11 @@ class Servicios
 
     return $servicios;
   }
-
+  /**
+   * Consulta filtrada para los campos de la tabla cliente_servicio
+   * @param string $filtro que filtro se usara para la búsqueda
+   * @param string $value el valor que se agregara el filtro
+   */
   public static function consultaFiltradaRelacionada($filtro, $value)
   {
     $idServicios = [];
@@ -229,7 +249,9 @@ class Servicios
 
         break;
     }
-
+    /**
+     * Ordenar el resultada de la búsqueda por el id
+     */
     function compararPorIdVenta($a, $b)
     {
       if ($a->idServicio == $b->idServicio) {

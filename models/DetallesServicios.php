@@ -24,7 +24,9 @@ class DetalleServicios
     self::$bd = $bd;
     Productos::init($bd);
   }
-
+  /**
+   * Se agrega el detalle de un servicio
+   */
   public function agregarDetalleServicio()
   {
     $consulta = self::$bd->prepare("INSERT INTO detalles_servicios VALUES(?,?,?)");
@@ -38,7 +40,12 @@ class DetalleServicios
     $consulta->execute();
     $consulta->close();
   }
-
+  /**
+   * Consulta el detalle de un servicio, con los datos de la vista o solo ID's
+   * @param int $id ID del servicio para consultar su detalle
+   * @param bool $conIDs si es falso la consulta es con los nombres de productos, si es verdadero la consulta es con el IDs
+   * @return DetalleServicios un objeto con el resultado de la consulta
+   */
   public static function consultarDetalleServicio($id, $conIDs = false)
   {
     $detallesArray = [];
@@ -88,7 +95,9 @@ class DetalleServicios
       return new DetalleServicios($id, $nombreProductos, $servicios);
     }
   }
-
+  /**
+   * Actualiza el tipo de servicio
+   */
   public function actualizaDetalleServicios()
   {
     foreach ($this->producto as $key => $idProducto) {
