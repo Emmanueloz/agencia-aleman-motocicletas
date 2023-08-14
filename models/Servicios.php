@@ -241,7 +241,7 @@ class Servicios
       case 'servicio':
         $value = '%' . $value . '%';
         $consulta = self::$bd->prepare('SELECT id_servicio FROM detalles_servicios WHERE tipo_servicio LIKE ?');
-        $consulta->bind_param("i", $value);
+        $consulta->bind_param("s", $value);
         $consulta->execute();
         $consulta->bind_result($idServicio);
         while ($consulta->fetch()) {
