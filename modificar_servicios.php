@@ -17,9 +17,10 @@ Servicios::init($mysqli);
 $title = 'Editar Servicios';
 $target = 'modificar_servicios.php';
 $html = new SpynTPL('views/');
-$html->Fichero('frmServicios.html');
+$html->Fichero('frmTipoServicio.html');
 $html->Asigna('title', 'Modificar servicio');
 $html->Asigna('target', $target);
+$html->Asigna('btn', 'modificar');
 
 $nav = navBar('servicios');
 $html->Asigna('nav-bar', $nav);
@@ -27,7 +28,7 @@ $html->Asigna('nav-bar', $nav);
 if (isset($_GET['id'])) {
   $id = $_GET['id'];
   $servicio = Servicios::consultarServicio($id);
-  $cliente = Clientes::buscarid($servicio->idCliente);
+  $nomCliente = Clientes::buscarnom($servicio->idCliente);
   $productos = [];
   foreach ($servicio->productos as $idProducto) {
     $producto = Productos::consultPrecioMarcaModelo($idProducto);
@@ -35,7 +36,7 @@ if (isset($_GET['id'])) {
   }
 
   $html->Asigna('idServicio', $id);
-  $html->Asigna('cliente', $cliente->nombre);
+  $html->Asigna('cliente', $nomCliente);
   foreach ($productos as $producto) {
     $html->AsignaBloque('productos', $producto);
   }

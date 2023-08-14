@@ -19,36 +19,41 @@
             <li class="breadcrumb-item">
               <a href="./consultar_servicios.php">Servicios</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">
-              Modificar
-            </li>
+            <li class="breadcrumb-item active" aria-current="page">Agregar</li>
           </ol>
         </div>
       </aside>
       <div class="container">
+        [msg]
         <div class="row">
           <div class="col-sm-12 col-md-10 col-lg-8 col-12 mt-2 m-auto">
             <h2>[title]</h2>
             <form action="[target]" method="post" class="row">
               <div class="col-sm-6 mb-3">
-                <label for="cliente" class="form-label fw-bold">Cliente:</label>
-                <select id="cliente" class="form-select">
-                  [block:clientes]
+                <label for="cliente" class="form-label">Cliente</label>
+                <select
+                  class="form-select"
+                  name="cliente"
+                  id="cliente"
+                  required
+                >
+                  [block: clientes]
                   <option value="[id_cliente]">[nombre]</option>
-                  [/block:clientes]
+                  [/block: clientes]
                 </select>
               </div>
               <div class="col-sm-6 mb-3">
-                <label for="fecha" class="form-label fw-bold">Fecha</label>
+                <label for="fecha" class="form-label">Fecha</label>
                 <input
                   type="date"
                   class="form-control"
                   name="fecha"
                   id="fecha"
+                  required
                   value="[fecha]"
                 />
               </div>
-              <div class="col-sm-6 mb-3">
+              <div class="col-12 mb-3">
                 <label for="productos" class="form-label">Producto</label>
                 <select
                   class="form-select"
@@ -63,19 +68,6 @@
                   </option>
                   [/block: productos]
                 </select>
-              </div>
-
-              <div class="col-sm-6 mb-3">
-                <label for="fecha" class="form-label fw-bold">Servicios</label>
-                [block: servicios]
-                <input
-                  type="text"
-                  id="servicio"
-                  class="form-control mb-1"
-                  name="servicios[]"
-                  value="[tipoServicio]"
-                />
-                [/block: servicios]
               </div>
               <input type="hidden" id="id" name="id" value="[idServicio]" />
               <div class="d-flex justify-content-end">
@@ -92,8 +84,10 @@
                   class="btn btn-primary m-1"
                   [isDisabled]
                   role="button"
+                  name="accion"
+                  value="[accionForm]"
                 >
-                  Modificar
+                  Agregar
                 </button>
               </div>
             </form>
