@@ -32,11 +32,15 @@
             <form action="[target]" method="post" class="row">
               <div class="col-sm-6 mb-3">
                 <label for="cliente" class="form-label fw-bold">Cliente:</label>
-                <select id="cliente" class="form-select">
-                  [block:clientes]
-                  <option value="[id_cliente]">[nombre]</option>
-                  [/block:clientes]
-                </select>
+                <input
+                  type="hidden"
+                  id="cliente"
+                  name="cliente"
+                  value="[id_cliente]"
+                />
+                <span id="cliente" class="form-control-plaintext">
+                  [cliente]
+                </span>
               </div>
               <div class="col-sm-6 mb-3">
                 <label for="fecha" class="form-label fw-bold">Fecha</label>
@@ -49,20 +53,18 @@
                 />
               </div>
               <div class="col-sm-6 mb-3">
-                <label for="productos" class="form-label">Producto</label>
-                <select
-                  class="form-select"
-                  name="productos[]"
+                <label for="producto" class="form-label fw-bold">
+                  Productos
+                </label>
+                [block: productos]
+                <input
+                  type="hidden"
                   id="productos"
-                  required
-                  multiple
-                >
-                  [block: productos]
-                  <option value="[id_producto]">
-                    [marca] [modelo] $[precio]
-                  </option>
-                  [/block: productos]
-                </select>
+                  name="productos[]"
+                  value="[0]"
+                />
+                <span class="form-control-plaintext mb-1">[1] [2]</span>
+                [/block: productos]
               </div>
 
               <div class="col-sm-6 mb-3">
@@ -74,6 +76,7 @@
                   class="form-control mb-1"
                   name="servicios[]"
                   value="[tipoServicio]"
+                  required
                 />
                 [/block: servicios]
               </div>
@@ -89,11 +92,13 @@
 
                 <button
                   type="submit"
-                  class="btn btn-primary m-1"
+                  class="btn btn-primary m-1 text-capitalize"
                   [isDisabled]
+                  name="accion"
+                  value="[accionForm]"
                   role="button"
                 >
-                  Modificar
+                  [btn]
                 </button>
               </div>
             </form>

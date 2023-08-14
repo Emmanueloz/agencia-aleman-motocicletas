@@ -59,6 +59,7 @@ class Servicios
       $detalle = new DetalleServicios($idServicio, $producto, 'garantía');
       $detalle->agregarDetalleServicio();
     }
+    return $idServicio;
   }
 
   /**

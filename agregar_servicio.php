@@ -9,69 +9,85 @@ if (!isset($_SESSION['user'])) {
 require_once './models/elementos.php';
 require_once 'SpynTPL.php';
 require_once 'models/config.php';
-require_once 'models/Ventas.php';
+require_once 'models/Servicios.php';
 
 $mysqli = new mysqli($servidor, $usuario, $password, $bd);
 
 
-Ventas::init($mysqli);
+Servicios::init($mysqli);
 $target = 'agregar_servicio.php';
 
 $html = new SpynTPL('views/');
-$html->Fichero('frmServicios.html');
-$html->Asigna('title', 'Agregar servicio');
-$html->Asigna('target', $target);
-$html->Asigna('mensaje', ' ');
-
 $nav = navBar('ventas');
-$html->Asigna('nav-bar', $nav);
 
-$empleados = Empleados::consul();
 
-$clientes = Clientes::consulta();
 
-$productos = Productos::consultaProductos();
+if ($_POST['accion']  == 'procesar') {
+  $productos = [];
+  $html->Fichero('frmTipoServicio.html');
+  $html->Asigna('title', 'Agregar servicio');
+  $html->Asigna('target', $target);
+  $html->Asigna('msg', ' ');
+  $html->Asigna('nav-bar', $nav);
+  $html->Asigna('accionForm', 'agregar');
+  $cliente = Clientes::buscarid($_POST['cliente']);
+  $html->Asigna('id_cliente', $cliente->id_cliente);
+  $html->Asigna('cliente', $cliente->nombre);
+  $html->Asigna('fecha', $_POST['fecha']);
+  $html->Asigna('btn', 'agregar');
 
-if (isset($_GET['error'])) {
-  $content = $_GET['error'];
-  $msgError = "<div class='alert alert-danger' role='alert'>$content</div>";
-  $html->Asigna('msg', $msgError);
-}
+  $idProductos = $_POST['productos'];
 
-if (count($empleados) > 0) {
-
-  foreach ($empleados as $empleado) {
-    $html->AsignaBloque("empleados", $empleado);
+  foreach ($idProductos as $idProducto) {
+    $producto = Productos::consultPrecioMarcaModelo($idProducto);
+    array_push($productos, $producto);
   }
-} else {
-  $html->AsignaBloque("empleados", null);
-  $msgError = "<div class='alert alert-danger' role='alert'>Agrega empleados para realizar una venta</div>";
-  $html->Asigna('msg', $msgError);
-  $html->Asigna('isDisabled', 'disabled');
-}
 
-if (count($clientes) > 0) {
-  foreach ($clientes as $cliente) {
-    $html->AsignaBloque("clientes", $cliente);
-  }
-} else {
-  $html->AsignaBloque("clientes", null);
-  $msgError = "<div class='alert alert-danger' role='alert'>Agrega clientes para realizar una venta</div>";
-  $html->Asigna('msg', $msgError);
-  $html->Asigna('isDisabled', 'disabled');
-}
-
-if (count($productos) > 0) {
   foreach ($productos as $producto) {
-    $html->AsignaBloque("productos", $producto);
+    $html->AsignaBloque('productos', $producto);
+    $data['tipoServicio'] = '';
+    $html->AsignaBloque("servicios", $data);
   }
+} elseif ($_POST['accion'] == 'agregar') {
+  $servicios = new Servicios(0, $_POST['cliente'], $_POST['fecha'], $_POST['productos'], $_POST['servicios']);
+  $id = $servicios->agregarServicio();
+  header("Location: consultar_servicios.php?opcion=id&search=$id");
 } else {
-  $html->AsignaBloque("productos", null);
-  $msgError = "<div class='alert alert-danger' role='alert'>Agrega productos para realizar una venta</div>";
-  $html->Asigna('msg', $msgError);
-  $html->Asigna('isDisabled', 'disabled');
+  $clientes = Clientes::consulta();
+
+  $productos = Productos::consultaProductos();
+  $html->Fichero('frmServicios.html');
+  $html->Asigna('title', 'Agregar servicio');
+  $html->Asigna('target', $target);
+  $html->Asigna('msg', ' ');
+
+  $html->Asigna('nav-bar', $nav);
+
+  $html->Asigna('accionForm', 'procesar');
+
+  if (count($clientes) > 0) {
+    foreach ($clientes as $cliente) {
+      $html->AsignaBloque("clientes", $cliente);
+    }
+  } else {
+    $content = 'Agrega clientes para agregar un servicio';
+    $html->AsignaBloque("clientes", null);
+    $msgError = "<div class='alert alert-danger alert-dismissible fade show' role='alert' ><button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>$content</div>";
+    $html->Asigna('msg', $msgError);
+    $html->Asigna('isDisabled', 'disabled');
+  }
+
+  if (count($productos) > 0) {
+    foreach ($productos as $producto) {
+      $html->AsignaBloque("productos", $producto);
+    }
+  } else {
+    $content = 'Agrega productos para agregar un servicio';
+    $html->AsignaBloque("productos", null);
+    $msgError = "<div class='alert alert-danger alert-dismissible fade show' role='alert' ><button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>$content</div>";
+    $html->Asigna('msg', $msgError);
+    $html->Asigna('isDisabled', 'disabled');
+  }
 }
 
-
-#print_r($clientes);
 echo $html->Muestra();
