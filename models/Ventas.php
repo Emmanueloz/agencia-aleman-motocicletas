@@ -71,10 +71,11 @@ class Ventas
 
     /**
      * Agrega una venta a la base de datos.
-     *
+     * @param boot $agregarServicio es un check para validar para crear un servicio de la venta o no
      * @throws Exception Si se produce un error cuando la cantidad a vender excede la cantidad de existencias
+     * @return $idVenta retorna el id de la venta recién agregado
      */
-    public function agregarVenta()
+    public function agregarVenta($agregarServicio)
     {
         $idProductos = $this->idProductos;
         $cantidades = $this->cantidades;
@@ -100,8 +101,10 @@ class Ventas
             $consulta->close();
             $detalleVenta = new DetallesVentas($idVenta, $idProductos, $cantidades, $costo);
             $detalleVenta->agregarDetalles();
-            $servicio = new Servicios(null, $this->idCliente, $this->fechaVenta, $idProductos, '');
-            $servicio->agregarServicio();
+            if ($agregarServicio == true) {
+                $servicio = new Servicios(null, $this->idCliente, $this->fechaVenta, $idProductos, '');
+                $servicio->agregarServicio();
+            }
             return $idVenta;
         } catch (Exception $e) {
             throw $e;
@@ -398,7 +401,7 @@ if (isset($argc) && $argc == 2) {
             date_default_timezone_set('America/Mexico_City'); # Zona horaria para Mexico
             $fecha = date("Y-m-d");
             $venta = new Ventas('0', $subtotal, $iva, 3, 3, $fecha, $idProductos, $cantidades, $costo);
-            print_r($venta->agregarVenta());
+            print_r($venta->agregarVenta(false));
             break;
         case 'filtro':
             $ventas = Ventas::consultaFiltrada('id', '1');

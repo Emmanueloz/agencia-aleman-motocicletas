@@ -17,7 +17,6 @@ $mysqli = new mysqli($servidor, $usuario, $password, $bd);
 Ventas::init($mysqli);
 
 if (isset($_POST["accion"]) && $_POST["accion"] == "agregar") {
-
     $idEmpleado = $_POST['empleado'];
     $idCliente = $_POST['cliente'];
     $idProductos = $_POST['productos'];
@@ -26,9 +25,10 @@ if (isset($_POST["accion"]) && $_POST["accion"] == "agregar") {
     $iva = $_POST['iva'];
     $cantidades = $_POST['cantidades'];
     $costo = $_POST['costo'];
+    $agregarServicio = $_POST['servicio'] == 'si' ? true : false;
     $venta = new Ventas(0, $subtotal, $iva, $idEmpleado, $idCliente, $fechaVenta, $idProductos, $cantidades, $costo);
     try {
-        $idVenta = $venta->agregarVenta();
+        $idVenta = $venta->agregarVenta($agregarServicio);
         header("Location: consultar_ventas.php?opcion=id&search=$idVenta");
     } catch (Exception $e) {
         $id = $e->getMessage();
