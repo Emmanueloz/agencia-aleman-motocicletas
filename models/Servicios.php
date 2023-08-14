@@ -36,6 +36,7 @@ class Servicios
   }
   /**
    * Agrega el servicio al la tabla cliente servicio, después se agrega a la tabla detalles_servicios
+   * @return $idServicio retorna el id del servicio recién agregado
    */
   public function agregarServicio()
   {
