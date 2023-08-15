@@ -80,6 +80,7 @@
                   id="productos"
                   required
                   multiple
+                  size="4"
                 >
                   [block: productos]
                   <option value="[id_producto]">
@@ -87,6 +88,9 @@
                   </option>
                   [/block: productos]
                 </select>
+                <span class="form-text d-none d-lg-inline-block">
+                  Utiliza el <b>Ctrl</b> para seleccionar más de un producto
+                </span>
               </div>
 
               <div class="d-flex justify-content-end">
