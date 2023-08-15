@@ -1,10 +1,11 @@
 <?php
+
 // Comprobar si hay una sesión iniciada
-session_start();
+/* session_start();
 require_once '../models/Login.php';
 if (!isset($_SESSION['user'])) {
     header('Location: ../index.php');
-}
+} */
 
 require('../models/PDF.php');
 require_once '../models/config.php';
@@ -62,10 +63,12 @@ if (isset($_GET['opcion']) && isset($_GET['search'])) {
 $pdf->SetFont('Arial', '', 10);
 
 $row = 0;
+
 /**
  * @var Servicios $servicio
  */
-foreach ($serviciosArray as $servicio) {
+
+foreach ($serviciosArray as $key => $servicio) {
 
     $row += 1;
     if ($row > 6) {
@@ -87,7 +90,7 @@ foreach ($serviciosArray as $servicio) {
     }
 
     $numLineas = substr_count($productos, "\n");
-    $altura = $numLineas == 0 ? 10 : 10 * $numLineas;
+    $altura = 10 * $numLineas;
 
     $y_axis = $pdf->GetY();
 
@@ -97,7 +100,7 @@ foreach ($serviciosArray as $servicio) {
 
     $pdf->Cell(32, $altura, $servicio->fechaServicio, "B", 0, 'R');
 
-    $pdf->MultiCell(80, $altura, $productos, "B", 'L');
+    $pdf->MultiCell(80, 10, $productos, "B", 'L');
     $pdf->SetXY(218, $y_axis);
 
     $tipoServicios = "";
@@ -110,10 +113,9 @@ foreach ($serviciosArray as $servicio) {
         }
     }
 
-    $pdf->MultiCell(64, 10, $tipoServicios, "B", 'L');
+    $pdf->MultiCell(64, 10, utf8_decode($tipoServicios), "B", 'L');
 
-    $pdf->Ln();
+    $pdf->Ln(1);
 }
 
-$pdf->Output('', "Reporte-Servicios-$fecha-$tipo"); 
-#print_r($ventasArray);
+$pdf->Output('', "Reporte-Servicios-$fecha-$tipo");
