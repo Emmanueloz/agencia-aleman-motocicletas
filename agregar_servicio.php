@@ -18,7 +18,7 @@ Servicios::init($mysqli);
 $target = 'agregar_servicio.php';
 
 $html = new SpynTPL('views/');
-$nav = navBar('ventas');
+$nav = navBar('servicios');
 
 
 

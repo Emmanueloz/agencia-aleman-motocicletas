@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+require_once 'models/elementos.php';
 require_once 'SpynTPL.php';
 
 
@@ -7,12 +9,11 @@ $html = new SpynTPL('views/');
 $html->Fichero('index.html');
 
 if (isset($_SESSION['user'])) {
-  $html->Asigna('display-login','d-none');
-  $html->Asigna('display','d-flex');
+  $nav = navBar('', true);
 } else {
-  $html->Asigna('display-login','d-flex');
-  $html->Asigna('display','d-none');
+  $nav = navBar('', false);
 }
 
+$html->Asigna('nav-bar', $nav);
 
 echo $html->Muestra();

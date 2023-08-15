@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-MX">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -30,7 +30,12 @@
     <main class="container">
       <section class="col-md-10 col-lg-8 m-auto">
         <h2>[title]</h2>
-        <form method="POST" action="[target]" class="row">
+        <form
+          method="POST"
+          action="[target]"
+          class="row"
+          onsubmit="return validarNumeroEmpleados()"
+        >
           <input type="hidden" value="[id_empleado]" name="id_empleado" />
           <div class="form-group col-md-6 col-12">
             <label for="rfc">RFC</label>
@@ -54,6 +59,7 @@
               class="form-control"
               value="[nombre]"
               pattern="[A-Za-z-ñÑ-áéíóúÁÉÍÓÚ ]{1,50}"
+              maxlength="45"
             />
           </div>
           <div class="form-group col-md-6 col-12">
@@ -65,6 +71,7 @@
               name="direccion"
               class="form-control"
               value="[direccion]"
+              maxlength="100"
             />
           </div>
           <div class="form-group col-md-6 col-12">
@@ -89,6 +96,7 @@
               name="correo"
               class="form-control"
               value="[correo]"
+              maxlength="45"
             />
           </div>
           <div class="form-group col-md-6 col-12">
@@ -100,6 +108,7 @@
               name="puesto"
               class="form-control"
               value="[puesto]"
+              maxlength="45"
             />
           </div>
           <div class="form-group col-md-6 col-12">
@@ -109,10 +118,13 @@
               <input
                 required
                 type="number"
+                pattern="[0-9]{13}"
+                step="0.01"
                 id="salario"
                 name="salario"
                 class="form-control"
                 min="1"
+                maxlength="13"
                 value="[salario]"
               />
             </div>
@@ -143,5 +155,6 @@
     </main>
     <script src="./bootstrap-5.3.0/js/popper.min.js"></script>
     <script src="./bootstrap-5.3.0/js/bootstrap.min.js"></script>
+    <script src="./js/validacion.js"></script>
   </body>
 </html>
