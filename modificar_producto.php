@@ -7,7 +7,7 @@ if (!isset($_SESSION['user'])) {
     header('Location: ./index.php');
 }
 
-
+require_once 'models/elementos.php';
 require_once('SpynTPL.php');
 require_once('models/config.php');
 require_once('models/Productos.php');
@@ -21,6 +21,9 @@ $html = new SpynTPL('views/');
 $html->Fichero('frmProducto.html');
 $html->Asigna('title', $title);
 $html->Asigna('target', $target);
+$nav = navBar('productos');
+$html->Asigna('nav-bar', $nav);
+
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $productos = Productos::consultaProductoId($id);
@@ -31,9 +34,7 @@ if (isset($_GET['id'])) {
     $html->Asigna('modelo', $productos->modelo);
     $html->Asigna('precio', $productos->precio);
     $html->Asigna('existencias', $productos->existencias);
-}
-elseif(isset($_POST['id_producto']))
-{
+} elseif (isset($_POST['id_producto'])) {
     $id_producto = $_POST['id_producto'];
     $productos = Productos::consultaProductoId($id_producto);
     $productos->numero_serie = $_POST['numero_serie'];
@@ -42,7 +43,7 @@ elseif(isset($_POST['id_producto']))
     $productos->descripcion = $_POST['descripcion'];
     $productos->precio = $_POST['precio'];
     $productos->existencias = $_POST['existencias'];
-    
+
     $productos->modificar();
     unset($_POST);
     header("Location: consulta_productos.php");

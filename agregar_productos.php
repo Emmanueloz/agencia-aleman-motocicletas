@@ -7,7 +7,7 @@ if (!isset($_SESSION['user'])) {
     header('Location: ./index.php');
 }
 
-
+require_once 'models/elementos.php';
 require_once 'SpynTPL.php';
 require_once 'models/config.php';
 
@@ -46,5 +46,7 @@ $html->Asigna('modelo', '');
 $html->Asigna('descripcion', '');
 $html->Asigna('precio', '');
 $html->Asigna('existencias', '');
+$nav = navBar('productos');
+$html->Asigna('nav-bar', $nav);
 
 echo $html->Muestra();
