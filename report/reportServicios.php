@@ -1,11 +1,11 @@
 <?php
 
 // Comprobar si hay una sesión iniciada
-/* session_start();
+session_start();
 require_once '../models/Login.php';
 if (!isset($_SESSION['user'])) {
     header('Location: ../index.php');
-} */
+}
 
 require('../models/PDF.php');
 require_once '../models/config.php';
@@ -52,7 +52,11 @@ $pdf->Ln();
 if (isset($_GET['opcion']) && isset($_GET['search'])) {
     $opcion = $_GET['opcion'];
     $search = $_GET['search'];
-    $serviciosArray = Servicios::consultaFiltrada($opcion, $search);
+    if ($opcion == 'id' || $opcion == 'fecha') {
+        $serviciosArray = Servicios::consultaFiltrada($opcion, $search);
+    } else {
+        $serviciosArray = Servicios::consultaFiltradaRelacionada($opcion, $search);
+    }
 } elseif (isset($_GET['servicio'])) {
     $id = $_GET['servicio'];
     $serviciosArray = Servicios::consultaFiltrada('id', $id);
