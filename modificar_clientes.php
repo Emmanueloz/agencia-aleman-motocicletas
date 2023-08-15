@@ -6,9 +6,10 @@ if (!isset($_SESSION['user'])) {
     header('Location: ./index.php');
 }
 
-require_once ('SpynTPL.php');
-require_once ('models/config.php');
-require_once ('models/Clientes.php');
+require_once 'models/elementos.php';
+require_once('SpynTPL.php');
+require_once('models/config.php');
+require_once('models/Clientes.php');
 
 $mysqli = new mysqli($servidor, $usuario, $password, $bd);
 Clientes::init($mysqli);
@@ -20,9 +21,10 @@ $html = new SpynTPL('views/');
 $html->Fichero('frmCliente.html');
 $html->Asigna('title', $title);
 $html->Asigna('target', $target);
+$nav = navBar('clientes');
+$html->Asigna('nav-bar', $nav);
 
-if(isset($_GET['id_cliente']))
-{
+if (isset($_GET['id_cliente'])) {
     $id_cliente = $_GET['id_cliente'];
 
     $cliente = Clientes::buscarid($id_cliente);
@@ -33,7 +35,7 @@ if(isset($_GET['id_cliente']))
     $html->Asigna('telefono', $cliente->telefono);
     $html->Asigna('correo', $cliente->correo);
     //$html->Asigna('genero', $cliente->genero);
-    switch($cliente->genero){
+    switch ($cliente->genero) {
         case 'M':
             $html->Asigna('masculino_c', 'checked');
             break;
@@ -41,9 +43,7 @@ if(isset($_GET['id_cliente']))
             $html->Asigna('femenino_c', 'checked');
             break;
     }
-}
-else if(isset($_POST['id_cliente']))
-{
+} else if (isset($_POST['id_cliente'])) {
     $id_cliente = $_POST['id_cliente'];
     $cliente = Clientes::buscarid($id_cliente);
     $cliente->id_cliente = $_POST['id_cliente'];

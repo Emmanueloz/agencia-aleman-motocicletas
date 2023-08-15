@@ -6,6 +6,8 @@ require_once 'models/Login.php';
 if (!isset($_SESSION['user'])) {
     header('Location: ./index.php');
 }
+
+require_once 'models/elementos.php';
 require_once 'SpynTPL.php';
 require_once 'models/config.php';
 require_once 'models/Empleados.php';
@@ -47,5 +49,7 @@ $html->Asigna('correo', '');
 $html->Asigna('puesto', '');
 $html->Asigna('salario', '');
 $html->Asigna('estudio', '');
+$nav = navBar('empleados');
+$html->Asigna('nav-bar', $nav);
 
 echo $html->Muestra();

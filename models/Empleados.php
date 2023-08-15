@@ -203,9 +203,9 @@ class Empleados
         return $emple;
     }
 
-    public function Eliminar($bd)
+    public function Eliminar()
     {
-        if ($consult = $bd->prepare("update empleados set estado = 0 where id_empleado=?")) {
+        if ($consult = self::$bd->prepare("update empleados set estado = 0 where id_empleado=?")) {
             $consult->bind_param("i", $this->id_empleado);
             $consult->execute();
             $consult->close();

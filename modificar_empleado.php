@@ -6,9 +6,11 @@ require_once 'models/Login.php';
 if (!isset($_SESSION['user'])) {
     header('Location: ./index.php');
 }
-require_once ('SpynTPL.php');
-require_once ('models/config.php');
-require_once ('models/Empleados.php');
+
+require_once 'models/elementos.php';
+require_once('SpynTPL.php');
+require_once('models/config.php');
+require_once('models/Empleados.php');
 
 $mysqli = new mysqli($servidor, $usuario, $password, $bd);
 Empleados::init($mysqli);
@@ -20,9 +22,10 @@ $html =  new SpynTPL('views/');
 $html->Fichero('frmEmpleados.html');
 $html->Asigna('title', $title);
 $html->Asigna('target', $target);
+$nav = navBar('empleados');
+$html->Asigna('nav-bar', $nav);
 
-if (isset($_GET['id_empleado']))
-{
+if (isset($_GET['id_empleado'])) {
     $id_empleado = $_GET['id_empleado'];
     $empledos = Empleados::consultaEmpleadoId($id_empleado);
     $html->Asigna('id_empleado', $empledos->id_empleado);
@@ -48,10 +51,7 @@ if (isset($_GET['id_empleado']))
             $html->Asigna('maestria_s', 'selected');
             break;
     }
-}
-
-else if (isset($_POST['id_empleado']))
-{
+} else if (isset($_POST['id_empleado'])) {
     $id_empleado = $_POST['id_empleado'];
     $empledos = Empleados::consultaEmpleadoId($id_empleado);
     $empledos->rfc = $_POST['rfc'];
@@ -65,7 +65,7 @@ else if (isset($_POST['id_empleado']))
 
     $empledos->update($mysqli);
     unset($_POST);
-header('Location: vista_empleados.php');
+    header('Location: vista_empleados.php');
 }
 
 echo $html->Muestra();
