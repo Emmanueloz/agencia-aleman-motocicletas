@@ -25,7 +25,7 @@ function bntLimpiarFiltro($pagina)
  * Nos retorna la barra de navegación en html
  * @param string $pagina es la pagina en donde se mostrara la pagina
  */
-function navBar($pagina)
+function navBar($pagina, $session = true)
 {
 
   require_once 'SpynTPL.php';
@@ -42,6 +42,14 @@ function navBar($pagina)
   $html->Asigna('activePageProductos', $activePageProductos);
   $html->Asigna('activePageVentas', $activePageVentas);
   $html->Asigna('activePageServicios', $activePageServicios);
+
+  if ($session == true) {
+    $html->Asigna('display-login', 'd-none');
+    $html->Asigna('display', 'd-flex');
+  } else {
+    $html->Asigna('display-login', 'd-flex');
+    $html->Asigna('display', 'd-none');
+  }
 
   $nav = $html->Muestra();
 
