@@ -21,6 +21,8 @@ $html->Asigna('precio_s', '');
 $html->Asigna('value', '');
 $html->Asigna('title', 'Lista de productos');
 $html->Asigna('limpiar_filtro', '');
+$nav = navBar('productos');
+$html->Asigna('nav-bar', $nav);
 
 $html->Asigna('mensaje', ' ');
 

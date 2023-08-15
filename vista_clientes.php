@@ -29,6 +29,8 @@ $html->Asigna('rfccli_s', '');
 $html->Asigna('value', '');
 $html->Asigna('limpiar_filtro', '');
 $html->Asigna('mensaje', '');
+$nav = navBar('clientes');
+$html->Asigna('nav-bar', $nav);
 
 $mysqli = new mysqli($servidor, $usuario, $password, $bd);
 Clientes::init($mysqli);

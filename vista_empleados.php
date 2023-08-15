@@ -8,7 +8,6 @@ if (!isset($_SESSION['user'])) {
 }
 
 require_once './models/elementos.php';
-
 require_once 'SpynTPL.php';
 require_once 'models/config.php';
 require_once 'models/Empleados.php';
@@ -34,8 +33,8 @@ $html->Asigna('estudios_s', '');
 $html->Asigna('value', '');
 $html->Asigna('limpiar_filtro', '');
 $html->Asigna('mensaje', '');
-
-
+$nav = navBar('empleados');
+$html->Asigna('nav-bar', $nav);
 
 $mysqli = new mysqli($servidor, $usuario, $password, $bd);
 Empleados::init($mysqli);

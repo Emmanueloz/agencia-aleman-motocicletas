@@ -38,7 +38,7 @@ function navBar($pagina)
 
   $html->Fichero('header.html');
   $html->Asigna('activePageEmpleados', $activePageEmpleados);
-  $html->Asigna('activePageCliente', $activePageClientes);
+  $html->Asigna('activePageClientes', $activePageClientes);
   $html->Asigna('activePageProductos', $activePageProductos);
   $html->Asigna('activePageVentas', $activePageVentas);
   $html->Asigna('activePageServicios', $activePageServicios);

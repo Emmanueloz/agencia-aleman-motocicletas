@@ -16,8 +16,8 @@ if (!isset($_SESSION['user'])) {
         $mysqli = new mysqli($servidor, $usuario, $password, $bd);
         $id_empleado = $_GET['id_empleado'];
         Empleados::init($mysqli);
-        $empledos = Empleados::consultaEmpleadoId($id_empleado);
-        $empledos->Eliminar($mysqli);
+        $empleados = Empleados::consultaEmpleadoId($id_empleado);
+        $empleados->Eliminar();
         $msg = 'Registro Eliminado';
     }
     header("Location: vista_empleados.php?msg=$msg");

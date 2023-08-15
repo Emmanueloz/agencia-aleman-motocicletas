@@ -6,6 +6,7 @@ if (!isset($_SESSION['user'])) {
     header('Location: ./index.php');
 }
 
+require_once 'models/elementos.php';
 require_once 'SpynTPL.php';
 require_once 'models/config.php';
 require_once 'models/Clientes.php';
@@ -13,8 +14,7 @@ require_once 'models/Clientes.php';
 $mysqli = new mysqli($servidor, $usuario, $password, $bd);
 Clientes::init($mysqli);
 
-if(isset($_POST['rfc']))
-{
+if (isset($_POST['rfc'])) {
     $rfc = $_POST['rfc'];
     $nombre = $_POST['nombre'];
     $direccion = $_POST['direccion'];
@@ -41,5 +41,7 @@ $html->Asigna('direccion', '');
 $html->Asigna('telefono', '');
 $html->Asigna('correo', '');
 $html->Asigna('genero', '');
+$nav = navBar('clientes');
+$html->Asigna('nav-bar', $nav);
 
 echo $html->Muestra();
