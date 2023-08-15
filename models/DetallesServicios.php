@@ -86,7 +86,7 @@ class DetalleServicios
         $producto = Productos::consultPrecioMarcaModelo($idProducto);
         $nombreProductos = $nombreProductos . $producto[1] . ' ' . $producto[2];
 
-        if ($key + 1 < count($detallesArray)) {
+        if ($key < count($detallesArray)) {
           $nombreProductos = $nombreProductos . '<br/>';
           $servicios = $servicios . '<br/>';
         }
