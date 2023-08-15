@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-MX">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -28,7 +28,7 @@
         <form
           method="post"
           action="[target]"
-          onsubmit="return validarNumero()"
+          onsubmit="return validarNumeroProductos()"
           class="row"
         >
           <input type="hidden" name="id_producto" value="[id_producto]" />
@@ -41,6 +41,7 @@
               name="numero_serie"
               value="[numero_serie]"
               required
+              maxlength="20"
             />
           </div>
           <div class="form-group col-md-6 col-12">
@@ -52,6 +53,7 @@
               name="marca"
               value="[marca]"
               required
+              maxlength="30"
             />
           </div>
           <div class="d-flex flex-column col-md-6 col-12">
@@ -64,6 +66,7 @@
                 name="modelo"
                 value="[modelo]"
                 required
+                maxlength="30"
               />
             </div>
             <div class="form-group">
@@ -72,7 +75,8 @@
                 <span class="input-group-text">$</span>
                 <input
                   type="number"
-                  pattern="[0-9-0.0-.9]{10}"
+                  pattern="[0-9]{10}"
+                  step="0.01"
                   class="form-control"
                   id="precio"
                   name="precio"
