@@ -16,23 +16,21 @@ class Empleados
     public $estudios;
     public $estado;
     /**
-     * @var mysqli $bd objeto de conexion a la base de datos
-    */
+     * @var mysqli $bd objeto de conexión a la base de datos
+     */
     private static $bd;
 
     /**Se pasan los datos necesarios para crear los objetos de empleados
      * @param int $id_empleado
-     * @param string $RFC
+     * @param string $rfc
      * @param string $nombre
      * @param string $direccion
      * @param string $telefono
      * @param string $correo
      * @param string $puesto
-     * @param fload $salario
+     * @param float $salario
      * @param string $estudios
-     * @param string $estado se utiliza para que no aparesca en la vista, como si fuera eliminar pero 
-     en el mudulo venta se gurdan los datos de ese cliente. 
-     * 
+     * @param string $estado Se utiliza para que no aparezca en la vista, como si fuera eliminar pero  en el modulo venta se guardan los datos de ese cliente. 
      */
     public function __construct(
         $id_empleado,
@@ -59,8 +57,7 @@ class Empleados
         $this->estado = $estado;
     }
 
-    /**Para insetar un nuevo empleado, que se agrega a la base de datos
-     tiene que evaluar los datos que aparecen y lleganar
+    /**Para insertar un nuevo empleado, que se agrega a la base de datos tiene que evaluar los datos que aparecen y llenada
      */
     public function nuev()
     {
@@ -143,7 +140,7 @@ class Empleados
     /**
      * Realiza una consulta filtrada en Empleados.
      *
-     * @param string $filtro El filtro a utilizar en la consulta.
+     * @param string $opcion El filtro a utilizar en la consulta.
      * @param string $value El valor del filtro.
      * @return array Un array con las ventas que cumplen el filtro.
      */
