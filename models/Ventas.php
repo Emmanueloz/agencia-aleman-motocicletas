@@ -102,7 +102,7 @@ class Ventas
             $detalleVenta = new DetallesVentas($idVenta, $idProductos, $cantidades, $costo);
             $detalleVenta->agregarDetalles();
             if ($agregarServicio == true) {
-                $servicio = new Servicios(null, $this->idCliente, $this->fechaVenta, $idProductos, '');
+                $servicio = new Servicios(null, $this->idCliente, $this->fechaVenta, $idProductos, []);
                 $servicio->agregarServicio();
             }
             return $idVenta;
