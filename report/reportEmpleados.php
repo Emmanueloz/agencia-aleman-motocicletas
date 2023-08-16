@@ -1,3 +1,4 @@
+
 <?php
 
 // Comprobar si hay una sesión iniciada
@@ -31,12 +32,11 @@ $pdf->Cell(136, 10, "Tipo de reporte: $tipo", 1, 1);
 $pdf->Ln(10);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(30, 10, "RFC", 1, 0, 'C');
-$pdf->Cell(50, 10, "Nombre", 1, 0, 'C');
-$pdf->Cell(50, 10, "Direccion", 1, 0, 'C');
-$pdf->Cell(22, 10, "Telefono", 1, 0, 'C');
+$pdf->Cell(80, 10, "Nombre", 1, 0, 'C');
+$pdf->Cell(30, 10, "Telefono", 1, 0, 'C');
 $pdf->Cell(40, 10, "Correo", 1, 0, 'C');
-$pdf->Cell(24, 10, "Puesto", 1, 0, 'C');
-$pdf->Cell(24, 10, "Salario", 1, 0, 'C');
+$pdf->Cell(30, 10, "Puesto", 1, 0, 'C');
+$pdf->Cell(30, 10, "Salario", 1, 0, 'C');
 $pdf->Cell(30, 10, "Estudios", 1, 0, 'C');
 $pdf->Ln();
 
@@ -65,19 +65,14 @@ foreach ($empleadosArray as $empleados) {
 
 
 
-    $pdf->Cell(30, 20, $empleados->rfc, "B", 0, 'L');
-    $pdf->MultiCell(50, 20, utf8_decode($empleados->nombre), "B", 'L');
-    $pdf->SetXY(90, $y_axis);
-    $pdf->MultiCell(50, 20, utf8_decode($empleados->direccion), "B", 'L');
-    $pdf->SetXY(140, $y_axis);
-    $pdf->Cell(22, 20, $empleados->telefono, "B", 0, 'C');
-    $pdf->Cell(40, 20, utf8_decode($empleados->correo), "B", 0, 'L');
-    $pdf->Cell(24, 20, utf8_decode($empleados->puesto), "B", 0, 'L');
-    $pdf->Cell(24, 20, "$".$empleados->salario, "B", 0, 'R');
-    $pdf->Cell(30, 20, utf8_decode($empleados->estudios), "B", 0, 'L');
+    $pdf->Cell(30, 10, $empleados->rfc, "B", 0, 'L');
+    $pdf->Cell(80, 10, utf8_decode($empleados->nombre), "B", 0, 'L');
+    $pdf->Cell(30, 10, $empleados->telefono, "B", 0, 'C');
+    $pdf->Cell(40, 10, utf8_decode($empleados->correo), "B", 0, 'L');
+    $pdf->Cell(30, 10, utf8_decode($empleados->puesto), "B", 0, 'L');
+    $pdf->Cell(30, 10, "$" . $empleados->salario, "B", 0, 'R');
+    $pdf->Cell(30, 10, utf8_decode($empleados->estudios), "B", 0, 'L');
 
     $pdf->Ln();
 }
 $pdf->Output('', "Reporte-Empleados-$fecha-$tipo");
-
-

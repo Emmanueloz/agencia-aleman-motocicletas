@@ -53,11 +53,17 @@ class Servicios
     $idServicio = $consulta->insert_id;
 
     $consulta->close();
+    $tipoServicios = $this->tipoServicios;
+
     /**
      * Se recorre el array de productos para agregar el la tabla detalles_servicios
      */
     foreach ($productos as $key => $producto) {
-      $detalle = new DetalleServicios($idServicio, $producto, 'garantía');
+      if (count($tipoServicios) == 0) {
+        $detalle = new DetalleServicios($idServicio, $producto, 'garantía');
+      } else {
+        $detalle = new DetalleServicios($idServicio, $producto, $tipoServicios[$key]);
+      }
       $detalle->agregarDetalleServicio();
     }
     return $idServicio;

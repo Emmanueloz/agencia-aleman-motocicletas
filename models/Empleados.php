@@ -1,4 +1,8 @@
 <?php
+
+/**
+ *  Permite crear los objetos y llamar métodos relacionados al modulo de Empleados
+ */
 class Empleados
 {
     public $id_empleado;
@@ -10,8 +14,24 @@ class Empleados
     public $puesto;
     public $salario;
     public $estudios;
+    public $estado;
+    /**
+     * @var mysqli $bd objeto de conexión a la base de datos
+     */
     private static $bd;
 
+    /**Se pasan los datos necesarios para crear los objetos de empleados
+     * @param int $id_empleado
+     * @param string $rfc
+     * @param string $nombre
+     * @param string $direccion
+     * @param string $telefono
+     * @param string $correo
+     * @param string $puesto
+     * @param float $salario
+     * @param string $estudios
+     * @param string $estado Se utiliza para que no aparezca en la vista, como si fuera eliminar pero  en el modulo venta se guardan los datos de ese cliente. 
+     */
     public function __construct(
         $id_empleado,
         $rfc,
@@ -36,6 +56,9 @@ class Empleados
         $this->estudios = $estudios;
         $this->estado = $estado;
     }
+
+    /**Para insertar un nuevo empleado, que se agrega a la base de datos tiene que evaluar los datos que aparecen y llenada
+     */
     public function nuev()
     {
         if ($consult = self::$bd->prepare("insert into empleados values(null, ?, ?, ?, ?, ?, ?, ?, ?,1)")) {
@@ -56,10 +79,18 @@ class Empleados
         }
     }
 
+
     public static function init($bd)
     {
         self::$bd = $bd;
     }
+    /**
+     * Consulta las ventas en la base de datos.
+     *
+     * @param int $pagina La página actual.
+     * @param int $contenido La cantidad de contenido por página.
+     * @return array Un array con las empleados consultadas.
+     */
     public static function consul($pagina = null, $contenido = null)
     {
         $pagina = ($pagina - 1) * $contenido;
@@ -106,6 +137,13 @@ class Empleados
         $consult->close();
         return $nom;
     }
+    /**
+     * Realiza una consulta filtrada en Empleados.
+     *
+     * @param string $opcion El filtro a utilizar en la consulta.
+     * @param string $value El valor del filtro.
+     * @return array Un array con las ventas que cumplen el filtro.
+     */
     public static function filtro($opcion, $value)
     {
         $opc = [];
@@ -147,6 +185,8 @@ class Empleados
         $consult->close();
         return $opc;
     }
+    /**Para modificar un nuevo empleado, tiene que modificar los datos incorectos
+     */
     public function update()
     {
         if ($consult = self::$bd->prepare("update empleados set rfc = ?, nombre = ?, 

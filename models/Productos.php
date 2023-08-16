@@ -1,5 +1,8 @@
 <?php
 
+/**
+ *  Permite crear los objetos, llamar métodos relacionados al modulo de productos
+ */
 class Productos
 {
     public $id_producto;
@@ -9,9 +12,22 @@ class Productos
     public $modelo;
     public $precio;
     public $existencias;
-
+    /**
+     * @var mysqli $bd objeto para la conexión a la base de datos
+     */
     private static $bd;
 
+
+    /**
+     * Se pasa los datos necesarios para crear un objeto de ventas
+     * @param int $idproducto
+     * @param int $numero_serie 
+     * @param string $marca
+     * @param string $descripcion
+     * @param string $modelo
+     * @param double $precio
+     * @param int $existencias
+     */
     public function __construct($id_producto, $numero_serie, $marca, $descripcion, $modelo, $precio, $existencias)
     {
         $this->id_producto = $id_producto;
@@ -23,11 +39,18 @@ class Productos
         $this->existencias = $existencias;
     }
 
+
+    /**
+     * es la conexión de la clase con la base de datos
+     */
     public static function init($bd)
     {
         self::$bd = $bd;
     }
-
+    /** 
+     * @param int $estado 
+     * hace la función de dejar ver o ocultar los datos en la aplicación como si se hubiera eliminado
+     */
     public static function totalPaginas($contenido)
     {
         $totalFilas = 0;
@@ -58,6 +81,14 @@ class Productos
             $consult->close();
         }
     }
+
+    /**
+     * Consulta los productos en la base de datos.
+     *
+     * @param int $pagina La página actual.
+     * @param int $contenido La cantidad de contenido por página.
+     * @return array Un array con los productos consultados.
+     */
 
     public static function consultaProductos($pagina = null, $contenido = null)
     {
