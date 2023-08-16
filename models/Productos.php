@@ -41,7 +41,7 @@ class Productos
 
 
     /**
-     * es la conexion de la clase con la base de datos
+     * es la conexión de la clase con la base de datos
      */
     public static function init($bd)
     {
@@ -49,7 +49,7 @@ class Productos
     }
     /** 
      * @param int $estado 
-     * hace la funcion de dejar ver o ocultar los datos en la aplicacion como si se hubiera eliminado
+     * hace la función de dejar ver o ocultar los datos en la aplicación como si se hubiera eliminado
      */
     public static function totalPaginas($contenido)
     {
