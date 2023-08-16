@@ -52,7 +52,7 @@
                   value="[fecha]"
                 />
               </div>
-              <div class="col-sm-6 mb-3">
+              <div class="col-sm-6 mb-1">
                 <label for="producto" class="form-label fw-bold">
                   Productos
                 </label>
@@ -67,17 +67,21 @@
                 [/block: productos]
               </div>
 
-              <div class="col-sm-6 mb-3">
+              <div class="col-sm-6 mb-1">
                 <label for="fecha" class="form-label fw-bold">Servicios</label>
                 [block: servicios]
-                <input
-                  type="text"
+                <select
+                  class="form-select mb-2"
                   id="servicio"
-                  class="form-control mb-1"
+                  class="form-control mb-4"
                   name="servicios[]"
                   value="[tipoServicio]"
                   required
-                />
+                >
+                  <option value="refacciones">Refacciones</option>
+                  <option value="mantenimiento">Mantenimiento</option>
+                  <option value="garantía">Garantía</option>
+                </select>
                 [/block: servicios]
               </div>
               <input type="hidden" id="id" name="id" value="[idServicio]" />
@@ -89,7 +93,14 @@
                 >
                   Regresar
                 </a>
-
+                <button type="reset" class="btn btn-info m-1">Limpiar</button>
+                <a
+                  class="btn btn-warning m-1"
+                  href="agregar_servicio.php"
+                  role="button"
+                >
+                  Modificar
+                </a>
                 <button
                   type="submit"
                   class="btn btn-primary m-1 text-capitalize"
