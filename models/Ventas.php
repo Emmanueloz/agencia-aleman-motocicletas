@@ -19,7 +19,9 @@ class Ventas
     public $idProductos;
     public $cantidades;
     public $costo;
-
+    /**
+     * @var mysqli $bd objeto de conexión a la base de datos
+     */
     private static $bd;
     /**
      * Método mas importante para agregar la conexión a la base de datos

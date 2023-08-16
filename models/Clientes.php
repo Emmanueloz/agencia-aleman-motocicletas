@@ -14,6 +14,9 @@ class Clientes
     public $correo;
     public $genero;
     public $estado;
+    /**
+     * @var mysqli $bd objeto de conexión a la base de datos
+     */
     private static $bd;
 
     /**
@@ -97,7 +100,7 @@ class Clientes
         return $id;
     }
 
-        /**
+    /**
      * Realiza una busqueda de clientes por el id y nos devuelve el nombre
      * @param int $id_cliente El id a buscar
      * @return array Un array con el nombre de los clientes que clumple con la condición
