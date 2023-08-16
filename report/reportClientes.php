@@ -16,6 +16,8 @@ Clientes::init($mysqli);
 
 date_default_timezone_set('America/Mexico_City');
 $fecha = date("Y-m-d");
+$tipo = isset($_GET['opcion']) ? 'Consulta' : 'General';
+
 
 $pdf = new PDF();
 $pdf->AddPage('H');
@@ -25,13 +27,14 @@ $pdf->SetFont('Arial', 'B', 15);
 $pdf->Cell(272, 12, 'Reporte de Clientes', 0, 1, 'C');
 $pdf->Ln(5);
 $pdf->SetFont('Arial', '', 14);
-$pdf->Cell(20, 5, "Fecha del reporte: $fecha");
+$pdf->Cell(136, 10, "Fecha del reporte: $fecha", 1, 0);
+$pdf->Cell(136, 10, "Tipo de reporte: $tipo", 1, 1);
 $pdf->Ln(10);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(30, 10, "Id Cliente", 1, 0, 'C');
 $pdf->Cell(45, 10, "RFC", 1, 0, 'C');
-$pdf->Cell(45, 10, utf8_decode("Nombre"), 1, 0, 'C');
-$pdf->Cell(40, 10, utf8_decode("Dirección"), 1, 0, 'C');
+$pdf->Cell(85, 10, utf8_decode("Nombre"), 1, 0, 'C');
+// $pdf->Cell(40, 10, utf8_decode("Dirección"), 1, 0, 'C');
 $pdf->Cell(35, 10, utf8_decode("Teléfono"), 1, 0, 'C');
 $pdf->Cell(55, 10, "Correo", 1, 0, 'C');
 $pdf->Cell(25, 10, utf8_decode("Género"), 1, 0, 'C');
@@ -59,14 +62,14 @@ foreach ($clientesArray as $clientes) {
     }
 
     $pdf->Cell(30, 10, $clientes->id_cliente, "B", 0, 'C');
-    $pdf->Cell(45, 10, utf8_decode($clientes->rfc), "B", 0, 'C');
-    $pdf->Cell(45, 10, utf8_decode($clientes->nombre), "B", 0, 'C');
-    $pdf->Cell(40, 10, utf8_decode($clientes->direccion), "B", 0, 'C');
-    $pdf->Cell(35, 10, $clientes->telefono, "B", 0, 'C');
-    $pdf->Cell(55, 10, utf8_decode($clientes->correo), "B", 0, 'C');
+    $pdf->Cell(45, 10, utf8_decode($clientes->rfc), "B", 0, 'L');
+    $pdf->Cell(85, 10, utf8_decode($clientes->nombre), "B", 0, 'L');
+    // $pdf->Cell(40, 10, utf8_decode($clientes->direccion), "B", 0, 'L');
+    $pdf->Cell(35, 10, $clientes->telefono, "B", 0, 'L');
+    $pdf->Cell(55, 10, utf8_decode($clientes->correo), "B", 0, 'L');
     $pdf->Cell(25, 10, $clientes->genero, "B", 0, 'C');
 
     $pdf->Ln();
 }
 
-$pdf->Output();
+$pdf->Output('', "Reporte-Empleados-$fecha-$tipo");
