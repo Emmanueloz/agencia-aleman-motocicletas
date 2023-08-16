@@ -1,4 +1,3 @@
-
 <?php
 // Comprobar si hay una sesión iniciada
 session_start();
@@ -7,10 +6,10 @@ if (!isset($_SESSION['user'])) {
   header('Location: ./index.php');
 }
 
-require_once 'models/elementos.php';
-require_once 'SpynTPL.php';
-require_once 'models/config.php';
-require_once 'models/Servicios.php';
+require_once './models/elementos.php';
+require_once './SpynTPL.php';
+require_once './models/config.php';
+require_once './models/Servicios.php';
 
 $titulo = "Lista de servicios";
 $html = new SpynTPL('views/');
