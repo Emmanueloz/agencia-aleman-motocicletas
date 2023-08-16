@@ -14,7 +14,7 @@ require_once('models/Productos.php');
 $mysqli = new mysqli($servidor, $usuario, $password, $bd);
 Productos::init($mysqli);
 
-$title = 'Editar película';
+$title = 'Modificar producto';
 $target = 'modificar_producto.php';
 $productos = Productos::consultaProductos();
 $html = new SpynTPL('views/');

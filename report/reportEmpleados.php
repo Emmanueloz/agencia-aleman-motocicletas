@@ -1,4 +1,3 @@
-
 <?php
 
 // Comprobar si hay una sesión iniciada
