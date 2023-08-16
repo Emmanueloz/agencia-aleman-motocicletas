@@ -78,9 +78,13 @@
                   value="[tipoServicio]"
                   required
                 >
-                  <option value="refacciones">Refacciones</option>
-                  <option value="mantenimiento">Mantenimiento</option>
-                  <option value="garantía">Garantía</option>
+                  <option [s_garantia] value="garantía">Garantía</option>
+                  <option [s_refacciones] value="refacciones">
+                    Refacciones
+                  </option>
+                  <option [s_mantenimiento] value="mantenimiento">
+                    Mantenimiento
+                  </option>
                 </select>
                 [/block: servicios]
               </div>
@@ -95,7 +99,7 @@
                 </a>
                 <button type="reset" class="btn btn-info m-1">Limpiar</button>
                 <a
-                  class="btn btn-warning m-1"
+                  class="btn btn-warning m-1 [d-btn-modifica]"
                   href="agregar_servicio.php"
                   role="button"
                 >

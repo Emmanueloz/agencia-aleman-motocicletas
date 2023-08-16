@@ -37,14 +37,18 @@ if (isset($_GET['id'])) {
 
   $html->Asigna('idServicio', $id);
   $html->Asigna('cliente', $nomCliente);
+  $html->Asigna('d-btn-modifica', 'd-none');
   foreach ($productos as $producto) {
     $html->AsignaBloque('productos', $producto);
   }
 
   $html->Asigna('fecha', $servicio->fechaServicio);
 
-  foreach ($servicio->tipoServicios as $key => $tipo) {
-    $tipoServicio['tipoServicio'] = $tipo;
+  foreach ($servicio->tipoServicios as $tipo) {
+    $tipoServicio['s_garantia'] = $tipo == 'garantía' ? 'selected' : '';
+    $tipoServicio['s_refacciones'] = $tipo == 'refacciones' ? 'selected' : '';
+    $tipoServicio['s_mantenimiento'] = $tipo == 'mantenimiento' ? 'selected' : '';
+
     $html->AsignaBloque('servicios', $tipoServicio);
   }
   echo $html->Muestra();
