@@ -1,5 +1,9 @@
 <?php
 
+
+/**
+ * Permite crear los objetos
+ */
 class Clientes
 {
     public $id_cliente;
@@ -10,8 +14,22 @@ class Clientes
     public $correo;
     public $genero;
     public $estado;
+    /**
+     * @var mysqli $bd objeto de conexión a la base de datos
+     */
     private static $bd;
 
+    /**
+     * Se pasan los datos necesarios para crear un objeto de clientes
+     * @param int $id_cliente
+     * @param string $rfc del cliente
+     * @param string $nombre del cliente
+     * @param string $direccion del cliente
+     * @param string $telefono del cliente
+     * @param string $correo del cliente
+     * @param string $genero
+     * @param int $estado
+     */
     public function __construct($id_cliente, $rfc, $nombre, $direccion, $telefono, $correo, $genero, $estado = 1)
     {
         $this->id_cliente = $id_cliente;
@@ -24,11 +42,21 @@ class Clientes
         $this->estado = $estado;
     }
 
+    /**
+     * Método más importante para agregar la conexión a la base de datos
+     * @param object $bd Es la conexión a la base de datos
+     */
     public static function init($bd)
     {
         self::$bd = $bd;
     }
 
+    /**
+     * Consulta los clientes que hay en la base de datos
+     * @param int $pagina La página actual en la que nos encontramos
+     * @param int $contenido La cantidad de contenido que se muestra por página
+     * @return array Un array con los clientes consultados
+     */
     public static function consulta($pagina = null, $contenido = null)
     {
         $pagina = ($pagina - 1) * $contenido;
@@ -51,6 +79,11 @@ class Clientes
         return $clientes;
     }
 
+    /**
+     * Realiza una busqueda de clientes por el nombre y nos devuelve el id
+     * @param string $nombre El nombre a buscar
+     * @return array Un array con el id de los clientes que clumple con la condición
+     */
     public static function buscarcli($nombre)
     {
         $id = [];
@@ -67,6 +100,11 @@ class Clientes
         return $id;
     }
 
+    /**
+     * Realiza una busqueda de clientes por el id y nos devuelve el nombre
+     * @param int $id_cliente El id a buscar
+     * @return array Un array con el nombre de los clientes que clumple con la condición
+     */
     public static function buscarnom($id_cliente)
     {
         $consulta = self::$bd->prepare("select nombre from clientes where id_cliente = ?");
@@ -78,6 +116,12 @@ class Clientes
         return $nombre;
     }
 
+    /**
+     * Realiza una busqueda filtrada de los clientes
+     * @param string $opciones Las opciones por las que vamos a buscar al cliente, o el filtro
+     * @param string $value El valor de las opciones o del filtro
+     * @return array Un array con los clientes que cumplen con los valores pasados en el filtro
+     */
     public static function busquedafil($opciones, $value)
     {
         switch ($opciones) {
@@ -106,6 +150,9 @@ class Clientes
         return $consclientes;
     }
 
+    /**
+     * Esta funcion es la que se usa para poder agregar a un nuevo cliente a nuestra BD
+     */
     public function agregar()
     {
         if ($consulta = self::$bd->prepare("insert into clientes values(null, ?, ?, ?, ?, ?, ?,1)")); {
@@ -124,6 +171,9 @@ class Clientes
         }
     }
 
+    /**
+     * Esta funcion sirve para el paginado y el contenido que se mostrara en cada pagina
+     */
     public static function totalPaginas($contenido)
     {
         $totalFilas = 0;
@@ -138,6 +188,9 @@ class Clientes
         return $totalPaginas;
     }
 
+    /**
+     * Esta funcion sirve para poder un registro de un cliente ya agregado
+     */
     public function modificar()
     {
         if ($consulta = self::$bd->prepare("update clientes set rfc = ?, nombre = ?, direccion = ?, telefono = ?, correo = ?, genero = ? where id_cliente = ?")) {
@@ -157,6 +210,9 @@ class Clientes
         }
     }
 
+    /**
+     * Realiza una busqueda por el id del cliente y nos devuelve todos los datos de dicho cliente
+     */
     public static function buscarid($id)
     {
         $cliente = null;
@@ -170,6 +226,9 @@ class Clientes
         return $cliente;
     }
 
+    /**
+     * Esta funcion sirve para poder eliminar un registro de un cliente de la vista, pero no se elimina de la BD
+     */
     public function eliminar($bd)
     {
         if ($consulta = $bd->prepare("update clientes set estado = 0 where id_cliente = ?")) {
