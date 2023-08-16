@@ -12,7 +12,9 @@ class Productos
     public $modelo;
     public $precio;
     public $existencias;
-
+    /**
+     * @var mysqli $bd objeto para la conexión a la base de datos
+     */
     private static $bd;
 
 
@@ -80,7 +82,7 @@ class Productos
         }
     }
 
-/**
+    /**
      * Consulta los productos en la base de datos.
      *
      * @param int $pagina La página actual.
