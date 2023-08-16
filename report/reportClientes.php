@@ -72,4 +72,4 @@ foreach ($clientesArray as $clientes) {
     $pdf->Ln();
 }
 
-$pdf->Output('', "Reporte-Empleados-$fecha-$tipo");
+$pdf->Output('', "Reporte-Clientes-$fecha-$tipo");

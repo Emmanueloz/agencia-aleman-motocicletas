@@ -15,7 +15,7 @@ require_once('models/Empleados.php');
 $mysqli = new mysqli($servidor, $usuario, $password, $bd);
 Empleados::init($mysqli);
 
-$title = "modificar empleado";
+$title = "Modificar empleado";
 $target = "modificar_empleado.php";
 
 $html =  new SpynTPL('views/');
