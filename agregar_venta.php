@@ -36,6 +36,12 @@ $empleados = Empleados::consul();
 $clientes = Clientes::consulta();
 
 $productos = Productos::consultaProductos();
+/**
+ * Se filtra los productos de la consulta por las exigencias
+ */
+$productos = array_filter($productos, function ($producto) {
+    return $producto->existencias > 0;
+});
 
 if (isset($_GET['error'])) {
     $content = $_GET['error'];
