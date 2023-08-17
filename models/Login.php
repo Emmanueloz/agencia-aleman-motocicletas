@@ -24,6 +24,16 @@ class Login
     return $this->nombre;
   }
 
+  public function user()
+  {
+    return $this->usuario;
+  }
+
+  public function password()
+  {
+    return $this->pass;
+  }
+
   public static function login($usuario, $pass)
   {
     $myLogin = null;
