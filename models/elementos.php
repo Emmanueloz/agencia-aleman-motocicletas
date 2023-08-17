@@ -34,14 +34,12 @@ function navBar($pagina, $session = true)
   $activePageClientes = $pagina == 'clientes' ? 'fw-bold' : '';
   $activePageProductos = $pagina == 'productos' ? 'fw-bold' : '';
   $activePageVentas = $pagina == 'ventas' ? 'fw-bold' : '';
-  $activePageServicios = $pagina == 'servicios' ? 'fw-bold' : '';
 
   $html->Fichero('header.html');
   $html->Asigna('activePageEmpleados', $activePageEmpleados);
   $html->Asigna('activePageClientes', $activePageClientes);
   $html->Asigna('activePageProductos', $activePageProductos);
   $html->Asigna('activePageVentas', $activePageVentas);
-  $html->Asigna('activePageServicios', $activePageServicios);
 
   if ($session == true) {
     $html->Asigna('display-login', 'd-none');
