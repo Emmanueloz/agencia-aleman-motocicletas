@@ -27,6 +27,11 @@ function bntLimpiarFiltro($pagina)
  */
 function navBar($pagina, $session = true)
 {
+  $usuario = null;
+  if (isset($_SESSION['user'])) {
+    $usuario = unserialize($_SESSION['user']);
+  }
+  $userName = !is_null($usuario) ? $usuario->name() : 'admin';
 
   require_once 'SpynTPL.php';
   $html = new SpynTPL('views/');
@@ -34,12 +39,15 @@ function navBar($pagina, $session = true)
   $activePageClientes = $pagina == 'clientes' ? 'fw-bold' : '';
   $activePageProductos = $pagina == 'productos' ? 'fw-bold' : '';
   $activePageVentas = $pagina == 'ventas' ? 'fw-bold' : '';
+  $activePageUser = $pagina == 'usuario' ? 'fw-bold' : '';
 
   $html->Fichero('header.html');
   $html->Asigna('activePageEmpleados', $activePageEmpleados);
   $html->Asigna('activePageClientes', $activePageClientes);
   $html->Asigna('activePageProductos', $activePageProductos);
   $html->Asigna('activePageVentas', $activePageVentas);
+  $html->Asigna('activePageUser', $activePageUser);
+  $html->Asigna('name', $userName);
 
   if ($session == true) {
     $html->Asigna('display-login', 'd-none');

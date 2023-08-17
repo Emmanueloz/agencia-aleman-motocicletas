@@ -1,7 +1,7 @@
 <?php
 session_start();
-
-require_once 'models/elementos.php';
+require_once './models/Login.php';
+require_once './models/elementos.php';
 require_once 'SpynTPL.php';
 
 

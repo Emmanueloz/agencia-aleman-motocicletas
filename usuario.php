@@ -21,7 +21,7 @@ if (isset($_POST['user'])) {
   $html->Asigna('title', $title);
   $html->Asigna('target', $target);
 
-  $nav = navBar('');
+  $nav = navBar('usuario');
   $html->Asigna('nav-bar', $nav);
 
   $usuario = unserialize($_SESSION['user']);
