@@ -21,6 +21,8 @@ $html = new SpynTPL('views/');
 $html->Fichero('frmProducto.html');
 $html->Asigna('title', $title);
 $html->Asigna('target', $target);
+$html->Asigna('btn-form', 'Modificar');
+
 $nav = navBar('productos');
 $html->Asigna('nav-bar', $nav);
 

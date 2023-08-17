@@ -22,6 +22,7 @@ $html =  new SpynTPL('views/');
 $html->Fichero('frmEmpleados.html');
 $html->Asigna('title', $title);
 $html->Asigna('target', $target);
+$html->Asigna('btn-form', 'Modificar');
 $nav = navBar('empleados');
 $html->Asigna('nav-bar', $nav);
 

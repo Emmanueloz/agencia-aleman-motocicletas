@@ -39,6 +39,7 @@ $html = new SpynTPL('views/');
 $html->Fichero('frmProducto.html');
 $html->Asigna('title', $title);
 $html->Asigna('target', $target);
+$html->Asigna('btn-form', 'Agregar');
 
 $html->Asigna('numero_serie', '');
 $html->Asigna('marca', '');

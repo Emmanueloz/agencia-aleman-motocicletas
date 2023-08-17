@@ -14,13 +14,15 @@ require_once('models/Clientes.php');
 $mysqli = new mysqli($servidor, $usuario, $password, $bd);
 Clientes::init($mysqli);
 
-$title = 'Modificar clientes';
+$title = 'Modificar cliente';
 $target = 'modificar_clientes.php';
 
 $html = new SpynTPL('views/');
 $html->Fichero('frmCliente.html');
 $html->Asigna('title', $title);
 $html->Asigna('target', $target);
+$html->Asigna('btn-form', 'Modificar');
+
 $nav = navBar('clientes');
 $html->Asigna('nav-bar', $nav);
 

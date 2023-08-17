@@ -16,7 +16,7 @@ $mysqli = new mysqli($servidor, $usuario, $password, $bd);
 
 Ventas::init($mysqli);
 
-$titulo = "Agregar una nueva venta";
+$titulo = "Agregar nueva venta";
 date_default_timezone_set('America/Mexico_City'); # Zona horaria para Mexico
 $fecha = date("Y-m-d"); # colocar la fecha actual para el formulario de venta
 $html = new SpynTPL('views/');

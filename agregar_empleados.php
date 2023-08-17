@@ -40,6 +40,7 @@ $html = new SpynTPL('views/');
 $html->Fichero('frmEmpleados.html');
 $html->Asigna('title', $title);
 $html->Asigna('target', $target);
+$html->Asigna('btn-form', 'Agregar');
 
 $html->Asigna('rfc', '');
 $html->Asigna('nombre', '');
