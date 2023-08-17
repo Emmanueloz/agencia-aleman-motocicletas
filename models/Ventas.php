@@ -3,7 +3,6 @@ require_once 'DetallesVentas.php';
 require_once 'Empleados.php';
 require_once 'Clientes.php';
 require_once 'Productos.php';
-require_once 'Servicios.php';
 
 /**
  *  Permite crear los objetos, llamar métodos relacionados al modulo de ventas
@@ -34,7 +33,6 @@ class Ventas
         Empleados::init($bd);
         Clientes::init($bd);
         Productos::init($bd);
-        Servicios::init($bd);
     }
     /**
      * Para agregar una venta se necesita calcular el iva.
@@ -73,11 +71,10 @@ class Ventas
 
     /**
      * Agrega una venta a la base de datos.
-     * @param boot $agregarServicio es un check para validar para crear un servicio de la venta o no
      * @throws Exception Si se produce un error cuando la cantidad a vender excede la cantidad de existencias
      * @return $idVenta retorna el id de la venta recién agregado
      */
-    public function agregarVenta($agregarServicio)
+    public function agregarVenta()
     {
         $idProductos = $this->idProductos;
         $cantidades = $this->cantidades;
@@ -103,10 +100,6 @@ class Ventas
             $consulta->close();
             $detalleVenta = new DetallesVentas($idVenta, $idProductos, $cantidades, $costo);
             $detalleVenta->agregarDetalles();
-            if ($agregarServicio == true) {
-                $servicio = new Servicios(null, $this->idCliente, $this->fechaVenta, $idProductos, []);
-                $servicio->agregarServicio();
-            }
             return $idVenta;
         } catch (Exception $e) {
             throw $e;
@@ -287,10 +280,6 @@ class Ventas
     {
         $idVentas = [];
         $ventas = [];
-        $idVenta = 0;
-        $idEmpleado = 0;
-        $idCliente = 0;
-
 
         switch ($filtro) {
             case 'empleados':
