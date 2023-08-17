@@ -46,8 +46,16 @@ if (isset($_POST["accion"]) && $_POST["accion"] == "agregar") {
     $idProductos = $_POST['productos'];
     $cantidades = isset($_POST['cantidades']) ? $_POST['cantidades'] : [];
 
+    $productos = [];
+
+    foreach ($idProductos as $idProducto) {
+        $productoNom = Productos::consultPrecioMarcaModelo($idProducto);
+
+        array_push($productos, $productoNom);
+    }
+
     $html = new SpynTPL('views/');
-    $html->Fichero('confirmar_ventas.html');
+    $html->Fichero('frmDetallesVentas.html');
     $nav = navBar('ventas');
     $html->Asigna('nav-bar', $nav);
 
@@ -95,14 +103,6 @@ if (isset($_POST["accion"]) && $_POST["accion"] == "agregar") {
     $html->Asigna("nombre_cliente", $nombreCliente);
 
     $html->Asigna("fecha-venta", $fechaVenta);
-
-    $productos = [];
-
-    foreach ($idProductos as $idProducto) {
-        $productoNom = Productos::consultPrecioMarcaModelo($idProducto);
-
-        array_push($productos, $productoNom);
-    }
 
     for ($i = 0; $i < count($productos); $i++) {
         $producto = $productos[$i];
