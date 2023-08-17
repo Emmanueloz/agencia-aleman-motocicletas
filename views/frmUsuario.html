@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Formulario Clientes</title>
+    <title>Configuración Usuario</title>
     <link rel="stylesheet" href="./bootstrap-5.3.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="./style.css" />
     <link rel="shortcut icon" href="./public/favicon.png" type="image/x-icon" />
@@ -44,9 +44,8 @@
               type="text"
               id="user"
               name="user"
-              minlength="5"
-              maxlength="40"
-              class="form-control"
+              disabled
+              class="form-control-plaintext"
               value="[user]"
             />
           </div>
@@ -101,7 +100,8 @@
                     ></button>
                   </div>
                   <div class="modal-body">
-                    ¿Estas seguro de modificar los datos del usuario?
+                    ¿Estas seguro de modificar los datos del usuario? Se cerrara
+                    la sesión
                   </div>
                   <div class="modal-footer">
                     <button

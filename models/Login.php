@@ -4,7 +4,9 @@ class Login
   private $usuario;
   private $nombre;
   private $pass;
-
+  /**
+   * @var mysqli $bd
+   */
   private static $bd;
 
   public function __construct($usuario, $nombre, $pass)
@@ -47,6 +49,17 @@ class Login
     }
     return $myLogin;
   }
+  public function modificar()
+  {
+    $consulta = self::$bd->prepare('UPDATE usuarios SET nombre = ?, password = sha(?) WHERE usuario=?');
+    $consulta->bind_param(
+      'sss',
+      $this->nombre,
+      $this->pass,
+      $this->usuario
+    );
+    $consulta->execute();
+  }
 }
 
 if (isset($argc) && $argc == 2) {
@@ -56,6 +69,10 @@ if (isset($argc) && $argc == 2) {
   switch ($argv[1]) {
     case 'login':
       print_r(Login::login('admin', 'qwerty'));
+      break;
+    case 'modificar':
+      $myUser = new Login('admin2', 'david2', '1232');
+      $myUser->modificar();
       break;
   }
 }

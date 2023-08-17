@@ -25,7 +25,9 @@ $name = $usuario->name();
 $title = 'Modificar Usuario';
 
 if (isset($_POST['accion']) && $_POST['accion'] == 'modificar') {
-  print_r($_POST);
+  $newUser = new Login($user, $_POST['name'], $_POST['password']);
+  $newUser->modificar();
+  header('Location: logout.php');
 } elseif (isset($_POST['accion']) && $_POST['accion'] == 'comprobar') {
   $password = $_POST['pass'];
   $userVerify = Login::login($user, $password);
