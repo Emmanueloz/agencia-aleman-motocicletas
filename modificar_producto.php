@@ -37,7 +37,7 @@ if (isset($_GET['id'])) {
     $html->Asigna('precio', $productos->precio);
     $html->Asigna('existencias', $productos->existencias);
 
-    switch ($empledos->estudios) {
+    switch ($productos->marca) {
         case 'honda':
             $html->Asigna('honda_s', 'selected');
             break;
