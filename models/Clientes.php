@@ -131,12 +131,12 @@ class Clientes
                 break;
             case 'nomcli':
                 $consulta = self::$bd->prepare("select * from clientes where nombre like ? AND estado = 1");
-                $value = $value . '%';
+                $value = '%' . $value . '%';
                 $consulta->bind_param("s", $value);
                 break;
             case 'rfccli':
                 $consulta = self::$bd->prepare("select * from clientes where rfc like ? AND estado = 1");
-                $value = $value . '%';
+                $value = '%' . $value . '%';
                 $consulta->bind_param("s", $value);
                 break;
         }
