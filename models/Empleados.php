@@ -61,7 +61,16 @@ class Empleados
      */
     public function nuev()
     {
-        if ($consult = self::$bd->prepare("insert into empleados values(null, ?, ?, ?, ?, ?, ?, ?, ?,1)")) {
+        try {
+            $consult = self::$bd->prepare('select id_empleado from empleados where rfc = ?');
+            $consult->bind_param('s', $this->rfc);
+            $consult->execute();
+            if ($consult->fetch()) {
+                throw new Exception('El RFC ya existe');
+            }
+            $consult->close();
+
+            $consult = self::$bd->prepare("insert into empleados values(null, ?, ?, ?, ?, ?, ?, ?, ?,1)");
             $consult->bind_param(
                 "ssssssds",
                 $this->rfc,
@@ -78,6 +87,8 @@ class Empleados
             $id_empleados = $consult->insert_id;
             $consult->close();
             return $id_empleados;
+        } catch (Exception $e) {
+            throw $e;
         }
     }
 
