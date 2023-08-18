@@ -69,6 +69,7 @@ if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
         $html->AsignaBloque('emplea2', null);
         $mensaje = "<h4 class='text-secondary text-center' >No se encontró ningún empleado.</h4>";
         $html->Asigna('mensaje', $mensaje);
+        $html->Asigna('disabled-a', 'disabled-a');
     }
     $html->AsignaBloque('paginas', null);
 
@@ -85,6 +86,7 @@ if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
         $html->AsignaBloque('emplea2', null);
         $mensaje = "<h4 class='text-secondary text-center' >No se encontró ningún empleado. Agrega una empleado</h4>";
         $html->Asigna('mensaje', $mensaje);
+        $html->Asigna('disabled-a', 'disabled-a');
     }
 
     $html->Asigna('link_report', "reportEmpleados.php");

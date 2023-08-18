@@ -35,8 +35,21 @@ if (isset($_GET['id_empleado'])) {
     $html->Asigna('direccion', $empledos->direccion);
     $html->Asigna('telefono', $empledos->telefono);
     $html->Asigna('correo', $empledos->correo);
-    $html->Asigna('puesto', $empledos->puesto);
     $html->Asigna('salario', $empledos->salario);
+    switch ($empledos->puesto) {
+        case 'analista':
+            $html->Asigna('analista_s', 'selected');
+            break;
+        case 'gerente':
+            $html->Asigna('gerente_s', 'selected');
+            break;
+        case 'mecanico':
+            $html->Asigna('mecanico_s', 'selected');
+            break;
+        case 'vendedor':
+            $html->Asigna('vendedor_s', 'selected');
+            break;
+    }
     //$html->Asigna('estudio', $empledos->estudios);
     switch ($empledos->estudios) {
         case 'bachillerato':
