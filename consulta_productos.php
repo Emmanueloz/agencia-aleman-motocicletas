@@ -61,6 +61,7 @@ if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
         $html->AsignaBloque('productos', null);
         $mensaje = "<h4 class='text-secondary text-center' >No se encontró ningún producto</h4>";
         $html->Asigna('mensaje', $mensaje);
+        $html->Asigna('disabled-a', 'disabled-a');
     }
     $html->Asigna('link_report', "reportProductos.php?opcion=$opcion&value=$value");
     $html->Asigna('reporte', "Reporte de consulta");
@@ -78,6 +79,7 @@ if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
         $mensaje = "<h4 class='text-secondary text-center' >No se encontró ningún producto. Agregue un producto</h4>";
         $html->Asigna('mensaje', $mensaje);
         $html->AsignaBloque('paginas', null);
+        $html->Asigna('disabled-a', 'disabled-a');
     }
 
     for ($pa = 1; $pa <= $totalPaginas; $pa++) {
