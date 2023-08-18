@@ -35,8 +35,21 @@ if (isset($_GET['id_empleado'])) {
     $html->Asigna('direccion', $empledos->direccion);
     $html->Asigna('telefono', $empledos->telefono);
     $html->Asigna('correo', $empledos->correo);
-    $html->Asigna('puesto', $empledos->puesto);
     $html->Asigna('salario', $empledos->salario);
+    switch ($empledos->puesto) {
+        case 'analista':
+            $html->Asigna('analista_s', 'selected');
+            break;
+        case 'gerente':
+            $html->Asigna('gerente_s', 'selected');
+            break;
+        case 'mecanico':
+            $html->Asigna('mecanico_s', 'selected');
+            break;
+        case 'vendedor':
+            $html->Asigna('vendedor_s', 'selected');
+            break;
+    }
     //$html->Asigna('estudio', $empledos->estudios);
     switch ($empledos->estudios) {
         case 'bachillerato':
@@ -64,9 +77,9 @@ if (isset($_GET['id_empleado'])) {
     $empledos->salario = $_POST['salario'];
     $empledos->estudios = $_POST['estudios'];
 
-    $empledos->update($mysqli);
+    $idempleado = $empledos->update();
     unset($_POST);
-    header('Location: vista_empleados.php');
+    header("Location: vista_empleados.php?opcion=id&value=$idempleado");
 }
 
 echo $html->Muestra();
