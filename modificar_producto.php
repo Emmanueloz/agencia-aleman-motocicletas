@@ -64,9 +64,9 @@ if (isset($_GET['id'])) {
     $productos->precio = $_POST['precio'];
     $productos->existencias = $_POST['existencias'];
 
-    $productos->modificar();
+    $idproducto = $productos->modificar();
     unset($_POST);
-    header("Location: consulta_productos.php");
+    header("Location: consulta_productos.php?opcion=id&value=$idproducto");
 }
 
 

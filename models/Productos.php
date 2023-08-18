@@ -65,7 +65,7 @@ class Productos
         return $totalPaginas;
     }
 
-    public function save()
+    public function agregarProducto()
     {
         if ($consult = self::$bd->prepare("insert into productos values (0,?,?,?,?,?,?,1)")) {
             $consult->bind_param(
@@ -78,7 +78,11 @@ class Productos
                 $this->existencias
             );
             $consult->execute();
+
+            $idproducto = $consult->insert_id;
+            
             $consult->close();
+            return $idproducto;
         }
     }
 
@@ -212,6 +216,7 @@ class Productos
             );
             $consult->execute();
             $consult->close();
+            return $this->id_producto;
         }
     }
 

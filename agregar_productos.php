@@ -27,9 +27,9 @@ if (isset($_POST['numero_serie'])) {
     $existencias = $_POST['existencias'];
 
     $producto = new Productos(0, $numero_serie, $marca, $descripcion, $modelo, $precio, $existencias);
-    $producto->save();
+    $idproducto = $producto->agregarProducto();
     unset($_POST);
-    header("Location: consulta_productos.php");
+    header("Location: consulta_productos.php?opcion=id&value=$idproducto");
     #print_r($_POST);
 }
 $title = 'Agregar nuevo producto';
