@@ -34,9 +34,9 @@ $pdf->Ln(10);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(52, 5, "Numero de Serie", 1, 0, 'C');
 $pdf->Cell(70, 5, "Marca", 1, 0, 'C');
-$pdf->Cell(70, 5, "Modelo", 1, 0, 'C');
-$pdf->Cell(40, 5, "Existencias", 1, 0, 'C');
-$pdf->Cell(40, 5, "Precio", 1, 0, 'C');
+$pdf->Cell(85, 5, "Modelo", 1, 0, 'C');
+$pdf->Cell(35, 5, "Existencias", 1, 0, 'C');
+$pdf->Cell(30, 5, "Precio", 1, 0, 'C');
 $pdf->Ln();
 
 
@@ -59,9 +59,9 @@ foreach ($productoArray as $productos) {
     }
     $pdf->Cell(52, 10, utf8_decode($productos->numero_serie), "B", 0, 'L');
     $pdf->Cell(70, 10, utf8_decode($productos->marca), "B", 0, 'L');
-    $pdf->Cell(70, 10, utf8_decode($productos->modelo), "B", 0, 'L');
-    $pdf->Cell(40, 10, utf8_decode($productos->existencias), "B", 0, 'L');
-    $pdf->Cell(40, 10, '$' . $productos->precio, "B", 0, 'R');
+    $pdf->Cell(85, 10, utf8_decode($productos->modelo), "B", 0, 'L');
+    $pdf->Cell(35, 10, utf8_decode($productos->existencias), "B", 0, 'L');
+    $pdf->Cell(30, 10, '$' . $productos->precio, "B", 0, 'R');
 
     $pdf->Ln();
 }

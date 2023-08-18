@@ -25,6 +25,7 @@ $html->Asigna('btn-form', 'Modificar');
 
 $nav = navBar('productos');
 $html->Asigna('nav-bar', $nav);
+$html->Asigna('errormsg', '');
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];

@@ -26,10 +26,15 @@ if (isset($_POST['numero_serie'])) {
     $precio = $_POST['precio'];
     $existencias = $_POST['existencias'];
 
-    $producto = new Productos(0, $numero_serie, $marca, $descripcion, $modelo, $precio, $existencias);
-    $idproducto = $producto->agregarProducto();
-    unset($_POST);
-    header("Location: consulta_productos.php?opcion=id&value=$idproducto");
+    try {
+        $producto = new Productos(0, $numero_serie, $marca, $descripcion, $modelo, $precio, $existencias);
+        $idproducto = $producto->agregarProducto();
+        unset($_POST);
+        header("Location: consulta_productos.php?opcion=id&value=$idproducto");
+    } catch (Exception $e) {
+        $errorMsg = $e->getMessage();
+        header("Location: agregar_productos.php?error=$errorMsg");
+    }
     #print_r($_POST);
 }
 $title = 'Agregar nuevo producto';
@@ -49,5 +54,11 @@ $html->Asigna('precio', '');
 $html->Asigna('existencias', '');
 $nav = navBar('productos');
 $html->Asigna('nav-bar', $nav);
+$html->Asigna('errormsg', '');
+if (isset($_GET['error'])) {
+    $msgerror = $_GET['error'];
+    $errormsg = "<div class='alert alert-danger' role='alert'>$msgerror</div>";
+    $html->Asigna('errormsg', $errormsg);
+}
 
 echo $html->Muestra();

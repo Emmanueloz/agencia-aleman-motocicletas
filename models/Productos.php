@@ -67,7 +67,15 @@ class Productos
 
     public function agregarProducto()
     {
-        if ($consult = self::$bd->prepare("insert into productos values (0,?,?,?,?,?,?,1)")) {
+        try {
+            $consult = self::$bd->prepare("select id_producto from productos where numero_serie = ?");
+            $consult->bind_param('s',$this->numero_serie);
+            $consult->execute();
+            if($consult->fetch()){
+                throw new Exception('El numero de serie ya existe');
+            }
+            $consult->close();
+            $consult = self::$bd->prepare("insert into productos values (0,?,?,?,?,?,?,1)");
             $consult->bind_param(
                 "ssssdi",
                 $this->numero_serie,
@@ -83,6 +91,8 @@ class Productos
             
             $consult->close();
             return $idproducto;
+        } catch (Exception $e) {
+            throw $e;
         }
     }
 
