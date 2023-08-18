@@ -167,7 +167,9 @@ class Clientes
             );
 
             $consulta->execute();
+            $idClient = $consulta->insert_id;
             $consulta->close();
+            return $idClient;
         }
     }
 
@@ -189,7 +191,7 @@ class Clientes
     }
 
     /**
-     * Esta funcion sirve para poder un registro de un cliente ya agregado
+     * Esta funcion sirve para poder modificar un registro de un cliente ya agregado
      */
     public function modificar()
     {
@@ -207,6 +209,7 @@ class Clientes
 
             $consulta->execute();
             $consulta->close();
+            return $this->id_cliente;
         }
     }
 

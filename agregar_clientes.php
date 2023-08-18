@@ -23,9 +23,9 @@ if (isset($_POST['rfc'])) {
     $genero = $_POST['genero'];
 
     $clientes = new Clientes(null, $rfc, $nombre, $direccion, $telefono, $correo, $genero);
-    $clientes->agregar();
+    $idClient = $clientes->agregar();
     unset($_POST);
-    header('Location: vista_clientes.php');
+    header("Location: vista_clientes.php?opcion=idcli&value=$idClient");
 }
 $title = 'Agregar nuevo cliente';
 $target = 'agregar_clientes.php';

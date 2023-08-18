@@ -56,9 +56,9 @@ if (isset($_GET['id_cliente'])) {
     $cliente->correo = $_POST['correo'];
     $cliente->genero = $_POST['genero'];
 
-    $cliente->modificar();
+    $id_cliente = $cliente->modificar();
     unset($_POST);
-    header('Location: vista_clientes.php');
+    header("Location: vista_clientes.php?opcion=idcli&value=$id_cliente");
 }
 
 echo $html->Muestra();
