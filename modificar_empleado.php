@@ -77,9 +77,9 @@ if (isset($_GET['id_empleado'])) {
     $empledos->salario = $_POST['salario'];
     $empledos->estudios = $_POST['estudios'];
 
-    $empledos->update($mysqli);
+    $idempleado = $empledos->update();
     unset($_POST);
-    header('Location: vista_empleados.php');
+    header("Location: vista_empleados.php?opcion=id&value=$idempleado");
 }
 
 echo $html->Muestra();

@@ -75,7 +75,9 @@ class Empleados
             );
 
             $consult->execute();
+            $id_empleados = $consult->insert_id;
             $consult->close();
+            return $id_empleados;
         }
     }
 
@@ -206,6 +208,7 @@ class Empleados
 
             $consult->execute();
             $consult->close();
+            return $this->id_empleado;
         }
     }
     public static function consultaEmpleadoId($id)

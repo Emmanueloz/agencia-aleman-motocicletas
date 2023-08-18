@@ -26,10 +26,10 @@ if (isset($_POST['rfc'])) {
     $estudios = $_POST['estudios'];
 
     $empleado = new Empleados(0, $rfc, $nombre, $direccion, $telefono, $correo, $puesto, $salario, $estudios);
-    $empleado->nuev($mysqli);
+    $id_empleados = $empleado->nuev($mysqli);
     unset($_POST);
 
-    header('Location: vista_empleados.php');
+    header("Location: vista_empleados.php?opcion=id&value=$id_empleados");
 }
 
 $title = 'Agregar nuevo empleado';
