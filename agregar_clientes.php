@@ -51,6 +51,7 @@ $html->Asigna('nav-bar', $nav);
 $html->Asigna('error', '');
 if (isset($_GET['error'])) {
     $msgerror = $_GET['error'];
-    $html->Asigna('error', $msgerror);
+    $errormsg = "<div class='alert alert-danger' role='alert'>$msgerror</div>";
+    $html->Asigna('error', $errormsg);
 }
 echo $html->Muestra();
