@@ -62,6 +62,7 @@ if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
         $html->AsignaBloque('clientes', null);
         $mensaje = "<h4 class='text-secondary text-center' >No se encontró ningún cliente.";
         $html->Asigna('mensaje', $mensaje);
+        $html->Asigna('disabled-a', 'disabled-a');
     }
     $html->Asigna('value', $value);
 } else {
@@ -77,6 +78,7 @@ if (isset($_GET['value']) && !empty(trim($_GET['value']))) {
         $html->AsignaBloque('paginas', null);
         $mensaje = "<h4 class='text-secondary text-center' >No se encontró ningún cliente. Agrega a un cliente</h4>";
         $html->Asigna('mensaje', $mensaje);
+        $html->Asigna('disabled-a', 'disabled-a');
     }
 
     $totalPaginas = Clientes::totalPaginas(5);

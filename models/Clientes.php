@@ -155,7 +155,15 @@ class Clientes
      */
     public function agregar()
     {
-        if ($consulta = self::$bd->prepare("insert into clientes values(null, ?, ?, ?, ?, ?, ?,1)")); {
+        try {
+            $consulta = self::$bd->prepare('select id_cliente from clientes where rfc = ?');
+            $consulta->bind_param('s', $this->rfc);
+            $consulta->execute();
+            if($consulta->fetch()){
+                throw new Exception('El RFC ya existe');
+            }
+            $consulta->close();
+            $consulta = self::$bd->prepare("insert into clientes values(null, ?, ?, ?, ?, ?, ?,1)");
             $consulta->bind_param(
                 'ssssss',
                 $this->rfc,
@@ -170,6 +178,8 @@ class Clientes
             $idClient = $consulta->insert_id;
             $consulta->close();
             return $idClient;
+        } catch (Exception $e) {
+            throw $e;
         }
     }
 

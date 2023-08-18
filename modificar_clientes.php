@@ -22,6 +22,7 @@ $html->Fichero('frmCliente.html');
 $html->Asigna('title', $title);
 $html->Asigna('target', $target);
 $html->Asigna('btn-form', 'Modificar');
+$html->Asigna('error', '');
 
 $nav = navBar('clientes');
 $html->Asigna('nav-bar', $nav);
