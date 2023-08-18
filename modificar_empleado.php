@@ -23,6 +23,7 @@ $html->Fichero('frmEmpleados.html');
 $html->Asigna('title', $title);
 $html->Asigna('target', $target);
 $html->Asigna('btn-form', 'Modificar');
+$html->Asigna('error','');
 $nav = navBar('empleados');
 $html->Asigna('nav-bar', $nav);
 

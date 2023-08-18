@@ -25,11 +25,15 @@ if (isset($_POST['rfc'])) {
     $salario = $_POST['salario'];
     $estudios = $_POST['estudios'];
 
-    $empleado = new Empleados(0, $rfc, $nombre, $direccion, $telefono, $correo, $puesto, $salario, $estudios);
-    $id_empleados = $empleado->nuev($mysqli);
-    unset($_POST);
-
-    header("Location: vista_empleados.php?opcion=id&value=$id_empleados");
+    try {
+        $empleado = new Empleados(0, $rfc, $nombre, $direccion, $telefono, $correo, $puesto, $salario, $estudios);
+        $id_empleados = $empleado->nuev($mysqli);
+        unset($_POST);
+        header("Location: vista_empleados.php?opcion=id&value=$id_empleados");
+    } catch (Exception $e) {
+        $msgerror = $e->getMessage();
+        header("Location: agregar_empleados.php?error=$msgerror");
+    }
 }
 
 $title = 'Agregar nuevo empleado';
@@ -52,5 +56,11 @@ $html->Asigna('salario', '');
 $html->Asigna('estudio', '');
 $nav = navBar('empleados');
 $html->Asigna('nav-bar', $nav);
+$html->Asigna('error', '');
+if (isset($_GET['error'])) {
+    $msgerror = $_GET['error'];
+    $msgeror = "<div class='alert alert-danger' role='alert'>$msgerror</div>";
+    $html->Asigna('error', $msgeror);
+}
 
 echo $html->Muestra();
