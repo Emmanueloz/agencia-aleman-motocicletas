@@ -36,6 +36,24 @@ if (isset($_GET['id'])) {
     $html->Asigna('modelo', $productos->modelo);
     $html->Asigna('precio', $productos->precio);
     $html->Asigna('existencias', $productos->existencias);
+
+    switch ($empledos->estudios) {
+        case 'honda':
+            $html->Asigna('honda_s', 'selected');
+            break;
+        case 'yamaha':
+            $html->Asigna('yamaha_s', 'selected');
+            break;
+        case 'suzuki':
+            $html->Asigna('suzuki_s', 'selected');
+            break;
+        case 'kawasaki':
+            $html->Asigna('kawasaki_s', 'selected');
+            break;
+        case 'ktm':
+            $html->Asigna('ktm_s', 'selected');
+            break;
+    }
 } elseif (isset($_POST['id_producto'])) {
     $id_producto = $_POST['id_producto'];
     $productos = Productos::consultaProductoId($id_producto);
