@@ -13,7 +13,6 @@ require_once 'models/Clientes.php';
 
 $mysqli = new mysqli($servidor, $usuario, $password, $bd);
 Clientes::init($mysqli);
-
 if (isset($_POST['rfc'])) {
     $rfc = $_POST['rfc'];
     $nombre = $_POST['nombre'];
@@ -22,10 +21,15 @@ if (isset($_POST['rfc'])) {
     $correo = $_POST['correo'];
     $genero = $_POST['genero'];
 
-    $clientes = new Clientes(null, $rfc, $nombre, $direccion, $telefono, $correo, $genero);
-    $idClient = $clientes->agregar();
-    unset($_POST);
-    header("Location: vista_clientes.php?opcion=idcli&value=$idClient");
+    try {
+        $clientes = new Clientes(null, $rfc, $nombre, $direccion, $telefono, $correo, $genero);
+        $idClient = $clientes->agregar();
+        unset($_POST);
+        header("Location: vista_clientes.php?opcion=idcli&value=$idClient");
+    } catch (Exception $e) {
+        $msgerror = $e->getMessage();
+        header("Location: agregar_clientes.php?error=$msgerror");
+    }
 }
 $title = 'Agregar nuevo cliente';
 $target = 'agregar_clientes.php';
@@ -44,5 +48,9 @@ $html->Asigna('correo', '');
 $html->Asigna('genero', '');
 $nav = navBar('clientes');
 $html->Asigna('nav-bar', $nav);
-
+$html->Asigna('error', '');
+if (isset($_GET['error'])) {
+    $msgerror = $_GET['error'];
+    $html->Asigna('error', $msgerror);
+}
 echo $html->Muestra();
