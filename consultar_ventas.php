@@ -71,6 +71,7 @@ if (isset($_GET['search'])  && !empty(trim($_GET['search']))) {
         $html->AsignaBloque('ventas', null);
         $mensaje = "<h4 class='text-secondary text-center' >No se encontró ninguna venta</h4>";
         $html->Asigna('mensaje', $mensaje);
+        $html->Asigna('disabled-a', 'disabled-a');
     }
 
     $html->AsignaBloque('paginas', null);
@@ -94,6 +95,7 @@ if (isset($_GET['search'])  && !empty(trim($_GET['search']))) {
         $html->AsignaBloque('paginas', null);
         $mensaje = "<h4 class='text-secondary text-center' >No se encontró ninguna venta. Agrega una venta</h4>";
         $html->Asigna('mensaje', $mensaje);
+        $html->Asigna('disabled-a', 'disabled-a');
     }
 
     for ($pa = 1; $pa <= $totalPaginas; $pa++) {
