@@ -69,9 +69,9 @@ class Productos
     {
         try {
             $consult = self::$bd->prepare("select id_producto from productos where numero_serie = ?");
-            $consult->bind_param('s',$this->numero_serie);
+            $consult->bind_param('s', $this->numero_serie);
             $consult->execute();
-            if($consult->fetch()){
+            if ($consult->fetch()) {
                 throw new Exception('El numero de serie ya existe');
             }
             $consult->close();
@@ -88,7 +88,7 @@ class Productos
             $consult->execute();
 
             $idproducto = $consult->insert_id;
-            
+
             $consult->close();
             return $idproducto;
         } catch (Exception $e) {
@@ -174,12 +174,12 @@ class Productos
                 break;
             case 'modelo':
                 $consult = self::$bd->prepare("select * from productos where modelo like ? AND estado = 1");
-                $value = $value . '%';
+                $value = '%' . $value . '%';
                 $consult->bind_param("s", $value);
                 break;
             case 'marca':
                 $consult = self::$bd->prepare("select * from productos where marca like ? AND estado = 1");
-                $value = $value . '%';
+                $value = '%' . $value . '%';
                 $consult->bind_param("s", $value);
                 break;
             case 'precio';

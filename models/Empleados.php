@@ -168,22 +168,22 @@ class Empleados
                 break;
             case 'rfc':
                 $consult = self::$bd->prepare("select * from empleados where rfc like ? AND estado = 1");
-                $value = $value . '%';
+                $value =  '%' . $value . '%';
                 $consult->bind_param("s", $value);
                 break;
             case 'nombre':
                 $consult = self::$bd->prepare("select * from empleados where nombre like ? AND estado = 1");
-                $value = $value . '%';
+                $value =  '%' . $value . '%';
                 $consult->bind_param("s", $value);
                 break;
             case 'salario':
                 $consult = self::$bd->prepare("select * from empleados where salario = ? AND estado = 1");
-                $value = $value . '%';
+                $value =  '%' . $value . '%';
                 $consult->bind_param("i", $value);
                 break;
             case 'estudios':
                 $consult = self::$bd->prepare("select * from empleados where estudios like ? AND estado = 1");
-                $value = $value . '%';
+                $value = '%' . $value . '%';
                 $consult->bind_param("s", $value);
                 break;
             default:
