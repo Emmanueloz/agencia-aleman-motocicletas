@@ -183,8 +183,9 @@ class Productos
                 $consult->bind_param("s", $value);
                 break;
             case 'precio';
-                $consult = self::$bd->prepare("select * from productos where precio = ? AND estado = 1");
-                $consult->bind_param("d", $value);
+                $consult = self::$bd->prepare("select * from productos where precio like ? AND estado = 1");
+                $value = '%' . $value . '%';
+                $consult->bind_param("s", $value);
                 break;
             case 'descripcion';
                 $value = '%' . $value . '%';
