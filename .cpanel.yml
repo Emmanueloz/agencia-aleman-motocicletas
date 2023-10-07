@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/bitforce/public_html/
+    - export DEPLOYPATH=/home/bitforce/public_html/agencia_aleman
     - /bin/rsync -av /home/bitforce/repositories/agencia-aleman-motocicletas/* $DEPLOYPATH
